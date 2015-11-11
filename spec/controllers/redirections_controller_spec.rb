@@ -7,7 +7,7 @@ RSpec.describe RedirectionsController do
       edward = create(:redirection, :edward, next: gabe)
       gabe.update(next: edward)
 
-      get :next, slug: "gabe"
+      get :next, slug: gabe.slug
 
       expect(response).to redirect_to(edward.url)
     end
@@ -19,7 +19,7 @@ RSpec.describe RedirectionsController do
       edward = create(:redirection, :edward, next: gabe)
       gabe.update(next: edward)
 
-      get :previous, slug: "edward"
+      get :previous, slug: edward.slug
 
       expect(response).to redirect_to(gabe.url)
     end
