@@ -35,6 +35,10 @@ Run it with Foreman:
 
     $ foreman start
 
+Run the specs:
+
+    $ bin/drake spec
+
 If you don't have `foreman`, see [Foreman's install instructions][foreman]. It
 is [purposefully excluded from the project's `Gemfile`][exclude].
 
