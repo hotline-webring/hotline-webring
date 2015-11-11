@@ -30,6 +30,9 @@ if ! command -v foreman > /dev/null; then
   gem install foreman
 fi
 
+heroku git:remote --remote staging --app hotline-webring-staging || true
+heroku git:remote --remote production --app hotline-webring-production || true
+
 # Only if this isn't CI
 # if [ -z "$CI" ]; then
 # fi
