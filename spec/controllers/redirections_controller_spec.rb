@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe RedirectionsController do
+RSpec.describe RedirectionsController do
   describe "GET :next" do
     it "redirects to the next site" do
       gabe = create(:redirection, :gabe)

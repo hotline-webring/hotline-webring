@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Redirection do
+RSpec.describe Redirection do
   describe "associations" do
     it { should belong_to(:next).
                 class_name("Redirection") }
