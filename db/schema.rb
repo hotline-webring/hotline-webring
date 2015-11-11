@@ -35,11 +35,14 @@ ActiveRecord::Schema.define(version: 20151110191852) do
   create_table "redirections", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "next_id"
-    t.string   "slug"
-    t.text     "url"
+    t.integer  "next_id",    null: false
+    t.string   "slug",       null: false
+    t.text     "url",        null: false
   end
 
-  add_index "redirections", ["slug"], name: "index_redirections_on_slug", using: :btree
+  add_index "redirections", ["next_id"], name: "index_redirections_on_next_id", unique: true, using: :btree
+  add_index "redirections", ["slug"], name: "index_redirections_on_slug", unique: true, using: :btree
+  add_index "redirections", ["url"], name: "index_redirections_on_url", unique: true, using: :btree
 
+  add_foreign_key "redirections", "redirections", column: "next_id"
 end
