@@ -12,14 +12,19 @@ RSpec.describe Redirection do
   describe "validations" do
     it { should validate_presence_of :slug }
     it { should validate_presence_of :url }
-    it { should validate_uniqueness_of :next_id }
-    it { should validate_uniqueness_of :slug }
+
+    context "uniqueness" do
+      before { create(:redirection) }
+
+      it { should validate_uniqueness_of :next_id }
+      it { should validate_uniqueness_of :slug }
+    end
   end
 
   describe "#next_url" do
     it "returns the url of the next referenced redirection" do
-      gabe = create(:redirection, :gabe)
-      edward = create(:redirection, :edward, next: gabe)
+      gabe = create(:redirection)
+      edward = create(:redirection, next: gabe)
       gabe.update(next: edward)
 
       expect(gabe.next_url).to eq(edward.url)
@@ -28,8 +33,8 @@ RSpec.describe Redirection do
 
   describe "#previous_url" do
     it "returns the url of the previous referenced redirection" do
-      gabe = create(:redirection, :gabe)
-      edward = create(:redirection, :edward, next: gabe)
+      gabe = create(:redirection)
+      edward = create(:redirection, next: gabe)
       gabe.update(next: edward)
 
       expect(gabe.previous_url).to eq(edward.url)

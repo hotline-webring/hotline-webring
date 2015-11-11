@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :redirection do
-    trait :gabe do
-      slug "gabe"
-      url "http://gabebw.com"
-    end
+    sequence(:slug) { |n| "slug#{n}" }
+    sequence(:url) { |n| "http://example#{n}.com" }
+    next_id -1
 
-    trait :edward do
-      slug "edward"
-      url "http://edwardloveall.com"
+    after(:create) do |redirection|
+      if redirection.next_id == 0
+        Ring.new(redirection).link
+      end
     end
   end
 end
