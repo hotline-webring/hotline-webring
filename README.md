@@ -5,14 +5,17 @@
 [video]: https://www.youtube.com/watch?v=uxpDa-c-4Mc
 
 Q: No seriously, what is it?
+
 A: Way back in the 1990s, there were no search engines, but people still wanted
    that sweet sweet traffic. And thus the webring: a group (or ring) of websites
    with links to other websites in the ring.
 
 Q: So it's some weird old thing?
+
 A: Um it's [vintage, and so adorable](https://www.youtube.com/watch?v=kfLSjobM9bg).
 
 Q: How do I get in on this?
+
 A: Make up an identifier for yourself like `gabebw`. Then add links back and
    forward in the ring: `URL.com/gabebw/previous` and `URL.com/gabebw/next`.
    You'll be automatically added to the ring.
