@@ -1,20 +1,39 @@
-# Hotline-webring
+# Hotline Webring
+
+[This can only mean one thing!][video]
+
+[video]: https://www.youtube.com/watch?v=uxpDa-c-4Mc
+
+Q: No seriously, what is it?
+A: Way back in the 1990s, there were no search engines, but people still wanted
+   that sweet sweet traffic. And thus the webring: a group (or ring) of websites
+   with links to other websites in the ring.
+
+Q: So it's some weird old thing?
+A: Um it's [vintage, and so adorable](https://www.youtube.com/watch?v=kfLSjobM9bg).
+
+Q: How do I get in on this?
+A: Make up an identifier for yourself like `gabebw`. Then add links back and
+   forward in the ring: `URL.com/gabebw/previous` and `URL.com/gabebw/next`.
+   You'll be automatically added to the ring.
+
+Example code:
+
+```html
+<a href="http://URL.com/gabebw/previous">&larr;</a>
+Check out my webring!
+<a href="http://URL.com/gabebw/next">&rarr;</a>
+```
 
 ## Getting Started
 
-After you have cloned this repo, run this setup script to set up your machine
-with the necessary dependencies to run and test this app:
+Set up the repo:
 
-    % ./bin/setup
+    $ ./bin/setup
 
-It assumes you have a machine equipped with Ruby, Postgres, etc. If not, set up
-your machine with [this script].
+Run it with Foreman:
 
-[this script]: https://github.com/thoughtbot/laptop
-
-After setting up, you can run the application using [foreman]:
-
-    % foreman start
+    $ foreman start
 
 If you don't have `foreman`, see [Foreman's install instructions][foreman]. It
 is [purposefully excluded from the project's `Gemfile`][exclude].
