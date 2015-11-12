@@ -1,19 +1,18 @@
 class Ring
   def initialize(redirection_to_link)
-    @oldest_redirection = Redirection.order(created_at: :desc).last
-    @newest_redirection = Redirection.order(created_at: :desc).first
     @redirection_to_link = redirection_to_link
+    @from_redirection = Redirection.first
+    @to_redirection = from_redirection.next
   end
 
   def link
     Redirection.transaction do
-      redirection_to_link.update!(next_id: 0)
-      newest_redirection.update!(next: redirection_to_link)
-      redirection_to_link.update!(next: oldest_redirection)
+      from_redirection.update!(next: redirection_to_link)
+      redirection_to_link.update!(next: to_redirection)
     end
   end
 
   private
 
-  attr_reader :oldest_redirection, :newest_redirection, :redirection_to_link
+  attr_reader :from_redirection, :to_redirection, :redirection_to_link
 end

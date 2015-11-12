@@ -5,7 +5,7 @@ FactoryGirl.define do
     next_id -1
 
     after(:create) do |redirection|
-      if redirection.next_id == 0
+      if redirection.next_id == -1
         Ring.new(redirection).link
       end
     end

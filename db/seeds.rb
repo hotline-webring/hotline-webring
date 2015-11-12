@@ -10,5 +10,6 @@ unless Redirection.exists?(slug: "gabe")
     url: "http://edwardloveall.com",
   )
 
-  Ring.new(edward).link
+  edward.update!(next: gabe)
+  gabe.update!(next: edward)
 end

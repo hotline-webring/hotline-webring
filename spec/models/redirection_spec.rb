@@ -23,21 +23,22 @@ RSpec.describe Redirection do
 
   describe "#next_url" do
     it "returns the url of the next referenced redirection" do
-      gabe = create(:redirection)
-      edward = create(:redirection, next: gabe)
-      gabe.update(next: edward)
+      first = Redirection.first
+      redirection = build(:redirection)
+      Ring.new(redirection).link
 
-      expect(gabe.next_url).to eq(edward.url)
+      first.reload
+      expect(first.next_url).to eq(redirection.url)
     end
   end
 
   describe "#previous_url" do
     it "returns the url of the previous referenced redirection" do
-      gabe = create(:redirection)
-      edward = create(:redirection, next: gabe)
-      gabe.update(next: edward)
+      first = Redirection.first
+      redirection = build(:redirection)
+      Ring.new(redirection).link
 
-      expect(gabe.previous_url).to eq(edward.url)
+      expect(first.previous_url).to eq("http://edwardloveall.com")
     end
   end
 end
