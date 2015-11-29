@@ -18,21 +18,20 @@ fi
 # Set up database and add any development seed data
 bundle exec rake db:setup dev:prime
 
-# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
-mkdir -p .git/safe
-
-# Pick a port for Foreman
-if ! grep --quiet --no-messages --fixed-strings 'port' .foreman; then
-  printf 'port: 3000\n' >> .foreman
-fi
-
-if ! command -v foreman > /dev/null; then
-  gem install foreman
-fi
-
-heroku git:remote --remote staging --app hotline-webring-staging || true
-heroku git:remote --remote production --app hotline-webring-production || true
-
 # Only if this isn't CI
-# if [ -z "$CI" ]; then
-# fi
+if [ -z "$CI" ]; then
+  # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+  mkdir -p .git/safe
+
+  # Pick a port for Foreman
+  if ! grep --quiet --no-messages --fixed-strings 'port' .foreman; then
+    printf 'port: 3000\n' >> .foreman
+  fi
+
+  if ! command -v foreman > /dev/null; then
+    gem install foreman
+  fi
+
+  heroku git:remote --remote staging --app hotline-webring-staging || true
+  heroku git:remote --remote production --app hotline-webring-production || true
+fi
