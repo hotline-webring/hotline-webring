@@ -23,32 +23,12 @@ RSpec.describe RedirectionsController do
         request.env["HTTP_REFERER"] = url
         get action, slug: new_slug
 
-        new_redirection = Redirection.find_by!(slug: new_slug)
-        first_redirection.reload
-        expect(first_redirection.next.slug).to eq new_slug
-        expect(new_redirection.url).to eq url
-        expect(new_redirection.next).to eq old_next
-      end
-
-      it "uses the referrer's hostname, including subdomain" do
-        new_slug = "new"
-        hostname = "http://cool.example.com"
-
-        request.env["HTTP_REFERER"] = "#{hostname}/something/else"
-        get action, slug: new_slug
-
-        expect(Redirection.find_by!(slug: new_slug).url).to eq hostname
+        new_redirection = Redirection.last
+        expect(new_redirection.slug).to eq new_slug
+        expect(first_redirection.reload.next).to eq new_redirection
       end
 
       context "when there is no referrer" do
-        it "does not create a Redirection" do
-          new_slug = "new"
-
-          get action, slug: new_slug
-
-          expect(Redirection.exists?(slug: new_slug)).to be false
-        end
-
         it "redirects to the first redirection's next/previous URL" do
           new_slug = "new"
 

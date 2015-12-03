@@ -14,26 +14,9 @@ class RedirectionsController < ApplicationController
   private
 
   def find_or_create_redirection
-    redirection = Redirection.find_by(slug: params[:slug])
-
-    redirection.presence || new_redirection
-  end
-
-  def new_redirection
-    redirection = Redirection.new(slug: params[:slug])
-
-    if referrer.present?
-      redirection.url = referrer_hostname
-      Ring.new(redirection).link
-      redirection
-    else
+    Redirection.find_by(slug: params[:slug]) ||
+      RedirectionCreation.perform(referrer, params[:slug]) ||
       Redirection.first
-    end
-  end
-
-  def referrer_hostname
-    referrer_uri = URI.parse(referrer)
-    "#{referrer_uri.scheme}://#{referrer_uri.hostname}"
   end
 
   def referrer
