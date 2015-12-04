@@ -6,3 +6,12 @@
 @import "neat";
 @import "base/base";
 @import "refills/flashes";
+@import "landing-page";
+
+body {
+  background-color: $base-background-color;
+}
+
+main {
+  @include outer-container;
+}

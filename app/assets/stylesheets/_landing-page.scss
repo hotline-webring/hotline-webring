@@ -1,0 +1,25 @@
+.homes-show {
+  h1, h2 {
+    color: white;
+    font-style: italic;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: $base-font-size * 5;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: $base-font-size * 2;
+  }
+
+  iframe {
+    margin-top: 2em;
+  }
+
+  ol {
+    @extend %default-ol;
+  }
+}
