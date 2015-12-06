@@ -1,17 +1,22 @@
 .homes-show {
-  h1, h2 {
+  h2, h3 {
     color: white;
     font-style: italic;
     text-align: center;
   }
 
-  h1 {
+  h2 {
     font-size: $base-font-size * 5;
-    margin-bottom: 1rem;
+    line-height: 0.9;
+    margin-bottom: 0;
     text-transform: uppercase;
+
+    &:last-child {
+      margin-bottom: 2rem;
+    }
   }
 
-  h2 {
+  h3 {
     font-size: $base-font-size * 2;
   }
 
