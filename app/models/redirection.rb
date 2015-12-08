@@ -6,6 +6,8 @@ class Redirection < ActiveRecord::Base
   validates :slug, presence: true, uniqueness: true
   validates :url, presence: true
 
+  scope :in_ring_order, -> { order(next_id: :desc) }
+
   def next_url
     self.next.url
   end

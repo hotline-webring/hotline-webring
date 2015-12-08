@@ -21,6 +21,17 @@ RSpec.describe Redirection do
     end
   end
 
+  describe ".in_ring_order" do
+    it "returns redirections in the order they appear next in the ring" do
+      create(:redirection)
+      first = Redirection.order(id: :asc).first
+      next_one = first.next
+      final = next_one.next
+
+      expect(Redirection.in_ring_order).to match_array([first, next_one, final])
+    end
+  end
+
   describe "#next_url" do
     it "returns the url of the next referenced redirection" do
       first = Redirection.first
