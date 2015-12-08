@@ -21,13 +21,14 @@ $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
 $hotline-bling-pink: #FA9ABA;
+$dark-pink: darken($hotline-bling-pink, 40%);
 
 // Font Colors
 $base-font-color: $dark-gray;
-$action-color: $blue;
+$action-color: black;
 
 // Border
-$base-border-color: $light-gray;
+$base-border-color: $dark-pink;
 $base-border: 1px solid $base-border-color;
 
 // Background Colors
