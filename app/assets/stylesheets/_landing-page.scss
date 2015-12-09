@@ -14,10 +14,19 @@
     &:last-child {
       margin-bottom: 2rem;
     }
+
+    a {
+      color: white;
+    }
   }
 
   h3 {
     font-size: $base-font-size * 2;
+  }
+
+  .explanation {
+    @include shift(2);
+    @include span-columns(8);
   }
 
   iframe {
