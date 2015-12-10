@@ -6,9 +6,12 @@ RSpec.feature "User visits homepage" do
 
     within("table.redirections") do
       expect(page).to have_content("gabebw")
-      expect(page).to have_content("http://gabebw.com")
       expect(page).to have_content("edward")
-      expect(page).to have_content("http://edwardloveall.com")
+
+      %w(http://gabebw.com http://edwardloveall.com).each do |url|
+        expect(page).to have_content(url)
+        expect(page).to have_css("a[href='#{url}']")
+      end
     end
   end
 end
