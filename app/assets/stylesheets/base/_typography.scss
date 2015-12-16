@@ -6,16 +6,28 @@ body {
   line-height: $base-line-height;
 }
 
+h2 {
+  font-size: $base-font-size * 5;
+  line-height: 0.9;
+}
+
+h3 {
+  font-size: $base-font-size * 2;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+  color: white;
   font-family: $heading-font-family;
-  font-size: $base-font-size;
+  font-style: italic;
   line-height: $heading-line-height;
   margin: 0 0 $small-spacing;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 p {
