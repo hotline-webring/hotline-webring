@@ -15,3 +15,8 @@ body {
 main {
   @include outer-container;
 }
+
+.text {
+  @include shift(2);
+  @include span-columns(8);
+}

@@ -28,6 +28,14 @@ RSpec.describe RedirectionsController do
         expect(first_redirection.reload.next).to eq new_redirection
       end
 
+      it "ignores requests from localhost" do
+        request.env["HTTP_REFERER"] = "http://localhost:3000"
+
+        get action, slug: "whatever"
+
+        expect(response).to redirect_to page_path(:localhost)
+      end
+
       context "when there is no referrer" do
         it "redirects to the first redirection's next/previous URL" do
           new_slug = "new"
