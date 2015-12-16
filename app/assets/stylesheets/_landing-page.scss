@@ -11,11 +11,6 @@
     }
   }
 
-  .explanation {
-    @include shift(2);
-    @include span-columns(8);
-  }
-
   iframe {
     margin-top: 2em;
   }
