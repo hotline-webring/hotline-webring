@@ -1,0 +1,27 @@
+@include media($large-screen-down) {
+  h2 {
+    font-size: 3.5em;
+  }
+
+  .homes-show {
+    iframe {
+      display: none;
+    }
+  }
+}
+
+@include media($medium-screen-down) {
+  h2 {
+    font-size: 1.5em;
+  }
+
+  .homes-show {
+    .explanation {
+      @include span-columns(3);
+    }
+
+    iframe {
+      display: none;
+    }
+  }
+}
