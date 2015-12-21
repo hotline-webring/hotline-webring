@@ -6,4 +6,5 @@ database:
     - bin/setup
 test:
   override:
-    - bundle exec rake
+    - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
+    - bundle exec rake bundler:audit
