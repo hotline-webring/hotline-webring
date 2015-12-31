@@ -26,7 +26,7 @@ class RedirectionsController < ApplicationController
   end
 
   def ensure_referrer_is_not_localhost
-    if referrer.present? && URI.parse(referrer).host == "localhost"
+    if HostValidator.new(referrer).invalid?
       redirect_to page_path("localhost")
     end
   end

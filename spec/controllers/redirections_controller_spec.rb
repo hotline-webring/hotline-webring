@@ -28,8 +28,8 @@ RSpec.describe RedirectionsController do
         expect(first_redirection.reload.next).to eq new_redirection
       end
 
-      it "ignores requests from localhost" do
-        request.env["HTTP_REFERER"] = "http://localhost:3000"
+      it "ignores requests from http://example.dev" do
+        request.env["HTTP_REFERER"] = "http://example.dev"
 
         get action, slug: "whatever"
 
