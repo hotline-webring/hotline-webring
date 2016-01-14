@@ -32,6 +32,24 @@ RSpec.describe Redirection do
     end
   end
 
+  describe ".latest_first" do
+    it "returns the redirections with the most recently created first" do
+      redirection = create(:redirection)
+      edward = Redirection.find_by(slug: "edward")
+      gabe = Redirection.find_by(slug: "gabe")
+
+      expect(Redirection.latest_first).to eq([redirection, edward, gabe])
+    end
+  end
+
+  describe ".most_recent" do
+    it "returns the one, most recently created redirection" do
+      redirection = create(:redirection)
+
+      expect(Redirection.most_recent).to eq(redirection)
+    end
+  end
+
   describe "#next_url" do
     it "returns the url of the next referenced redirection" do
       first = Redirection.first
@@ -50,6 +68,19 @@ RSpec.describe Redirection do
       Ring.new(redirection).link
 
       expect(first.previous_url).to eq("http://edwardloveall.com")
+    end
+  end
+
+  describe "#tag_uri" do
+    it "returns a properly formatted id string" do
+      redirection = create(
+        :redirection,
+        created_at: DateTime.new(1999, 2),
+        url: "http://example.com"
+      )
+      id = "tag:hotlinewebring.club,1999-02-01T00:00:00Z:http://example.com"
+
+      expect(redirection.tag_uri).to eq(id)
     end
   end
 end
