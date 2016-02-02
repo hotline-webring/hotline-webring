@@ -36,6 +36,19 @@ RSpec.describe "Feed requests" do
       expect(first_entry["id"]).to eq(id)
       expect(first_entry["updated"]).to eq(updated)
     end
+
+    it "uses created_at instead of updated_at for <updated> value" do
+      created_at = 1.day.from_now
+      create(
+        :redirection,
+        created_at: created_at,
+        updated_at: created_at + 1.day
+      )
+
+      get feed_path
+
+      expect(first_entry["updated"]).to eq(created_at.iso8601)
+    end
   end
 
   def xml
