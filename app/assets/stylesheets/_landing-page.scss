@@ -1,4 +1,14 @@
 .homes-show {
+  header {
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   h2 {
     margin-bottom: 0;
 
