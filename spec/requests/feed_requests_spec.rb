@@ -30,6 +30,7 @@ RSpec.describe "Feed requests" do
       get feed_path
 
       expect(first_entry["title"]).to eq(title)
+      expect(first_entry["slug"]).to eq(redirection.slug)
       expect(first_entry["content"]).to eq(content)
       expect(first_entry["link"]).to eq(redirection.url)
       expect(first_entry["author"]["name"]).to eq("Gabe and Edward")

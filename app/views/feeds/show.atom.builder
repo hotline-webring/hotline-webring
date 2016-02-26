@@ -9,6 +9,7 @@ atom_feed do |feed|
     feed.tag!(:entry) do |entry|
       entry.id redirection.tag_uri
       entry.title "#{redirection.slug} joined #{title}"
+      entry.slug redirection.slug
       entry.updated redirection.created_at.iso8601
       entry.content redirection.url
       entry.link redirection.url
