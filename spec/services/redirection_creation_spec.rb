@@ -27,6 +27,18 @@ RSpec.describe RedirectionCreation do
       expect(redirection.previous).to eq first_redirection
       expect(redirection.next).to eq old_next
     end
+
+    context "when the referrer is like http://tilde.club/~ford/something.html"do
+      it "creates a redirection that includes the ~ford" do
+        referrer = "http://tilde.club/~ford/something.html"
+        slug = "cool-slug"
+
+        RedirectionCreation.perform(referrer, slug)
+
+        redirection = Redirection.find_by!(slug: slug)
+        expect(redirection.url).to eq "http://tilde.club/~ford"
+      end
+    end
   end
 
   context "when the referrer is blank" do
