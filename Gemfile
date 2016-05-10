@@ -13,8 +13,8 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma"
 gem "rack-canonical-host"
-gem "rails", "~> 4.2.0"
-gem "sass-rails", "~> 5.0"
+gem "rails", "~> 5.0.0.rc1"
+gem "sass-rails"
 gem "simple_form"
 gem "title"
 gem "uglifier"
@@ -32,7 +32,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.4.0"
+  gem "rspec-rails", "~> 3.5.0.beta3"
 end
 
 group :test do

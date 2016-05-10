@@ -6,7 +6,7 @@ RSpec.describe RedirectionsController do
       gabe = Redirection.find_by!(slug: "gabe")
       next_redirection = gabe.next
 
-      get :next, slug: gabe.slug
+      get :next, params: { slug: gabe.slug }
 
       expect(response).to redirect_to(next_redirection.url)
     end
@@ -21,7 +21,7 @@ RSpec.describe RedirectionsController do
         old_next = first_redirection.next
 
         request.env["HTTP_REFERER"] = url
-        get action, slug: new_slug
+        get action, params: { slug: new_slug }
 
         new_redirection = Redirection.last
         expect(new_redirection.slug).to eq new_slug
@@ -31,7 +31,7 @@ RSpec.describe RedirectionsController do
       it "ignores requests from http://example.dev" do
         request.env["HTTP_REFERER"] = "http://example.dev"
 
-        get action, slug: "whatever"
+        get action, params: { slug: "whatever" }
 
         expect(response).to redirect_to page_path(:localhost)
       end
@@ -40,7 +40,7 @@ RSpec.describe RedirectionsController do
         it "redirects to the first redirection's next/previous URL" do
           new_slug = "new"
 
-          get action, slug: new_slug
+          get action, params: { slug: new_slug }
 
           if action == :next
             expect(response).to redirect_to Redirection.first.next_url
@@ -57,7 +57,7 @@ RSpec.describe RedirectionsController do
       gabe = Redirection.find_by!(slug: "gabe")
       previous = Redirection.find_by!(next: gabe)
 
-      get :previous, slug: gabe.slug
+      get :previous, params: { slug: gabe.slug }
 
       expect(response).to redirect_to(previous.url)
     end
