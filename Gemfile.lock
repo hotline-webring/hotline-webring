@@ -205,7 +205,7 @@ GEM
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     slop (3.6.0)
-    spring (1.4.0)
+    spring (1.7.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
     sprockets (3.6.0)
@@ -287,4 +287,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.3
+   1.12.4
