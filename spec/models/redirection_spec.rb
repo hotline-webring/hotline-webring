@@ -83,4 +83,27 @@ RSpec.describe Redirection do
       expect(redirection.tag_uri).to eq(id)
     end
   end
+
+  describe "#unlink" do
+    it "destroys the redirection" do
+      redirection = create(:redirection)
+
+      redirection.unlink
+
+      expect(Redirection.exists?(id: redirection.id)).to be_falsey
+    end
+
+    it "links the redirection's previous to its next" do
+      gabe = Redirection.find_by!(slug: "gabe")
+      edward = Redirection.find_by!(slug: "edward")
+      redirection = create(:redirection)
+
+      redirection.unlink
+
+      edward.reload
+      gabe.reload
+      expect(edward.next).to eq gabe
+      expect(gabe.next).to eq edward
+    end
+  end
 end

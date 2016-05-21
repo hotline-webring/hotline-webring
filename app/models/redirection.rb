@@ -26,4 +26,14 @@ class Redirection < ActiveRecord::Base
 
     "tag:#{UNCHANGING_HOSTNAME},#{date}:#{url}"
   end
+
+  def unlink
+    previous_redirection = previous
+    next_redirection = self.next
+
+    self.class.transaction do
+      destroy!
+      previous_redirection.update!(next: next_redirection)
+    end
+  end
 end

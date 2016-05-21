@@ -48,6 +48,16 @@ is [purposefully excluded from the project's `Gemfile`][exclude].
 [foreman]: https://github.com/ddollar/foreman
 [exclude]: https://github.com/ddollar/foreman/pull/437#issuecomment-41110407
 
+## Removing a site from the webring
+
+Use `Redirection#unlink`:
+
+    irb> redirection = Redirection.find_by(slug: "whatever")
+    irb> redirection.unlink
+
+This will destroy the `Redirection` and re-link its ring neighbors, sealing the
+breach.
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
