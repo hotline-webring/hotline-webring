@@ -254,7 +254,7 @@ DEPENDENCIES
   puma
   rack-canonical-host
   rack-timeout
-  rails (~> 5.0.0)
+  rails (>= 5.0.0.1)
   rails_stdout_logging
   rspec-rails (~> 3.5.0.beta3)
   rspec_junit_formatter
