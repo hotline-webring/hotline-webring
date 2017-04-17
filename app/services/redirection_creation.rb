@@ -12,7 +12,7 @@ class RedirectionCreation
     redirection = Redirection.new(slug: slug)
 
     if referrer.present?
-      redirection.url = referrer_hostname
+      redirection.url = normalized_referrer
       Ring.new(redirection).link
       redirection
     end
@@ -22,8 +22,19 @@ class RedirectionCreation
 
   attr_reader :referrer, :slug
 
+  def normalized_referrer
+    if referrer_uri.path.start_with?("/~")
+      referrer_hostname + File.dirname(referrer_uri.path)
+    else
+      referrer_hostname
+    end
+  end
+
   def referrer_hostname
-    referrer_uri = URI.parse(referrer)
     "#{referrer_uri.scheme}://#{referrer_uri.hostname}"
+  end
+
+  def referrer_uri
+    @_referrer_uri ||= URI.parse(referrer)
   end
 end
