@@ -8,9 +8,19 @@ task link_audit: :environment do
     puts "\e[31m#{text}\e[0m"
   end
 
+  def fetch(url_string)
+    url = URI(url_string)
+    response = Net::HTTP.get_response(url)
+    case response
+    when Net::HTTPSuccess then
+      response.body
+    when Net::HTTPRedirection then
+      fetch(response["location"])
+    end
+  end
+
   Redirection.find_each do |redirection|
-    url = URI(redirection.url)
-    html = Net::HTTP.get(url)
+    html = fetch(redirection.url)
     next_link = "hotlinewebring.club/#{redirection.slug}/next"
     prev_link = "hotlinewebring.club/#{redirection.slug}/previous"
 
