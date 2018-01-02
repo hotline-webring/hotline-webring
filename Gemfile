@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.3.1"
+ruby "2.4.2"
 
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
@@ -12,7 +12,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma"
 gem "rack-canonical-host"
-gem "rails", ">= 5.0.0.1"
+gem "rails", ">= 5.1.4"
 gem "sass-rails"
 gem "simple_form"
 gem "title"
@@ -35,7 +35,6 @@ end
 
 group :test do
   gem "capybara-webkit"
-  gem "database_cleaner"
   gem "formulaic"
   gem "launchy"
   gem "rspec_junit_formatter"
