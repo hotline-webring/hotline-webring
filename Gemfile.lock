@@ -65,7 +65,6 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
-    database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -241,7 +240,6 @@ DEPENDENCIES
   bourbon (~> 4.2.0)
   bundler-audit
   capybara-webkit
-  database_cleaner
   dotenv-rails
   factory_girl_rails
   flutie

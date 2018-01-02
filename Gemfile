@@ -35,7 +35,6 @@ end
 
 group :test do
   gem "capybara-webkit"
-  gem "database_cleaner"
   gem "formulaic"
   gem "launchy"
   gem "rspec_junit_formatter"
