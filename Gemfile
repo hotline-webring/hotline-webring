@@ -45,7 +45,7 @@ group :test do
   gem "webmock"
 end
 
-group :staging, :production do
+group :production do
   gem "rack-timeout"
   gem "rails_stdout_logging"
 end

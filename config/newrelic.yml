@@ -28,7 +28,3 @@ test:
 production:
   <<: *default_settings
   monitor_mode: true
-staging:
-  <<: *default_settings
-  app_name: "hotline-webring (Staging)"
-  monitor_mode: true
