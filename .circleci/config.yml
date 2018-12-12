@@ -32,7 +32,6 @@ jobs:
       - restore_cache:
           keys:
           - hotlinewebring-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          - hotlinewebring-
 
       - run:
           name: Bundle Install
