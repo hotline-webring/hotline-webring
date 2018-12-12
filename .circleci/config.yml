@@ -49,13 +49,13 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run: bin/setup
-      - run: bundle exec rake db:test:prepare
+      - run: bundle exec bin/drake db:test:prepare
       - run:
           name: Run tests
           command: bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
       - run:
           name: Check for Insecure Gems
-          command: bundle exec rake bundler:audit
+          command: bundle exec bin/drake bundler:audit
 
       - store_test_results:
           path: $CIRCLE_TEST_REPORTS
