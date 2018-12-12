@@ -68,7 +68,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
       - run: bin/setup
-      - run: rake db:test:prepare
+      - run: bundle exec rake db:test:prepare
       - run: RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
       - run: bundle exec rake bundler:audit
       - store_test_results:
