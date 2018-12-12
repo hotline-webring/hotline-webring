@@ -57,9 +57,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     coderay (1.1.1)
     concurrent-ruby (1.1.3)
     crack (0.4.3)
@@ -240,7 +237,6 @@ DEPENDENCIES
   awesome_print
   bourbon (~> 4.2.0)
   bundler-audit
-  capybara-webkit
   database_cleaner
   dotenv-rails
   factory_girl_rails
@@ -276,4 +272,4 @@ RUBY VERSION
    ruby 2.4.2p198
 
 BUNDLED WITH
-   1.16.0
+   1.17.2
