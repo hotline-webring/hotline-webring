@@ -28,7 +28,7 @@ group :development, :test do
   gem "awesome_print"
   gem "bundler-audit", require: false
   gem "dotenv-rails"
-  gem "factory_girl_rails"
+  gem "factory_bot_rails"
   gem "pry-rails"
   gem "rspec-rails", "~> 3.5.2"
 end
