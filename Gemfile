@@ -13,7 +13,6 @@ gem "puma"
 gem "rack-canonical-host"
 gem "rails", "~> 5.1.6"
 gem "sassc-rails"
-gem "simple_form"
 gem "title"
 
 group :development do
