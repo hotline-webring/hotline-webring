@@ -7,7 +7,6 @@ Rails.application.configure do
   config.force_ssl = ENV.fetch("USE_SSL", false)
   config.middleware.use Rack::Deflater
   config.middleware.use Rack::CanonicalHost, ENV.fetch("APPLICATION_HOST")
-  config.assets.js_compressor = :uglifier
   config.assets.compile = false
   config.assets.digest = true
   config.log_level = :debug
