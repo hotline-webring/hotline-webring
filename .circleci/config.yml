@@ -28,7 +28,7 @@ jobs:
       # Restore the dependency cache
       - restore_cache:
           keys:
-          - hotlinewebring-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          - hotlinewebring-gemfile-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Bundle Install
@@ -36,7 +36,7 @@ jobs:
 
       # Save dependency cache
       - save_cache:
-          key: hotlinewebring-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: hotlinewebring-gemfile-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
             - ~/.bundle
