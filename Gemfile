@@ -11,7 +11,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma"
 gem "rack-canonical-host"
-gem "rails", "~> 5.1.6"
+gem "rails", "~> 5.2.2"
 gem "sassc-rails"
 gem "title"
 
