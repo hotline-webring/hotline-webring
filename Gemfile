@@ -31,7 +31,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "formulaic"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
