@@ -13,19 +13,15 @@ Set up the repo:
 
     $ ./bin/setup
 
-Run it with Foreman:
+Run the app using [Heroku Local]:
 
-    $ foreman start
+    $ heroku local
+
+[Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
 
 Run the specs:
 
     $ bin/drake spec
-
-If you don't have `foreman`, see [Foreman's install instructions][foreman]. It
-is [purposefully excluded from the project's `Gemfile`][exclude].
-
-[foreman]: https://github.com/ddollar/foreman
-[exclude]: https://github.com/ddollar/foreman/pull/437#issuecomment-41110407
 
 ## Removing a site from the webring
 
