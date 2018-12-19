@@ -31,7 +31,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara"
+  gem "capybara", "~> 3.0"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
