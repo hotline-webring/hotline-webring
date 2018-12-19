@@ -23,13 +23,10 @@ if [ -z "$CI" ]; then
   # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
   mkdir -p .git/safe
 
-  # Pick a port for Foreman
-  if ! grep --quiet --no-messages --fixed-strings 'port' .foreman; then
-    printf 'port: 3000\n' >> .foreman
-  fi
-
-  if ! command -v foreman > /dev/null; then
-    gem install foreman
+  if ! command -v heroku > /dev/null; then
+    echo "!! Please install the Heroku CLI: "
+    echo "!!  https://devcenter.heroku.com/articles/heroku-cli#download-and-install"
+    exit 1
   fi
 
   heroku git:remote --remote staging --app hotline-webring-staging || true
