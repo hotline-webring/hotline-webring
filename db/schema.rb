@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2015_12_17_165101) do
+ActiveRecord::Schema.define(version: 2018_12_20_204317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2015_12_17_165101) do
     t.integer "next_id", null: false
     t.string "slug", null: false
     t.text "url", null: false
+    t.text "original_url", null: false
     t.index ["next_id"], name: "index_redirections_on_next_id", unique: true
     t.index ["slug"], name: "index_redirections_on_slug", unique: true
     t.index ["url"], name: "index_redirections_on_url", unique: true

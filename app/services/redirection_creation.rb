@@ -12,6 +12,7 @@ class RedirectionCreation
     redirection = Redirection.new(slug: slug)
 
     if referrer.present?
+      redirection.original_url = referrer
       redirection.url = referrer_hostname
       Ring.new(redirection).link
       redirection

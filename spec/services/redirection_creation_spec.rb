@@ -15,6 +15,17 @@ RSpec.describe RedirectionCreation do
       expect(redirection.url).to eq referrer_hostname
     end
 
+    it "stores the original unchanged referrer" do
+      referrer_hostname = "https://cool.example.com"
+      full_referrer = "#{referrer_hostname}/something/else"
+      slug = "cool-slug"
+
+      RedirectionCreation.perform(full_referrer, slug)
+
+      redirection = Redirection.find_by!(slug: slug)
+      expect(redirection.original_url).to eq full_referrer
+    end
+
     it "links the new redirection into the ring" do
       first_redirection = Redirection.first
       old_next = first_redirection.next
