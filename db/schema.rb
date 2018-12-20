@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217165101) do
+ActiveRecord::Schema.define(version: 2015_12_17_165101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,13 +18,12 @@ ActiveRecord::Schema.define(version: 20151217165101) do
   create_table "redirections", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "next_id",    null: false
-    t.string   "slug",       null: false
-    t.text     "url",        null: false
+    t.integer "next_id", null: false
+    t.string "slug", null: false
+    t.text "url", null: false
+    t.index ["next_id"], name: "index_redirections_on_next_id", unique: true
+    t.index ["slug"], name: "index_redirections_on_slug", unique: true
+    t.index ["url"], name: "index_redirections_on_url", unique: true
   end
-
-  add_index "redirections", ["next_id"], name: "index_redirections_on_next_id", unique: true, using: :btree
-  add_index "redirections", ["slug"], name: "index_redirections_on_slug", unique: true, using: :btree
-  add_index "redirections", ["url"], name: "index_redirections_on_url", unique: true, using: :btree
 
 end
