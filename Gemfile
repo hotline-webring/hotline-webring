@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "2.5.3"
 
 gem "autoprefixer-rails"
-gem "bourbon", "~> 4.2.0"
+gem "bourbon", "~> 5.1.0"
 gem "flutie"
 gem "high_voltage"
 gem "neat", "~> 1.7.0"
