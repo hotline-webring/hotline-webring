@@ -111,7 +111,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
-    normalize-rails (3.0.3)
+    normalize-rails (4.1.1)
     pg (1.1.4)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -248,7 +248,7 @@ DEPENDENCIES
   high_voltage
   launchy
   neat (~> 1.7.0)
-  normalize-rails (~> 3.0.0)
+  normalize-rails (~> 4.1.1)
   pg
   pry-rails
   puma
