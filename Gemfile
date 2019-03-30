@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.5.3"
+ruby "2.6.0"
 
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
