@@ -15,7 +15,7 @@ task link_audit: :environment do
       case response
       when Net::HTTPSuccess then
         response.body
-      when Net::HTTPRedirection then
+      when Net::HTTPRedirection, Net::HTTPMovedPermanently then
         fetch(response["location"])
       end
     rescue SocketError
