@@ -10,28 +10,37 @@ task link_audit: :environment do
 
   def fetch(url_string)
     url = URI(url_string)
-    response = Net::HTTP.get_response(url)
-    case response
-    when Net::HTTPSuccess then
-      response.body
-    when Net::HTTPRedirection then
-      fetch(response["location"])
+    begin
+      response = Net::HTTP.get_response(url)
+      case response
+      when Net::HTTPSuccess then
+        response.body
+      when Net::HTTPRedirection then
+        fetch(response["location"])
+      end
+    rescue SocketError
+      nil
     end
   end
 
   Redirection.find_each do |redirection|
     html = fetch(redirection.url)
-    next_link = "hotlinewebring.club/#{redirection.slug}/next"
-    prev_link = "hotlinewebring.club/#{redirection.slug}/previous"
 
-    missing_links = []
-    missing_links << "next" if !html.include?(next_link)
-    missing_links << "prev" if !html.include?(prev_link)
+    if html
+      next_link = "hotlinewebring.club/#{redirection.slug}/next"
+      prev_link = "hotlinewebring.club/#{redirection.slug}/previous"
 
-    if missing_links.empty?
-      green("#{redirection.url} is all good")
+      missing_links = []
+      missing_links << "next" if !html.include?(next_link)
+      missing_links << "prev" if !html.include?(prev_link)
+
+      if missing_links.empty?
+        green("#{redirection.url} is all good")
+      else
+        red("#{redirection.url} is missing #{missing_links.join(' and ')}")
+      end
     else
-      red("#{redirection.url} is missing #{missing_links.join(' and ')}")
+      red("#{redirection.url} is no longer online at all")
     end
   end
 end
