@@ -27,12 +27,17 @@ task link_audit: :environment do
     html = fetch(redirection.url)
 
     if html
-      next_link = "hotlinewebring.club/#{redirection.slug}/next"
-      prev_link = "hotlinewebring.club/#{redirection.slug}/previous"
+      # Surprisingly, this works just fine:
+      # <a href="https:&#x2F;&#x2F;hotlinewebring.club&#x2F;alexey&#x2F;next">next</a>
+      # Therefore, we should allow encoded slashes.
+      slash = Regexp.union(['/', '&#x2f;'])
+      host = 'hotlinewebring.club'
+      next_link = /#{host}#{slash}#{redirection.slug}#{slash}next/
+      prev_link = /#{host}#{slash}#{redirection.slug}#{slash}previous/
 
       missing_links = []
-      missing_links << "next" if !html.include?(next_link)
-      missing_links << "prev" if !html.include?(prev_link)
+      missing_links << "next" if !html.match?(next_link)
+      missing_links << "prev" if !html.match?(prev_link)
 
       if missing_links.empty?
         green("#{redirection.url} is all good")
