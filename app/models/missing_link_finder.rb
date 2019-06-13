@@ -1,4 +1,4 @@
-class LinkAudit
+class MissingLinkFinder
   # Surprisingly, this works just fine:
   # <a href="https:&#x2F;&#x2F;hotlinewebring.club&#x2F;alexey&#x2F;next">next</a>
   # Therefore, we should allow encoded slashes.

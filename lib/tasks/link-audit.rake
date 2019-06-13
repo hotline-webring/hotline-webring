@@ -9,7 +9,7 @@ task link_audit: :environment do
   end
 
   Redirection.find_each do |redirection|
-    missing_links = LinkAudit.new(redirection).run
+    missing_links = MissingLinkFinder.new(redirection).run
 
     if missing_links.nil?
       red("#{redirection.url} is no longer online at all")

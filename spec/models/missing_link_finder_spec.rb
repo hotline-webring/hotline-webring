@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe LinkAudit do
+RSpec.describe MissingLinkFinder do
   describe "#run" do
     let(:redirection) { Redirection.first! }
 
@@ -13,7 +13,7 @@ RSpec.describe LinkAudit do
       BODY
       stub_request(:get, redirection.url).to_return(body: body)
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to eq([])
     end
@@ -31,7 +31,7 @@ RSpec.describe LinkAudit do
       BODY
       stub_request(:get, redirection.url).to_return(body: body)
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to eq([])
     end
@@ -49,7 +49,7 @@ RSpec.describe LinkAudit do
       BODY
       stub_request(:get, redirection.url).to_return(body: body)
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to eq([])
     end
@@ -60,7 +60,7 @@ RSpec.describe LinkAudit do
         to_return(status: 302, headers: { "Location" => final_url })
       stub_request(:get, final_url).to_return(body: "abc")
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to eq(%w(next prev))
     end
@@ -71,7 +71,7 @@ RSpec.describe LinkAudit do
         to_return(status: 301, headers: { "Location" => final_url })
       stub_request(:get, final_url).to_return(body: "abc")
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to eq(%w(next prev))
     end
@@ -79,7 +79,7 @@ RSpec.describe LinkAudit do
     it "catches errors for websites that are no longer online" do
       stub_request(:get, redirection.url).to_raise(SocketError)
 
-      result = LinkAudit.new(redirection).run
+      result = MissingLinkFinder.new(redirection).run
 
       expect(result).to be_nil
     end
