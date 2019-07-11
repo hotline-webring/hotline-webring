@@ -86,7 +86,7 @@ GEM
     flutie (2.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    hashdiff (0.4.0)
+    hashdiff (1.0.0.beta1)
     high_voltage (3.1.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -158,12 +158,12 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     regexp_parser (1.5.1)
-    rspec-core (3.8.0)
+    rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.2)
+    rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
-    rspec-mocks (3.8.0)
+    rspec-mocks (3.8.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-rails (3.8.2)
@@ -174,7 +174,7 @@ GEM
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-support (3.8.0)
+    rspec-support (3.8.2)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
     safe_yaml (1.0.5)
@@ -245,6 +245,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   flutie
+  hashdiff (= 1.0.0.beta1)
   high_voltage
   launchy
   neat (~> 1.7.0)
@@ -269,7 +270,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 2.6.0p0
+   ruby 2.6.3p62
 
 BUNDLED WITH
    1.17.2
