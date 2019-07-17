@@ -86,7 +86,7 @@ GEM
     flutie (2.1.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    hashdiff (1.0.0.beta1)
+    hashdiff (1.0.0)
     high_voltage (3.1.2)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -245,7 +245,6 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   flutie
-  hashdiff (= 1.0.0.beta1)
   high_voltage
   launchy
   neat (~> 1.7.0)

@@ -32,8 +32,6 @@ end
 
 group :test do
   gem "capybara", "~> 3.0"
-  # TEMP: list hashdiff explicitly in Gemfile to force 1.0.0.beta1; remove once 1.0.0 is released
-  gem "hashdiff", "1.0.0.beta1"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
