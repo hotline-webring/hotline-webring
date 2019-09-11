@@ -83,7 +83,7 @@ GEM
       factory_bot (~> 5.0.2)
       railties (>= 4.2.0)
     ffi (1.11.1)
-    flutie (2.1.0)
+    flutie (2.2.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.0)
