@@ -88,7 +88,7 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (1.0.0)
     high_voltage (3.1.2)
-    i18n (1.7.0)
+    i18n (1.8.0)
       concurrent-ruby (~> 1.0)
     json (2.2.0)
     launchy (2.4.3)
@@ -192,7 +192,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    shoulda-matchers (4.1.2)
+    shoulda-matchers (4.2.0)
       activesupport (>= 4.2.0)
     simplecov (0.17.1)
       docile (~> 1.1)
@@ -216,7 +216,7 @@ GEM
     title (0.0.7)
       i18n
       rails (>= 3.1)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     web-console (3.7.0)
       actionview (>= 5.0)
