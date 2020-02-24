@@ -1,5 +1,5 @@
 class Redirection < ActiveRecord::Base
-  belongs_to :next, class_name: "Redirection"
+  belongs_to :next, class_name: "Redirection", optional: true
   has_one :previous, class_name: "Redirection", foreign_key: "next_id"
 
   validates :next_id, uniqueness: true

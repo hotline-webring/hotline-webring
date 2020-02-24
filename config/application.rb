@@ -10,6 +10,10 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 module HotlineWebring
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails
+    # version.
+    config.load_defaults 5.0
+
     config.i18n.enforce_available_locales = true
     config.assets.quiet = true
     config.generators do |generate|

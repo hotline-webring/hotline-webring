@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe Redirection do
   describe "associations" do
     it { should belong_to(:next).
-                class_name("Redirection") }
+                class_name("Redirection").
+                optional(true) }
     it { should have_one(:previous).
                 class_name("Redirection").
                 with_foreign_key("next_id") }
