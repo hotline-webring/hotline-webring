@@ -1,6 +1,6 @@
 class HostValidator
-  INVALID_HOSTS = %w(127.0.0.1 localhost)
-  INVALID_TLDS = %w(.dev)
+  INVALID_HOSTS = %w(127.0.0.1 localhost example.com example.org example.net example.dev)
+  INVALID_TLDS = %w(.example .local .test)
 
   def initialize(url)
     @url = url
@@ -19,6 +19,7 @@ class HostValidator
   attr_reader :url
 
   def invalid_host?
+    puts host
     INVALID_HOSTS.include?(host)
   end
 

@@ -16,7 +16,7 @@ RSpec.describe RedirectionsController do
     describe "GET #{action}" do
       it "creates a Redirection if it doesn't exist" do
         new_slug = "new"
-        url = "http://example.com"
+        url = "http://notareal.domain"
         first_redirection = Redirection.first
         old_next = first_redirection.next
 
