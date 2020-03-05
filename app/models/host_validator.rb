@@ -19,7 +19,6 @@ class HostValidator
   attr_reader :url
 
   def invalid_host?
-    puts host
     INVALID_HOSTS.include?(host)
   end
 
