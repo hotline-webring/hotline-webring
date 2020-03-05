@@ -4,9 +4,6 @@ RSpec.describe HostValidator do
   describe "#invalid?" do
     %w(
       http://localhost:3000
-      http://example.com
-      http://example.net
-      http://example.org
       http://devsite.example
       http://devsite.test
       http://devsite.local
