@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.6.5"
+ruby "2.7.0"
 
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
@@ -11,7 +11,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma"
 gem "rack-canonical-host"
-gem "rails", "~> 5.2.2"
+gem "rails", "~> 6.0.2"
 gem "sassc-rails"
 gem "title"
 
@@ -42,5 +42,4 @@ end
 
 group :production do
   gem "rack-timeout"
-  gem "rails_stdout_logging"
 end

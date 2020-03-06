@@ -7,7 +7,7 @@ RSpec.describe "Feed requests" do
 
       get feed_path
 
-      expect(response.content_type).to eq(Mime::Type.lookup_by_extension(:atom))
+      expect(response.media_type).to eq(Mime::Type.lookup_by_extension(:atom))
     end
 
     it "has required feed attributes" do
