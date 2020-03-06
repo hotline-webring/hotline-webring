@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe RedirectionCreation do
   context "when the referrer is present" do
     it "creates a redirection with the referrer hostname" do
-      referrer_hostname = "https://cool.notareal.domain"
+      referrer_hostname = "https://cool.example.com"
       slug = "cool-slug"
 
       RedirectionCreation.perform(
@@ -16,7 +16,7 @@ RSpec.describe RedirectionCreation do
     end
 
     it "stores the original unchanged referrer" do
-      referrer_hostname = "https://cool.notareal.domain"
+      referrer_hostname = "https://cool.example.com"
       full_referrer = "#{referrer_hostname}/something/else"
       slug = "cool-slug"
 
@@ -31,7 +31,7 @@ RSpec.describe RedirectionCreation do
       old_next = first_redirection.next
 
       redirection = RedirectionCreation.perform(
-        "http://notareal.domain",
+        "http://example.com",
         "slug",
       )
 

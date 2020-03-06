@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :redirection do
     sequence(:slug) { |n| "slug#{n}" }
-    sequence(:url) { |n| "http://notareal#{n}.domain" }
+    sequence(:url) { |n| "http://example#{n}.com" }
     next_id { -1 }
     original_url { url }
 

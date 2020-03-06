@@ -76,9 +76,9 @@ RSpec.describe Redirection do
       redirection = create(
         :redirection,
         created_at: DateTime.new(1999, 2),
-        url: "http://notareal.domain"
+        url: "http://example.com"
       )
-      id = "tag:hotlinewebring.club,1999-02-01T00:00:00Z:http://notareal.domain"
+      id = "tag:hotlinewebring.club,1999-02-01T00:00:00Z:http://example.com"
 
       expect(redirection.tag_uri).to eq(id)
     end
