@@ -4,7 +4,9 @@ RSpec.describe HostValidator do
   describe "#invalid?" do
     %w(
       http://localhost:3000
-      http://example.dev
+      http://devsite.example
+      http://devsite.test
+      http://devsite.local
       http://127.0.0.1:3000
     ).each do |ignored|
       it "returns true for #{ignored}" do
