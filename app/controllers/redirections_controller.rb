@@ -1,5 +1,6 @@
 class RedirectionsController < ApplicationController
   before_action :ensure_referrer_is_not_localhost
+  before_action :ensure_referrer_is_not_blacklisted
 
   def next
     redirection = find_or_create_redirection
@@ -28,6 +29,12 @@ class RedirectionsController < ApplicationController
   def ensure_referrer_is_not_localhost
     if HostValidator.new(referrer).invalid?
       redirect_to page_path("localhost")
+    end
+  end
+
+  def ensure_referrer_is_not_blacklisted
+    if Blacklist.new(referrer).blacklisted?
+      redirect_to Redirection.first.url
     end
   end
 end

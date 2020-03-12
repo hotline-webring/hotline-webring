@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :blacklisted_referrer do
+    sequence(:host_with_path) { |n| "evil.com/#{n}" }
+  end
+
   factory :redirection do
     sequence(:slug) { |n| "slug#{n}" }
     sequence(:url) { |n| "http://example#{n}.com" }

@@ -33,6 +33,24 @@ Use `Redirection#unlink`:
 This will destroy the `Redirection` and re-link its ring neighbors, sealing the
 breach.
 
+## Blacklisting
+
+When blacklisting a URL, specify the bare URL, without `http` or `www`
+subdomain.
+
+To blacklist everything from `evil.com` but none of its subdomains:
+
+    BlacklistedReferrer.create!(host_with_path: "evil.com")
+
+To blacklist everything under the `/one/` directory (`evil.com/one/*`), but not
+the root (for example, to blacklist a user directory):
+
+    BlacklistedReferrer.create!(host_with_path: "good.com/~evil")
+
+To blacklist a subdomain:
+
+    BlacklistedReferrer.create!(host_with_path: "evil.good.com")
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
