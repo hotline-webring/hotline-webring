@@ -8,6 +8,7 @@ RSpec.describe HostValidator do
       http://devsite.test
       http://devsite.local
       http://127.0.0.1:3000
+      http://0.0.0.0:8000
     ).each do |ignored|
       it "returns true for #{ignored}" do
         host_validator = HostValidator.new(ignored)

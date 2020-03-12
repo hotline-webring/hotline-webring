@@ -1,5 +1,5 @@
 class HostValidator
-  INVALID_HOSTS = %w(127.0.0.1 localhost)
+  INVALID_HOSTS = %w(0.0.0.0 127.0.0.1 localhost)
   INVALID_TLDS = %w(.example .local .test)
 
   def initialize(url)
