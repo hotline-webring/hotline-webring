@@ -1,7 +1,9 @@
 ul,
 ol {
-  list-style-type: none;
-  margin: 0;
+  list-style-type: disc;
+  margin-bottom: 0;
+  margin-left: $small-spacing;
+  margin-top: 0;
   padding: 0;
 
   &%default-ul {
