@@ -5,7 +5,7 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-    - image: circleci/ruby:2.6.5-node
+    - image: circleci/ruby:2.7.1-node
       environment:
         RAILS_ENV: test
         PGHOST: localhost
