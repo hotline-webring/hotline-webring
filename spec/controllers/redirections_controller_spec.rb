@@ -1,19 +1,5 @@
 require "rails_helper"
 
-RSpec.shared_examples_for "disallowing a similar URL" do |action, item|
-  it "does not add #{item[:new]} when #{item[:existing]} already exists" do
-    old_slug = "old"
-    new_slug = "new"
-    RedirectionCreation.perform(item[:existing], old_slug)
-
-    request.env["HTTP_REFERER"] = item[:new]
-    expect {
-      get action, params: { slug: new_slug }
-    }.to raise_error(ActiveRecord::RecordInvalid)
-    expect(Redirection.where(slug: new_slug)).to be_empty
-  end
-end
-
 RSpec.describe RedirectionsController do
   describe "GET :next" do
     it "redirects to the next site" do
@@ -56,24 +42,18 @@ RSpec.describe RedirectionsController do
         expect(Redirection.where(slug: new_slug)).to be_empty
       end
 
-      describe "consider WWW vs non-WWW the same" do
-        www_vs_not = [
-          { existing: "https://www.cool.com", new: "https://cool.com" },
-          { existing: "http://www.foo.com", new: "https://foo.com" },
-        ]
-        www_vs_not.each do |item|
-          it_should_behave_like "disallowing a similar URL", action, item
-        end
-      end
+      it "considers similar URLs to be the same" do
+        old_url = "https://www.cool.com"
+        old_slug = "old"
+        new_url = "https://cool.com"
+        new_slug = "new"
+        RedirectionCreation.perform(old_url, old_slug)
 
-      describe "consider HTTP/HTTPS the same" do
-        http_vs_https = [
-          { existing: "http://foo.com", new: "https://www.foo.com" },
-          { existing: "https://foo.com", new: "http://foo.com" },
-        ]
-        http_vs_https.each do |item|
-          it_should_behave_like "disallowing a similar URL", action, item
-        end
+        request.env["HTTP_REFERER"] = new_url
+        expect {
+          get action, params: { slug: new_slug }
+        }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(Redirection.where(slug: new_slug)).to be_empty
       end
 
       it "ignores requests from http://localhost" do
