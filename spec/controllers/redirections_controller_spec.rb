@@ -28,6 +28,34 @@ RSpec.describe RedirectionsController do
         expect(first_redirection.reload.next).to eq new_redirection
       end
 
+      it "does not allow creating the exact same URL twice" do
+        url = "https://unique-website.com"
+        new_slug = "new"
+        old_slug = "old"
+        RedirectionCreation.perform(url, old_slug)
+
+        request.env["HTTP_REFERER"] = url
+        expect {
+          get action, params: { slug: new_slug }
+        }.to raise_error(ActiveRecord::RecordInvalid)
+
+        expect(Redirection.where(slug: new_slug)).to be_empty
+      end
+
+      it "considers similar URLs to be the same" do
+        old_url = "https://www.cool.com"
+        old_slug = "old"
+        new_url = "https://cool.com"
+        new_slug = "new"
+        RedirectionCreation.perform(old_url, old_slug)
+
+        request.env["HTTP_REFERER"] = new_url
+        expect {
+          get action, params: { slug: new_slug }
+        }.to raise_error(ActiveRecord::RecordInvalid)
+        expect(Redirection.where(slug: new_slug)).to be_empty
+      end
+
       it "ignores requests from http://localhost" do
         request.env["HTTP_REFERER"] = "http://localhost"
 

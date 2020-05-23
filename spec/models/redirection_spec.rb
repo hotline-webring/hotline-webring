@@ -20,6 +20,34 @@ RSpec.describe Redirection do
       it { should validate_uniqueness_of :next_id }
       it { should validate_uniqueness_of :slug }
     end
+
+    it "ignores `www` subdomain when comparing URLs for uniqueness" do
+      old_slug = "old"
+      old_url = "http://foo.com"
+      new_url = "https://www.foo.com"
+      RedirectionCreation.perform(old_url, old_slug)
+
+      redirection = Redirection.new(url: new_url)
+      redirection.validate
+
+      expect(redirection.errors[:url]).to include(
+        "is already taken by #{old_slug}"
+      )
+    end
+
+    it "ignores protocol when comparing URLs for uniqueness" do
+      old_slug = "old"
+      old_url = "http://www.foo.com"
+      new_url = "https://www.foo.com"
+      RedirectionCreation.perform(old_url, old_slug)
+
+      redirection = Redirection.new(url: new_url)
+      redirection.validate
+
+      expect(redirection.errors[:url]).to include(
+        "is already taken by #{old_slug}"
+      )
+    end
   end
 
   describe ".in_ring_order" do
