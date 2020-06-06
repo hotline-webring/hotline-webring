@@ -9,14 +9,16 @@ task link_audit: :environment do
   end
 
   Redirection.find_each do |redirection|
-    missing_links = MissingLinkFinder.new(redirection).run
+    result = MissingLinkFinder.new(redirection).run
 
-    if missing_links.nil?
-      red("#{redirection.url} is no longer online at all")
-    elsif missing_links.empty?
+    if result[:status] == :good
       green("#{redirection.url} is all good")
-    else
-      red("#{redirection.url} is missing #{missing_links.join(' and ')}")
+    elsif result[:status] == :offline
+      red("#{redirection.url} is no longer online at all")
+    elsif result[:status] == :error
+      red("#{redirection.url} error: #{result[:error]} ")
+    elsif result[:status] == :missing_links
+      red("#{redirection.url} is missing #{result[:missing].join(' and ')}")
     end
   end
 end
