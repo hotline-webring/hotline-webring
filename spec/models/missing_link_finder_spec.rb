@@ -18,6 +18,25 @@ RSpec.describe MissingLinkFinder do
       expect(result).to eq({ status: :good })
     end
 
+    it "follows redirects" do
+      body = <<~BODY
+        <a href="https://hotlinewebring.club/#{redirection.slug}/next">next</a>
+        <a href="https://hotlinewebring.club/#{redirection.slug}/previous">
+          previous
+        </a>
+      BODY
+      new_url = "https://example.com/cool"
+      stub_request(:get, redirection.url).to_return(
+        status: 301,
+        headers: {Location: new_url}
+      )
+      stub_request(:get, new_url).to_return(body: body)
+
+      result = MissingLinkFinder.new(redirection).run
+
+      expect(result).to eq({status: :good})
+    end
+
     it "returns a :good status when the website has both links, encoded" do
       slash = "&#x2F;"
       host = "https:#{slash}#{slash}hotlinewebring.club"
@@ -33,7 +52,57 @@ RSpec.describe MissingLinkFinder do
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({ status: :good })
+      expect(result).to eq({status: :good})
+    end
+
+    it "returns a :good status even when links are in <iframe>s" do
+      iframe_relative_previous = <<~IFRAME
+        <a href="https://hotlinewebring.club/#{redirection.slug}/previous">
+          previous
+        </a>
+      IFRAME
+      iframe_next = <<~IFRAME
+        <a href="https://hotlinewebring.club/#{redirection.slug}/next">next</a>
+      IFRAME
+      body = <<~BODY
+        <iframe src="iframe_relative_previous">
+        <iframe src="#{redirection.url}/iframe_next">
+      BODY
+
+      stub_request(:get, redirection.url).to_return(body: body)
+      stub_request(:get, "#{redirection.url}/iframe_relative_previous")
+        .to_return(body: iframe_relative_previous)
+      stub_request(:get, "#{redirection.url}/iframe_next")
+        .to_return(body: iframe_next)
+
+      result = MissingLinkFinder.new(redirection).run
+
+      expect(result).to eq({status: :good})
+    end
+
+    it "returns a :good status even when links are in <frame>s" do
+      frame_previous = <<~FRAME
+        <a href="https://hotlinewebring.club/#{redirection.slug}/previous">
+          previous
+        </a>
+      FRAME
+      frame_relative_next = <<~FRAME
+        <a href="https://hotlinewebring.club/#{redirection.slug}/next">next</a>
+      FRAME
+      body = <<~BODY
+        <frame src="#{redirection.url}/frame_previous">
+        <frame src="frame_relative_next">
+      BODY
+
+      stub_request(:get, redirection.url).to_return(body: body)
+      stub_request(:get, "#{redirection.url}/frame_previous")
+        .to_return(body: frame_previous)
+      stub_request(:get, "#{redirection.url}/frame_relative_next")
+        .to_return(body: frame_relative_next)
+
+      result = MissingLinkFinder.new(redirection).run
+
+      expect(result).to eq({status: :good})
     end
 
     it "returns a :good status when the website has both links, encoded lowercase" do
@@ -84,12 +153,12 @@ RSpec.describe MissingLinkFinder do
       expect(result).to eq({ status: :offline })
     end
 
-    it "returns :offline status for websites that return a 404" do
+    it "returns :not_found status for websites that return a 404" do
       stub_request(:get, redirection.url).to_return(body: "abc", status: 404)
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({ status: :offline })
+      expect(result).to eq({status: :not_found})
     end
 
     it "returns :error status for websites that errored but are probably online" do

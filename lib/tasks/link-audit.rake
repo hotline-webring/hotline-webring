@@ -15,6 +15,8 @@ task link_audit: :environment do
       green("#{redirection.url} is all good")
     elsif result[:status] == :offline
       red("#{redirection.url} is no longer online at all")
+    elsif result[:status] == :not_found
+      red("#{redirection.url} is a 404")
     elsif result[:status] == :error
       red("#{redirection.url} error: #{result[:error]} ")
     elsif result[:status] == :missing_links
