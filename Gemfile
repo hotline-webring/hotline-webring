@@ -23,7 +23,6 @@ end
 
 group :development, :test do
   gem "awesome_print"
-  gem "bundler-audit", require: false
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "pry-rails"
