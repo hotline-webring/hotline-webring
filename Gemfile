@@ -18,7 +18,10 @@ gem "rack-canonical-host"
 gem "sprockets-rails", github: "rails/sprockets-rails", ref: "b0b380e"
 gem "rails", "~> 6.0.3"
 gem "sassc-rails"
-gem "title"
+# For Ruby 2.7, pin `title` to the earliest commit that includes
+# https://github.com/calebthompson/title/pull/19
+# When there's a new release, use that: https://rubygems.org/gems/title
+gem "title", github: "calebthompson/title", ref: "7bda024"
 
 group :development do
   gem "spring"
