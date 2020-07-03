@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_175018) do
+ActiveRecord::Schema.define(version: 2020_07_03_012614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "blacklisted_referrers", force: :cascade do |t|
+  create_table "blocked_referrers", force: :cascade do |t|
     t.string "host_with_path", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["host_with_path"], name: "index_blacklisted_referrers_on_host_with_path", unique: true
+    t.index ["host_with_path"], name: "index_blocked_referrers_on_host_with_path", unique: true
   end
 
   create_table "redirections", force: :cascade do |t|

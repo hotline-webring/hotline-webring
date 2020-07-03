@@ -78,9 +78,9 @@ RSpec.describe RedirectionsController do
         end
       end
 
-      context "when the URL is blacklisted" do
+      context "when the URL is blocked" do
         it "does not create a redirection and redirects to the first redirection" do
-          create(:blacklisted_referrer, host_with_path: "evil.com")
+          create(:blocked_referrer, host_with_path: "evil.com")
           slug = "i-am-evil"
           url = "http://evil.com/something"
           request.env["HTTP_REFERER"] = url

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :blacklisted_referrer do
+  factory :blocked_referrer do
     sequence(:host_with_path) { |n| "evil.com/#{n}" }
   end
 

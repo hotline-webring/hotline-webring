@@ -1,16 +1,16 @@
-class Blacklist
+class Block
   def initialize(possible_match)
     @possible_match = possible_match
   end
 
-  def blacklisted?
+  def blocked?
     if possible_match.nil?
       false
     else
       host = URI.parse(possible_match).host
 
-      BlacklistedReferrer.where("host_with_path LIKE ?", "#{host}%").
-        or(BlacklistedReferrer.where("'www.'||host_with_path LIKE ?", "#{host}%")).
+      BlockedReferrer.where("host_with_path LIKE ?", "#{host}%").
+        or(BlockedReferrer.where("'www.'||host_with_path LIKE ?", "#{host}%")).
         any?
     end
   end

@@ -1,6 +1,6 @@
 class RedirectionsController < ApplicationController
   before_action :ensure_referrer_is_not_localhost
-  before_action :ensure_referrer_is_not_blacklisted
+  before_action :ensure_referrer_is_not_blocked
 
   def next
     redirection = find_or_create_redirection
@@ -32,8 +32,8 @@ class RedirectionsController < ApplicationController
     end
   end
 
-  def ensure_referrer_is_not_blacklisted
-    if Blacklist.new(referrer).blacklisted?
+  def ensure_referrer_is_not_blocked
+    if Block.new(referrer).blocked?
       redirect_to Redirection.first.url
     end
   end
