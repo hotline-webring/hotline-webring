@@ -4,6 +4,7 @@ ruby "2.7.1"
 
 gem "autoprefixer-rails"
 gem "bourbon", "~> 4.2.0"
+gem "capybara-mechanize"
 gem "flutie"
 gem "high_voltage"
 gem "neat", "~> 1.7.0"
@@ -36,7 +37,6 @@ end
 
 group :test do
   gem "capybara", "~> 3.0"
-  gem "capybara-mechanize"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
