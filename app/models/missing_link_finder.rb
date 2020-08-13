@@ -46,24 +46,32 @@ class MissingLinkFinder
   attr_reader :redirection, :session
 
   def missing_links
-    found_next = has_next_link?
-    found_previous = has_prev_link?
-    if !found_next || !found_previous
-      session.all("iframe, frame").map { |i| i[:src] }.each do |iframe_src|
-        unless iframe_src.start_with?("http")
-          uri = URI.parse(session.current_url)
-          iframe_src = "#{uri.scheme}://#{uri.host}/#{iframe_src}"
+    missing_next = !has_next_link?
+    missing_previous = !has_prev_link?
+    session.all("iframe, frame").map { |i| i[:src] }.each do |iframe_src|
+      if missing_next || missing_previous
+        session.visit ensure_absolute_path(iframe_src)
+        if has_next_link?
+          missing_next = false
         end
-
-        session.visit iframe_src
-        found_next ||= has_next_link?
-        found_previous ||= has_prev_link?
+        if has_prev_link?
+          missing_previous = false
+        end
       end
     end
     missing_links = []
-    missing_links << "next" unless found_next
-    missing_links << "prev" unless found_previous
+    missing_links << "next" if missing_next
+    missing_links << "prev" if missing_previous
     missing_links
+  end
+
+  def ensure_absolute_path(src)
+    if src.start_with?("http")
+      src
+    else
+      uri = URI.parse(session.current_url)
+      "#{uri.scheme}://#{uri.host}/#{src}"
+    end
   end
 
   def has_next_link?
