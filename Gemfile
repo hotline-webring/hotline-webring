@@ -39,6 +39,7 @@ end
 
 group :test do
   gem "capybara", "~> 3.0"
+  gem "capybara-mechanize"
   gem "launchy"
   gem "rspec_junit_formatter"
   gem "shoulda-matchers"
