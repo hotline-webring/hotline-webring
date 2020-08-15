@@ -21,10 +21,11 @@ class MissingLinkFinder
   def run
     session.visit(redirection.url)
     if session.status_code.in?(200..299)
-      if missing_links.empty?
+      missing = missing_links
+      if missing.empty?
         {status: :good}
       else
-        {status: :missing_links, missing: missing_links}
+        {status: :missing_links, missing: missing}
       end
     else
       {status: :offline}
