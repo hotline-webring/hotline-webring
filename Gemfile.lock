@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/calebthompson/title.git
-  revision: 7bda0243341e3b8a9e9f1d084bce3abc6ce278da
-  ref: 7bda024
-  specs:
-    title (0.0.7)
-      i18n
-      rails (>= 3.1)
-
-GIT
   remote: https://github.com/rails/sprockets-rails.git
   revision: b0b380ef956e66572793dec32c4c67db09664449
   ref: b0b380e
@@ -261,6 +252,9 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.9)
     timecop (0.9.1)
+    title (0.0.8)
+      i18n
+      rails (>= 3.1)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -314,7 +308,7 @@ DEPENDENCIES
   spring-commands-rspec
   sprockets-rails!
   timecop
-  title!
+  title
   web-console
   webmock
 
