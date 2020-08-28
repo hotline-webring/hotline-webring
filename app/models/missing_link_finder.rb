@@ -76,11 +76,11 @@ class MissingLinkFinder
   end
 
   def has_next_link?
-    session.has_link?(href: next_link)
+    has_link?(next_link)
   end
 
   def has_prev_link?
-    session.has_link?(href: prev_link)
+    has_link?(prev_link)
   end
 
   def next_link
@@ -89,5 +89,22 @@ class MissingLinkFinder
 
   def prev_link
     /#{HOST}#{SLASH}#{redirection.slug}#{SLASH}previous/
+  end
+
+  def has_link?(link)
+    if session.has_link?(href: link)
+      true
+    else
+      # Try to find `<a xlink:href="URL">` (note the `xlink:href`).
+      # The colon in `xlink:href` means it is not queryable as an attribute
+      # (e.g. "a[xlink:href]") from Capybara or Nokogiri as either CSS or
+      # XPath.
+      # However, it only pops up in an SVG (on http://nuthole.com), so we find
+      # all `<a>` tags inside an `<svg>` and iterate through them.
+
+      session.all("svg a").any? do |anchor|
+        anchor["xlink:href"].match?(next_link)
+      end
+    end
   end
 end
