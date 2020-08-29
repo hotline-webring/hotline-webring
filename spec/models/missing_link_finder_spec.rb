@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe MissingLinkFinder do
   describe "#run" do
     let(:redirection) { Redirection.first! }
+    let(:next_link) { "https://hotlinewebring.club/#{redirection.slug}/next" }
+    let(:prev_link) { "https://hotlinewebring.club/#{redirection.slug}/previous" }
 
     it "returns a :good status when the website has both links" do
       body = <<~BODY
@@ -173,6 +175,39 @@ RSpec.describe MissingLinkFinder do
         status: :error,
         error: "#{openssl_error.class}: #{openssl_error.message}"
       })
+    end
+
+    context "when links are xlink:href" do
+      it "returns a good status when the page has both links" do
+        body = <<~BODY
+          <svg>
+            <a xlink:href="#{next_link}">next</a>
+            <a xlink:href="#{prev_link}">prev</a>
+          </svg>
+        BODY
+        stub_request(:get, redirection.url).to_return(body: body)
+
+        result = MissingLinkFinder.new(redirection).run
+
+        expect(result).to eq({status: :good})
+      end
+
+      %w[next prev].each do |type|
+        it "returns a bad status when the page has only #{type} link" do
+          link = {"next" => next_link, "prev" => prev_link}[type]
+          body = <<~BODY
+            <svg>
+              <a xlink:href="#{link}">#{type}</a>
+            </svg>
+          BODY
+          stub_request(:get, redirection.url).to_return(body: body)
+
+          result = MissingLinkFinder.new(redirection).run
+
+          missing = %w[next prev] - [type]
+          expect(result).to eq(status: :missing_links, missing: missing)
+        end
+      end
     end
   end
 end
