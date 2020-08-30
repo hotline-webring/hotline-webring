@@ -103,7 +103,7 @@ class MissingLinkFinder
       # all `<a>` tags inside an `<svg>` and iterate through them.
 
       session.all("svg a").any? do |anchor|
-        anchor["xlink:href"].match?(next_link)
+        anchor["xlink:href"].match?(link)
       end
     end
   end
