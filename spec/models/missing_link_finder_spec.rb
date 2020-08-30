@@ -30,13 +30,13 @@ RSpec.describe MissingLinkFinder do
       new_url = "https://example.com/cool"
       stub_request(:get, redirection.url).to_return(
         status: 301,
-        headers: {Location: new_url}
+        headers: { Location: new_url },
       )
       stub_request(:get, new_url).to_return(body: body)
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({status: :good})
+      expect(result).to eq({ status: :good })
     end
 
     it "returns a :good status when the website has both links, encoded" do
@@ -54,7 +54,7 @@ RSpec.describe MissingLinkFinder do
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({status: :good})
+      expect(result).to eq({ status: :good })
     end
 
     it "returns a :good status even when links are in <iframe>s" do
@@ -79,7 +79,7 @@ RSpec.describe MissingLinkFinder do
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({status: :good})
+      expect(result).to eq({ status: :good })
     end
 
     it "returns a :good status even when links are in <frame>s" do
@@ -104,7 +104,7 @@ RSpec.describe MissingLinkFinder do
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({status: :good})
+      expect(result).to eq({ status: :good })
     end
 
     it "returns a :good status when the website has both links, encoded lowercase" do
@@ -160,12 +160,12 @@ RSpec.describe MissingLinkFinder do
 
       result = MissingLinkFinder.new(redirection).run
 
-      expect(result).to eq({status: :not_found})
+      expect(result).to eq({ status: :not_found })
     end
 
     it "returns :error status for websites that errored but are probably online" do
       openssl_error = OpenSSL::SSL::SSLError.new(
-        'SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)'
+        "SSL_connect returned=1 errno=0 state=error: certificate verify failed (certificate has expired)"
       )
       stub_request(:get, redirection.url).to_raise(openssl_error)
 
@@ -173,7 +173,7 @@ RSpec.describe MissingLinkFinder do
 
       expect(result).to eq({
         status: :error,
-        error: "#{openssl_error.class}: #{openssl_error.message}"
+        error: "#{openssl_error.class}: #{openssl_error.message}",
       })
     end
 
@@ -189,24 +189,33 @@ RSpec.describe MissingLinkFinder do
 
         result = MissingLinkFinder.new(redirection).run
 
-        expect(result).to eq({status: :good})
+        expect(result).to eq({ status: :good })
       end
 
-      %w[next prev].each do |type|
-        it "returns a bad status when the page has only #{type} link" do
-          link = {"next" => next_link, "prev" => prev_link}[type]
-          body = <<~BODY
-            <svg>
-              <a xlink:href="#{link}">#{type}</a>
-            </svg>
-          BODY
-          stub_request(:get, redirection.url).to_return(body: body)
+      it "returns a bad status when the page has only a 'next' link" do
+        body = <<~BODY
+          <svg>
+            <a xlink:href="#{next_link}">next</a>
+          </svg>
+        BODY
+        stub_request(:get, redirection.url).to_return(body: body)
 
-          result = MissingLinkFinder.new(redirection).run
+        result = MissingLinkFinder.new(redirection).run
 
-          missing = %w[next prev] - [type]
-          expect(result).to eq(status: :missing_links, missing: missing)
-        end
+        expect(result).to eq(status: :missing_links, missing: ["prev"])
+      end
+
+      it "returns a bad status when the page has only a 'previous' link" do
+        body = <<~BODY
+          <svg>
+            <a xlink:href="#{prev_link}">prev</a>
+          </svg>
+        BODY
+        stub_request(:get, redirection.url).to_return(body: body)
+
+        result = MissingLinkFinder.new(redirection).run
+
+        expect(result).to eq(status: :missing_links, missing: ["next"])
       end
     end
   end
