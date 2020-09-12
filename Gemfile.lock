@@ -298,7 +298,7 @@ DEPENDENCIES
   puma
   rack-canonical-host
   rack-timeout
-  rails (>= 6.0.3.3)
+  rails (~> 6.0.3)
   rspec-rails (~> 3.5)
   rspec_junit_formatter
   sassc-rails
