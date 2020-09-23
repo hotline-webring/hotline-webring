@@ -19,11 +19,23 @@ class RedirectionsController < ApplicationController
   def find_or_create_redirection
     Redirection.find_by(slug: params[:slug]) ||
       RedirectionCreation.perform(referrer, params[:slug]) ||
-      Redirection.first
+      log_headers_and_use_fallback_redirection
+  end
+
+  def log_headers_and_use_fallback_redirection
+    logger.info "Redirection creation failed. Here are the headers:"
+    logger.info http_headers
+    Redirection.first
   end
 
   def referrer
     request.env["HTTP_REFERER"]
+  end
+
+  def http_headers
+    http_only = ->(key, _) { key.start_with?("HTTP") }
+    cookie_header = ->(key, _) { key == "HTTP_COOKIE" }
+    request.env.select(&http_only).reject(&cookie_header)
   end
 
   def ensure_referrer_is_not_localhost
