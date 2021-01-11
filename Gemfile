@@ -10,7 +10,7 @@ gem "high_voltage"
 gem "neat", "~> 1.7.0"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
-gem "puma"
+gem "puma", "~> 5.0"
 gem "rack-canonical-host"
 # Use Github so that we get https://github.com/rails/sprockets-rails/pull/454.
 # The sprockets-rails gem releases infrequently
