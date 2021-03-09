@@ -2,17 +2,15 @@ require "rails_helper"
 
 RSpec.describe RedirectionCreation do
   context "when the referrer is present" do
-    it "creates a redirection with the referrer hostname" do
+    it "creates a redirection with the full referrer" do
       referrer_hostname = "https://cool.example.com"
+      full_referrer = "#{referrer_hostname}/something/else"
       slug = "cool-slug"
 
-      RedirectionCreation.perform(
-        "#{referrer_hostname}/something",
-        slug,
-      )
+      RedirectionCreation.perform(full_referrer, slug)
 
       redirection = Redirection.find_by!(slug: slug)
-      expect(redirection.url).to eq referrer_hostname
+      expect(redirection.url).to eq full_referrer
     end
 
     it "stores the original unchanged referrer" do
@@ -32,7 +30,7 @@ RSpec.describe RedirectionCreation do
 
       redirection = RedirectionCreation.perform(
         "http://example.com",
-        "slug",
+        "slug"
       )
 
       expect(redirection.previous).to eq first_redirection

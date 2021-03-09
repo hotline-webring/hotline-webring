@@ -13,7 +13,7 @@ class RedirectionCreation
 
     if referrer.present?
       redirection.original_url = referrer
-      redirection.url = referrer_hostname
+      redirection.url = referrer
       Ring.new(redirection).link
       redirection
     end
@@ -22,9 +22,4 @@ class RedirectionCreation
   private
 
   attr_reader :referrer, :slug
-
-  def referrer_hostname
-    referrer_uri = URI.parse(referrer)
-    "#{referrer_uri.scheme}://#{referrer_uri.hostname}"
-  end
 end
