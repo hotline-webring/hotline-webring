@@ -23,8 +23,17 @@ class RedirectionsController < ApplicationController
   end
 
   def log_headers_and_use_fallback_redirection
-    logger.info "Redirection creation failed. Here are the headers:"
-    logger.info http_headers
+    tagged_log "Redirection creation failed."
+    if request.env["HTTP_UPGRADE_INSECURE_REQUESTS"].present?
+      tagged_log "It likely failed because the links use HTTP instead of HTTPS"
+    end
+    if referrer.blank?
+      tagged_log "Referrer is BLANK!"
+    else
+      tagged_log "Referrer: #{referrer}"
+    end
+    tagged_log "Here are all of the HTTP headers:"
+    tagged_log http_headers
     Redirection.first
   end
 
@@ -36,6 +45,10 @@ class RedirectionsController < ApplicationController
     http_only = ->(key, _) { key.start_with?("HTTP") }
     cookie_header = ->(key, _) { key == "HTTP_COOKIE" }
     request.env.select(&http_only).reject(&cookie_header)
+  end
+
+  def tagged_log(message)
+    logger.info "[#{params[:slug]}] #{message}"
   end
 
   def ensure_referrer_is_not_localhost
