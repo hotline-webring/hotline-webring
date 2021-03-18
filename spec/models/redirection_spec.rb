@@ -2,12 +2,16 @@ require "rails_helper"
 
 RSpec.describe Redirection do
   describe "associations" do
-    it { should belong_to(:next).
-                class_name("Redirection").
-                optional(true) }
-    it { should have_one(:previous).
-                class_name("Redirection").
-                with_foreign_key("next_id") }
+    it {
+      should belong_to(:next).
+               class_name("Redirection").
+               optional(true)
+    }
+    it {
+      should have_one(:previous).
+               class_name("Redirection").
+               with_foreign_key("next_id")
+    }
   end
 
   describe "validations" do
@@ -39,6 +43,20 @@ RSpec.describe Redirection do
       old_slug = "old"
       old_url = "http://www.foo.com"
       new_url = "https://www.foo.com"
+      RedirectionCreation.perform(old_url, old_slug)
+
+      redirection = Redirection.new(url: new_url)
+      redirection.validate
+
+      expect(redirection.errors[:url]).to include(
+        "is already taken by #{old_slug}"
+      )
+    end
+
+    it "ignores trailing slash when comparing URLs for uniqueness" do
+      old_slug = "old"
+      old_url = "http://www.foo.com"
+      new_url = "https://www.foo.com/"
       RedirectionCreation.perform(old_url, old_slug)
 
       redirection = Redirection.new(url: new_url)
@@ -105,7 +123,7 @@ RSpec.describe Redirection do
       redirection = create(
         :redirection,
         created_at: DateTime.new(1999, 2),
-        url: "http://example.com"
+        url: "http://example.com",
       )
       id = "tag:hotlinewebring.club,1999-02-01T00:00:00Z:http://example.com"
 

@@ -12,6 +12,7 @@ class RedirectionCreation
     redirection = Redirection.new(slug: slug)
 
     if referrer.present?
+      Rails.logger.info "Creating redirection from referrer: #{referrer}"
       redirection.original_url = referrer
       redirection.url = referrer
       Ring.new(redirection).link
