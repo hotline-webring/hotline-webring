@@ -5,10 +5,6 @@ on:
     types: [closed]
     branches:
       - main
-# `types: [closed]` above means that this step runs even when a PR is
-# closed without merging.
-# This `if` statement ensures we only run this step when the PR is merged.
-if: ${{ github.event.pull_request.merged == true }}
 
 jobs:
   heroku-deploy:
@@ -19,6 +15,12 @@ jobs:
 
       - name: Deploy to Heroku staging
         uses: akhileshns/heroku-deploy@v3.12.12
+
+        # `types: [closed]` above means that this step runs even when a PR is
+        # closed without merging.
+        # This `if` statement ensures we only run this step when the PR is merged.
+        if: ${{ github.event.pull_request.merged == true }}
+
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_STAGING_APP_NAME }}
@@ -27,7 +29,7 @@ jobs:
       - name: Deploy to Heroku production
         uses: akhileshns/heroku-deploy@v3.12.12
         # Only run for PRs that merge to the `main` branch
-        if: ${{ env.GITHUB_BASE_REF == 'main' }}
+        if: ${{ env.GITHUB_BASE_REF == 'main' && github.event.pull_request.merged == true }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_PRODUCTION_APP_NAME }}
