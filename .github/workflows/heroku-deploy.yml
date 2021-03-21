@@ -13,21 +13,6 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Print environment variables exposed by GitHub
-        run: |
-
-          echo "GITHUB_ACTOR=$GITHUB_ACTOR"
-          echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
-          echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
-          echo "GITHUB_BASE_REF=$GITHUB_BASE_REF"
-          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
-          echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
-          echo "GITHUB_RUN_NUMBER=$GITHUB_RUN_NUMBER"
-          echo "GITHUB_WORKFLOW=$GITHUB_WORKFLOW"
-          echo "GITHUB_ACTION=$GITHUB_ACTION"
-
       - name: Deploy to Heroku staging
         uses: akhileshns/heroku-deploy@v3.12.12
 
@@ -44,7 +29,7 @@ jobs:
       - name: Deploy to Heroku production
         uses: akhileshns/heroku-deploy@v3.12.12
         # Only run for PRs that merge to the `main` branch
-        if: ${{ env.GITHUB_BASE_REF == 'main' && github.event.pull_request.merged == true }}
+        if: ${{ github.event.pull_request.base.ref == 'main' && github.event.pull_request.merged == true }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_PRODUCTION_APP_NAME }}
