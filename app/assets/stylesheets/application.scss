@@ -1,10 +1,9 @@
 @charset "utf-8";
 
 @import "normalize-rails";
-@import "bourbon";
-@import "base/grid-settings";
-@import "neat";
-@import "base/base";
-@import "refills/flashes";
-@import "landing-page";
-@import "mobile";
+
+@import "variables";
+
+@import "pages";
+@import "wide-screens";
+@import "dirty-hacks";

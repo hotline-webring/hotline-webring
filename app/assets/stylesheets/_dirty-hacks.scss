@@ -1,0 +1,20 @@
+// Responsive iframe
+// https://www.w3schools.com/howto/howto_css_responsive_iframes.asp
+
+.video-container {
+  margin-top: $medium-spacing;
+  overflow: hidden;
+  padding-top: 56.25%; // 16:9 Aspect Ratio
+  position: relative;
+  width: 100%;
+}
+
+iframe {
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}

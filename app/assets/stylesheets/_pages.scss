@@ -1,0 +1,79 @@
+body {
+  align-items: center;
+  background-color: $hotline-bling-pink;
+  color: $dark-gray;
+  display: flex;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  flex-direction: column;
+  line-height: 1.5;
+  margin: $base-spacing;
+}
+
+header {
+  a {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+h2,
+h3 {
+  color: white;
+  font-style: italic;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+main {
+  max-width: $max-width;
+}
+
+a {
+  color: black;
+}
+
+table {
+  border-collapse: collapse;
+  font-feature-settings: "kern", "liga", "tnum";
+  margin: $small-spacing 0;
+  table-layout: fixed;
+  width: 100%;
+}
+
+th {
+  border-bottom: 1px solid darken($dark-pink, 10%);
+  font-weight: 600;
+  padding: $small-spacing 0;
+  text-align: left;
+}
+
+td {
+  border-bottom: 1px solid $dark-pink;
+  padding: $small-spacing 0;
+}
+
+tr,
+td,
+th {
+  vertical-align: middle;
+}
+
+ol,
+ul {
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}

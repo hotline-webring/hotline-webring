@@ -1,0 +1,10 @@
+$width-target-including-margin: $max-width + $base-spacing * 2;
+@media screen and (min-width: $width-target-including-margin) {
+  main {
+    margin: $base-spacing auto;
+  }
+
+  h2 {
+    font-size: 5em;
+  }
+}
