@@ -10,7 +10,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :test
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
-  config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
   config.action_mailer.default_url_options = { host: "www.example.com" }
   config.active_job.queue_adapter = :inline
   config.cache_store = :null_store

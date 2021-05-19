@@ -15,7 +15,7 @@ gem "rack-canonical-host"
 # (https://rubygems.org/gems/sprockets-rails) so we can't use a released
 # version.
 gem "sprockets-rails", github: "rails/sprockets-rails", ref: "b0b380e"
-gem "rails", "~> 6.0.3"
+gem "rails", "~> 6.1.0"
 gem "sassc-rails"
 gem "title"
 
@@ -30,7 +30,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_bot_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.5"
+  gem "rspec-rails", "~> 5.0"
 end
 
 group :test do
