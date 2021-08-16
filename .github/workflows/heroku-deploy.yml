@@ -25,6 +25,8 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_STAGING_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          dontuseforce: true
+          dontautocreate: true
 
       - name: Deploy to Heroku production
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -34,3 +36,5 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_PRODUCTION_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          dontuseforce: true
+          dontautocreate: true
