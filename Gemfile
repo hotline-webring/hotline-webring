@@ -10,11 +10,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma", "~> 5.3"
 gem "rack-canonical-host"
-# Use Github so that we get https://github.com/rails/sprockets-rails/pull/454.
-# The sprockets-rails gem releases infrequently
-# (https://rubygems.org/gems/sprockets-rails) so we can't use a released
-# version.
-gem "sprockets-rails", github: "rails/sprockets-rails", ref: "b0b380e"
+gem "sprockets-rails", "~> 3.2.2"
 gem "rails", "~> 6.1.0"
 gem "sassc-rails"
 gem "title"

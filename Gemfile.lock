@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/rails/sprockets-rails.git
-  revision: b0b380ef956e66572793dec32c4c67db09664449
-  ref: b0b380e
-  specs:
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -239,6 +229,10 @@ GEM
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
+    sprockets-rails (3.2.2)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
     thor (1.1.0)
     tilt (2.0.9)
     timecop (0.9.1)
@@ -295,7 +289,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
-  sprockets-rails!
+  sprockets-rails (~> 3.2.2)
   timecop
   title
   web-console
