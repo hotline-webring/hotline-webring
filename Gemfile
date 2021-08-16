@@ -12,7 +12,6 @@ gem "rack-canonical-host"
 gem "sprockets-rails", "~> 3.2.2"
 gem "rails", "~> 6.1.0"
 gem "sassc-rails"
-gem "title"
 
 group :development do
   gem "spring"
