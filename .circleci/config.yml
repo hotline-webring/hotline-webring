@@ -5,16 +5,16 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-    - image: circleci/ruby:2.7.2-node
-      environment:
-        RAILS_ENV: test
-        PGHOST: localhost
-        PGUSER: hotlinewebring
-    - image: circleci/postgres:10.6
-      environment:
-        POSTGRES_USER: hotlinewebring
-        POSTGRES_DB: hotlinewebring_test
-        POSTGRES_PASSWORD: ""
+      - image: circleci/ruby:2.7.4-node
+        environment:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: hotlinewebring
+      - image: circleci/postgres:10.6
+        environment:
+          POSTGRES_USER: hotlinewebring
+          POSTGRES_DB: hotlinewebring_test
+          POSTGRES_PASSWORD: ""
 
     steps:
       - checkout
@@ -28,7 +28,7 @@ jobs:
       # Restore the dependency cache
       - restore_cache:
           keys:
-          - hotlinewebring-gemfile-{{ checksum "Gemfile.lock" }}
+            - hotlinewebring-gemfile-{{ checksum "Gemfile.lock" }}
 
       - run:
           name: Bundle Install
