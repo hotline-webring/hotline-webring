@@ -9,6 +9,11 @@ on:
 jobs:
   heroku-deploy:
     runs-on: ubuntu-latest
+    env:
+      # If we don't set this, the calls to `heroku` in
+      # `akhileshns/heroku-deploy` try to open up the browser to log in, and
+      # then fail.
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
