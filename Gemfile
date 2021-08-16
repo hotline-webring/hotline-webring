@@ -4,7 +4,6 @@ ruby "2.7.2"
 
 gem "autoprefixer-rails"
 gem "capybara-mechanize"
-gem "flutie"
 gem "high_voltage"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
