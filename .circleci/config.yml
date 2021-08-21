@@ -10,7 +10,7 @@ jobs:
           RAILS_ENV: test
           PGHOST: localhost
           PGUSER: hotlinewebring
-      - image: circleci/postgres:10.6
+      - image: circleci/postgres:13.3-ram
         environment:
           POSTGRES_USER: hotlinewebring
           POSTGRES_DB: hotlinewebring_test
