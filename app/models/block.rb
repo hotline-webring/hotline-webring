@@ -7,10 +7,11 @@ class Block
     if possible_match.nil?
       false
     else
-      host = URI.parse(possible_match).host
+      uri = URI.parse(possible_match)
+      host_with_path = "#{uri.host}#{uri.path}"
 
-      BlockedReferrer.where("host_with_path LIKE ?", "#{host}%").
-        or(BlockedReferrer.where("'www.'||host_with_path LIKE ?", "#{host}%")).
+      BlockedReferrer.where("starts_with(lower(?), lower(host_with_path))", host_with_path).
+        or(BlockedReferrer.where("starts_with(lower(?), lower('www.'||host_with_path))", host_with_path)).
         any?
     end
   end
