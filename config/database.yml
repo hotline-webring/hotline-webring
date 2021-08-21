@@ -11,6 +11,7 @@ development: &default
 test:
   <<: *default
   database: hotline-webring_test
+  password: password
 
 production: &deploy
   encoding: utf8
