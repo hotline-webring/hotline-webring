@@ -26,9 +26,8 @@ class Block
   end
 
   def paths_match?(uri, blocked_uri)
-    blocked_path = blocked_uri.path
-    blocked_path == "" ||
-      uri.path == blocked_path ||
-      Pathname.new(uri.path).ascend.include?(Pathname.new(blocked_path))
+    blocked_uri.path == "" ||
+      uri.path == blocked_uri.path ||
+      Pathname.new(uri.path).ascend.include?(Pathname.new(blocked_uri.path))
   end
 end
