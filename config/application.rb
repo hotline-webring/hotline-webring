@@ -6,8 +6,9 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
-require "sprockets/railtie"
+
 Bundler.require(*Rails.groups)
+
 module HotlineWebring
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails

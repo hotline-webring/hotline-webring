@@ -284,7 +284,6 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
-  sprockets-rails (~> 3.2.2)
   timecop
   web-console
   webmock

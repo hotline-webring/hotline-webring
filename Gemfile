@@ -9,7 +9,6 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma", "~> 5.5"
 gem "rack-canonical-host"
-gem "sprockets-rails", "~> 3.2.2"
 gem "rails", "~> 6.1.0"
 gem "sassc-rails"
 
