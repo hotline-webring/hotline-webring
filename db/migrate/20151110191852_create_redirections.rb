@@ -1,4 +1,4 @@
-class CreateRedirections < ActiveRecord::Migration
+class CreateRedirections < ActiveRecord::Migration[5.2]
   def change
     create_table :redirections do |t|
       t.timestamps null: false

@@ -1,4 +1,4 @@
-class RemoveForeignKey < ActiveRecord::Migration
+class RemoveForeignKey < ActiveRecord::Migration[5.2]
   def up
     remove_foreign_key :redirections, column: :next_id
   end
