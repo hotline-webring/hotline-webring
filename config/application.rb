@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
 require "rails"
 require "active_model/railtie"
@@ -10,7 +10,7 @@ Bundler.require(*Rails.groups)
 
 module HotlineWebring
   class Application < Rails::Application
-    config.load_defaults 6.1
+    config.load_defaults 7.0
 
     config.i18n.enforce_available_locales = true
     config.assets.quiet = true

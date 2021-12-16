@@ -9,7 +9,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma", "~> 5.5"
 gem "rack-canonical-host"
-gem "rails", "~> 6.1.0"
+gem "rails", "~> 7.0.0"
 gem "sassc-rails"
 
 group :development do
