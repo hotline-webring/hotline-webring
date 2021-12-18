@@ -2,8 +2,6 @@ Rails.application.configure do
   config.cache_classes = false
   config.eager_load = false
   config.consider_all_requests_local       = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.delivery_method = :test
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
@@ -25,8 +23,6 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
   config.i18n.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: "localhost:3000" }
-  config.action_mailer.perform_caching = false
   config.assets.quiet = true
   config.active_record.verbose_query_logs = true
 end

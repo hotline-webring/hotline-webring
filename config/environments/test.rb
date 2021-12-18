@@ -7,12 +7,8 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
-  config.action_mailer.delivery_method = :test
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
   config.i18n.raise_on_missing_translations = true
-  config.action_mailer.default_url_options = { host: "www.example.com" }
-  config.active_job.queue_adapter = :inline
   config.cache_store = :null_store
-  config.action_mailer.perform_caching = false
 end
