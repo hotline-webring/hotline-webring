@@ -8,7 +8,7 @@ Rails.application.configure do
   config.action_dispatch.show_exceptions = false
   config.action_controller.allow_forgery_protection = false
   config.active_support.test_order = :random
-  config.active_support.deprecation = :stderr
+  config.active_support.deprecation = :raise
   config.i18n.raise_on_missing_translations = true
   config.cache_store = :null_store
 end

@@ -17,7 +17,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  config.active_support.deprecation = :log
+  config.active_support.deprecation = :raise
   config.active_record.migration_error = :page_load
   config.assets.debug = true
   config.assets.digest = true
