@@ -5,13 +5,13 @@ class RedirectionsController < ApplicationController
   def next
     redirection = find_or_create_redirection
 
-    redirect_to redirection.next_url
+    redirect_to redirection.next_url, allow_other_host: true
   end
 
   def previous
     redirection = find_or_create_redirection
 
-    redirect_to redirection.previous_url
+    redirect_to redirection.previous_url, allow_other_host: true
   end
 
   private
@@ -59,7 +59,7 @@ class RedirectionsController < ApplicationController
 
   def ensure_referrer_is_not_blocked
     if Block.new(referrer).blocked?
-      redirect_to Redirection.first.url
+      redirect_to Redirection.first.url, allow_other_host: true
     end
   end
 end
