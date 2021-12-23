@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.7.4"
+ruby "3.0.3"
 
 gem "autoprefixer-rails"
 gem "capybara-mechanize"
