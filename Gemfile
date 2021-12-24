@@ -13,8 +13,6 @@ gem "rails", "~> 7.0.0"
 gem "sassc-rails"
 
 group :development do
-  gem "spring"
-  gem "spring-commands-rspec"
   gem "web-console"
 end
 
