@@ -1,0 +1,28 @@
+<div class="header-row">
+  <div class="redirection">
+    <div>Slug</div>
+    <div class="url">URL</div>
+    <div class="original-url">Original URL</div>
+    <div class="block-button"></div>
+  </div>
+</div>
+
+<% @redirections.each do |redirection| %>
+  <div class="redirection" data-id="<%= redirection.id %>">
+    <div>
+      <label>Slug</label>
+      <span class="content"><%= redirection.slug %></span>
+    </div>
+    <div class="url">
+      <label>URL</label>
+      <span class="content"><%= redirection.url %></span>
+    </div>
+    <div class="original-url">
+      <label>Original URL</label>
+      <%= redirection.original_url %>
+    </div>
+    <div class="block-button">
+      <%= button_to "Block and unlink", admin_redirection_blocks_path(redirection) %>
+    </div>
+  </div>
+<% end %>

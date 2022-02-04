@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <meta name="viewport" content="initial-scale=1" />
+  <title>Hotline Webring Admin</title>
+  <%= stylesheet_link_tag :admin, media: "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <header>
+    <h1>Admin</h1>
+  </header>
+
+  <main>
+    <%= render "flashes" -%>
+    <%= yield %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,26 @@
+.flashes {
+  .flash-alert,
+  .flash-error,
+  .flash-notice,
+  .flash-success {
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+
+  .flash-alert {
+    background: $pastel-yellow;
+  }
+
+  .flash-error {
+    background: $pastel-red;
+  }
+
+  .flash-notice {
+    background: $pastel-blue;
+  }
+
+  .flash-success {
+    background: $pastel-green;
+  }
+}
