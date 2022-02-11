@@ -149,7 +149,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.6)
-    puma (5.5.1)
+    puma (5.6.2)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
@@ -272,7 +272,7 @@ DEPENDENCIES
   normalize-rails (~> 3.0.0)
   pg
   pry-rails
-  puma (~> 5.5)
+  puma (~> 5.6)
   rack-canonical-host
   rack-timeout
   rails (~> 7.0.0)
