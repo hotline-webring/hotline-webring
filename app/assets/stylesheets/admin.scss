@@ -29,6 +29,7 @@ main {
     margin-bottom: 1rem;
     display: grid;
     grid-template-columns: 1fr 3fr;
+    column-gap: 1em;
   }
 }
 
@@ -42,21 +43,33 @@ label {
   font-weight: bold;
 }
 
-.content {
+button {
+  -webkit-font-smoothing: antialiased;
+  border-radius: 4px;
+  border: 0;
+  padding: 0.5em 0.75em;
+  transition: all 0.3s ease-in;
+  line-height: 1;
+  width: 8rem;
 }
 
 .block-button button {
-  -webkit-font-smoothing: antialiased;
   background-color: $dark-pink;
-  border-radius: 4px;
-  border: 0;
   color: white;
-  padding: 0.5em 0.75em;
-  transition: background-color 0.3s ease-in;
-  line-height: 1;
 
   &:hover {
     background-color: lighten($dark-pink, 10%);
+  }
+}
+
+.unlink-button button {
+  background-color: white;
+  border: black 2px solid;
+  color: black;
+
+  &:hover {
+    background-color: $hotline-bling-pink;
+    border-color: $hotline-bling-pink;
   }
 }
 
@@ -77,20 +90,13 @@ label {
     justify-items: start;
     padding: 1rem 0;
 
-    // Automatically create columns that are 1fr each
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 3fr 3fr 1fr 1fr;
+    column-gap: 1em;
 
     > div {
       display: block;
       margin-bottom: 0;
     }
-  }
-
-  .url,
-  .original-url {
-    // Ensure we have some breathing room if the URLs are long
-    padding-right: 1em;
   }
 
   label {
