@@ -5,7 +5,7 @@ jobs:
     parallelism: 1
     shell: /bin/bash --login
     docker:
-      - image: cimg/ruby:3.1.0-node
+      - image: cimg/ruby:3.1.1-node
         environment:
           RAILS_ENV: test
           PGHOST: localhost
