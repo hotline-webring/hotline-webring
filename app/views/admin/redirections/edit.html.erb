@@ -1,0 +1,8 @@
+<h1>Editing <code><%= @redirection.slug %></code></h1>
+
+<p>Original URL: <%= @redirection.original_url %></p>
+
+<%= simple_form_for [:admin, @redirection] do |form| %>
+  <%= form.input :url, label: "URL" %>
+  <%= form.submit %>
+<% end %>

@@ -39,18 +39,20 @@ main {
   word-break: break-all;
 }
 
-label {
-  font-weight: bold;
-}
+.redirection {
+  label {
+    font-weight: bold;
+  }
 
-button {
-  -webkit-font-smoothing: antialiased;
-  border-radius: 4px;
-  border: 0;
-  padding: 0.5em 0.75em;
-  transition: all 0.3s ease-in;
-  line-height: 1;
-  width: 8rem;
+  button {
+    -webkit-font-smoothing: antialiased;
+    border-radius: 4px;
+    border: 0;
+    padding: 0.5em 0.75em;
+    transition: all 0.3s ease-in;
+    line-height: 1;
+    width: 8rem;
+  }
 }
 
 .block-button button {
@@ -80,6 +82,34 @@ button {
   display: none;
 }
 
+.simple_form {
+  .input {
+    margin-bottom: 1em;
+  }
+
+  label {
+    display: block;
+  }
+
+  .error {
+    display: block;
+    color: $dark-red;
+  }
+
+  input[type=submit] {
+    padding: 1em;
+    border-radius: 2px;
+    border: none;
+    background: $hotline-bling-pink;
+    color: black;
+
+    &:hover {
+      background-color: lighten($dark-pink, 10%);
+      color: white;
+    }
+  }
+}
+
 // Must be at the very bottom
 @media screen and (min-width: 800px) {
   // Wider screens (not a phone)
@@ -90,17 +120,22 @@ button {
     justify-items: start;
     padding: 1rem 0;
 
-    grid-template-columns: 1fr 3fr 3fr 1fr 1fr;
+    // Everything is `1fr` except for the 2 URL columns, which are wider
+    grid-template-columns:
+    1fr // slug
+    3fr // URL
+    3fr // Original URL
+    repeat(3, 1fr); // Various buttons
     column-gap: 1em;
 
     > div {
       display: block;
       margin-bottom: 0;
     }
-  }
 
-  label {
-    display: none;
+    label {
+      display: none;
+    }
   }
 
   .header-row {

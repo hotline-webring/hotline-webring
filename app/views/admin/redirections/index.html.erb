@@ -3,6 +3,7 @@
     <div>Slug</div>
     <div class="url">URL</div>
     <div class="original-url">Original URL</div>
+    <div class="edit"></div>
     <div class="block-button"></div>
     <div class="unlink-button"></div>
   </div>
@@ -21,6 +22,9 @@
     <div class="original-url">
       <label>Original URL</label>
       <%= redirection.original_url %>
+    </div>
+    <div class="edit">
+      <%= link_to "Edit", edit_admin_redirection_path(redirection) %>
     </div>
     <div class="block-button">
       <%= button_to "Block and unlink", admin_redirection_blocks_path(redirection) %>

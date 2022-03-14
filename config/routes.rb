@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :redirections, only: [:index] do
+    resources :redirections, only: [:index, :edit, :update] do
       resources :blocks, only: [:create]
       resources :unlinks, only: [:create]
     end

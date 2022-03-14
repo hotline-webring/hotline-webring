@@ -11,6 +11,7 @@ gem "puma", "~> 5.6"
 gem "rack-canonical-host"
 gem "rails", "~> 7.0.0"
 gem "sassc-rails"
+gem "simple_form"
 
 group :development do
   gem "web-console"
