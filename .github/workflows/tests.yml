@@ -1,0 +1,43 @@
+name: CI
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: hotline-webring_test
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Map tcp port 5432 on service container to the host
+          # Now Rails can access it at localhost:5432 instead of postgres:5432
+          # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+          - 5432:5432
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # runs 'bundle install' and caches installed gems automatically
+          bundler-cache: true
+
+      - run: cp .sample.env .env
+      - name: Setup
+        run: bin/setup
+        # Only create test DB
+        env:
+          RAILS_ENV: test
+      - name: Run tests
+        run: bundle exec rspec
