@@ -58,6 +58,12 @@ class RedirectionsController < ApplicationController
   end
 
   def ensure_referrer_is_not_blocked
+    if Redirection.exists?(slug: params[:slug])
+      # If the redirection already exists, let it through. We just want to
+      # prevent further redirections from being created.
+      return
+    end
+
     if Block.new(referrer).blocked?
       redirect_to Redirection.first.url, allow_other_host: true
     end

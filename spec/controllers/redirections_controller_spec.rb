@@ -65,16 +65,13 @@ RSpec.describe RedirectionsController do
       end
 
       context "when there is no referrer" do
-        it "redirects to the first redirection's next/previous URL" do
+        it "redirects to the first redirection's #{action} URL" do
           new_slug = "new"
 
           get action, params: { slug: new_slug }
 
-          if action == :next
-            expect(response).to redirect_to Redirection.first.next_url
-          else
-            expect(response).to redirect_to Redirection.first.previous_url
-          end
+          url = next_or_previous(action, Redirection.first)
+          expect(response).to redirect_to url
         end
       end
 
@@ -90,6 +87,27 @@ RSpec.describe RedirectionsController do
           expect(Redirection.where(slug: slug)).to be_empty
           expect(response).to redirect_to Redirection.first.url
         end
+
+        # `hotlinewebring.club` itself is blocked (so you can't add it to the
+        # webring again) but it is already in the webring, so it should work
+        it "goes to the #{action} URL if it already exists" do
+          redirection = create(:redirection)
+
+          # If these URLs match `Redirection.first.url`, then we can't test that
+          # it's doing something other than going to `Redirection.first`, since
+          # they're indistinguishable. So add another site to the 'ring and
+          # assert on our precondition.
+          create(:redirection)
+          expect(redirection.next_url).not_to eq Redirection.first.url
+          expect(redirection.previous_url).not_to eq Redirection.first.url
+
+          create(:blocked_referrer, host_with_path: URI.parse(redirection.url).host)
+          request.env["HTTP_REFERER"] = redirection.url
+
+          get action, params: { slug: redirection.slug }
+
+          expect(response).to redirect_to next_or_previous(action, redirection)
+        end
       end
     end
   end
@@ -102,6 +120,14 @@ RSpec.describe RedirectionsController do
       get :previous, params: { slug: gabe.slug }
 
       expect(response).to redirect_to(previous.url)
+    end
+  end
+
+  def next_or_previous(action, redirection)
+    if action == :next
+      redirection.next_url
+    else
+      redirection.previous_url
     end
   end
 end
