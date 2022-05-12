@@ -15,6 +15,7 @@ RSpec.describe RedirectionsController do
   [:next, :previous].each do |action|
     describe "GET #{action}" do
       it "creates a Redirection if it doesn't exist" do
+        skip "to try and figure out where so many false sites are coming from"
         new_slug = "new"
         url = "http://example.com"
         first_redirection = Redirection.first
@@ -29,6 +30,7 @@ RSpec.describe RedirectionsController do
       end
 
       it "does not allow creating the exact same URL twice" do
+        skip "to try and figure out where so many false sites are coming from"
         url = "https://unique-website.com"
         new_slug = "new"
         old_slug = "old"
@@ -43,6 +45,7 @@ RSpec.describe RedirectionsController do
       end
 
       it "considers similar URLs to be the same" do
+        skip "to try and figure out where so many false sites are coming from"
         old_url = "https://www.cool.com"
         old_slug = "old"
         new_url = "https://cool.com"

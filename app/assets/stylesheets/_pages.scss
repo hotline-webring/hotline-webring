@@ -77,3 +77,13 @@ ul {
   margin: 0;
   padding: 0;
 }
+
+.annoucement {
+  background-color: $dark-pink;
+  color: white;
+  padding: 1em;
+
+  a {
+    color: currentcolor;
+  }
+}

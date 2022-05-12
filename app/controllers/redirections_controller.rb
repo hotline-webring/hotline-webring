@@ -18,7 +18,8 @@ class RedirectionsController < ApplicationController
 
   def find_or_create_redirection
     Redirection.find_by(slug: params[:slug]) ||
-      RedirectionCreation.perform(referrer, params[:slug]) ||
+      # Creation paused for now as we sort out weirdness
+      # RedirectionCreation.perform(referrer, params[:slug]) ||
       log_headers_and_use_fallback_redirection
   end
 
