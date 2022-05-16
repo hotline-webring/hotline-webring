@@ -51,6 +51,19 @@ To block a subdomain:
 
     BlockedReferrer.create!(host_with_path: "evil.good.com")
 
+## Prevent new redirections from being created
+
+This helps when we're experiencing a flood of spam.
+
+To prevent creation, set `DISALLOW_CREATING_NEW_REDIRECTIONS` to anything on
+Heroku:
+
+    production config:set DISALLOW_CREATING_NEW_REDIRECTIONS=1
+
+To allow creating new redirections again, unset the variable:
+
+    production config:unset DISALLOW_CREATING_NEW_REDIRECTIONS
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
