@@ -4,6 +4,7 @@ ruby "3.1.1"
 
 gem "autoprefixer-rails"
 gem "capybara-mechanize"
+gem "device_detector"
 gem "high_voltage"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"

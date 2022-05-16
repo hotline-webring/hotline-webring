@@ -1,6 +1,7 @@
 class RedirectionsController < ApplicationController
   before_action :ensure_referrer_is_not_localhost
   before_action :ensure_referrer_is_not_blocked
+  before_action :ensure_request_is_not_from_a_bot
 
   def next
     redirection = find_or_create_redirection
@@ -17,10 +18,16 @@ class RedirectionsController < ApplicationController
   private
 
   def find_or_create_redirection
-    Redirection.find_by(slug: params[:slug]) ||
-      create_redirection ||
-      log_headers_and_use_fallback_redirection
-
+    redirection = Redirection.find_by(slug: params[:slug])
+    if redirection
+      redirection
+    else
+      # Always log headers when possibly creating a new Redirection.
+      # This ensures that if something goes wonky, we can look back through the
+      # logs.
+      log_headers
+      create_redirection || use_fallback_redirection
+    end
   end
 
   def create_redirection
@@ -31,11 +38,7 @@ class RedirectionsController < ApplicationController
     end
   end
 
-  def log_headers_and_use_fallback_redirection
-    tagged_log "Redirection creation failed."
-    if request.env["HTTP_UPGRADE_INSECURE_REQUESTS"].present?
-      tagged_log "It likely failed because the links use HTTP instead of HTTPS"
-    end
+  def log_headers
     if referrer.blank?
       tagged_log "Referrer is BLANK!"
     else
@@ -43,6 +46,13 @@ class RedirectionsController < ApplicationController
     end
     tagged_log "Here are all of the HTTP headers:"
     tagged_log http_headers
+  end
+
+  def use_fallback_redirection
+    tagged_log "Redirection creation failed."
+    if request.env["HTTP_UPGRADE_INSECURE_REQUESTS"].present?
+      tagged_log "It likely failed because the links use HTTP instead of HTTPS"
+    end
     Redirection.first
   end
 
@@ -74,6 +84,15 @@ class RedirectionsController < ApplicationController
     end
 
     if Block.new(referrer).blocked?
+      redirect_to Redirection.first.url, allow_other_host: true
+    end
+  end
+
+  def ensure_request_is_not_from_a_bot
+    user_agent = request.env["HTTP_USER_AGENT"]
+    if DeviceDetector.new(user_agent).bot?
+      tagged_log "Detected a bot with user agent: #{user_agent}"
+      log_headers
       redirect_to Redirection.first.url, allow_other_host: true
     end
   end

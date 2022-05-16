@@ -91,6 +91,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    device_detector (1.0.7)
     diff-lcs (1.4.4)
     digest (3.1.0)
     docile (1.4.0)
@@ -291,6 +292,7 @@ DEPENDENCIES
   awesome_print
   capybara (~> 3.0)
   capybara-mechanize
+  device_detector
   dotenv-rails
   factory_bot_rails
   high_voltage

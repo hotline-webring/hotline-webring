@@ -109,6 +109,21 @@ RSpec.describe RedirectionsController do
           expect(response).to redirect_to next_or_previous(action, redirection)
         end
       end
+
+      context "when the request comes from a bot" do
+        bot_user_agent = "Mozilla/5.0 (compatible; DataForSeoBot/1.0; +https://dataforseo.com/dataforseo-bot)"
+
+        it "redirects to the first redirection's #{action} URL" do
+          new_slug = "new"
+
+          request.env["HTTP_USER_AGENT"] = bot_user_agent
+          request.env["HTTP_REFERER"] = "http://example.com"
+          get action, params: { slug: new_slug }
+
+          expect(response).to redirect_to Redirection.first.url
+          expect(Redirection.where(slug: new_slug)).to be_empty
+        end
+      end
     end
   end
 
