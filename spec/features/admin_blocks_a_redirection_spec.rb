@@ -19,12 +19,11 @@ RSpec.feature "Admin unlinks a redirection" do
       expect(page).not_to have_text(url)
 
       # Now assert that we can re-add this slug and URL
-      # skipping to try and figure out where so many false sites are coming from
-      # page.driver.header('Referer', url)
-      # visit "/#{slug}/next"
+      page.driver.header('Referer', url)
+      visit "/#{slug}/next"
 
-      # expect(page).to have_text(url)
-      # expect(page).to have_text(slug)
+      expect(page).to have_text(url)
+      expect(page).to have_text(slug)
     end
   end
 
