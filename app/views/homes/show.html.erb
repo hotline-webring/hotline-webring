@@ -43,6 +43,13 @@
     </p>
 
     <h3>How to Join</h3>
+    <% if ENV.fetch("DISALLOW_CREATING_NEW_REDIRECTIONS", false) %>
+      <section class="announcement">
+        <p>
+          <strong>Note</strong>: Automatic joining is disabled for the moment while we sort out some issues. Please complete the steps below and then <%= mail_to "webmaster@hotlinewebring.club", "contact us" %> if you'd like to join.
+        </p>
+      </section>
+    <% end %>
     <p>Here's our easy two-and-a-half-step process:</p>
 
     <ol>
