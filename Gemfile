@@ -10,7 +10,7 @@ gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "puma", "~> 5.6"
 gem "rack-canonical-host"
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.0.3"
 gem "sassc-rails"
 gem "simple_form"
 
