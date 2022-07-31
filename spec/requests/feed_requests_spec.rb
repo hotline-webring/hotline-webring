@@ -15,9 +15,9 @@ RSpec.describe "Feed requests" do
 
       get feed_path
 
-      expect(xml["title"]).to eq("Hotline Webring")
-      expect(xml["updated"]).to eq(redirection.created_at.iso8601)
-      expect(xml["author"]["name"]).to eq("Gabe and Edward")
+      expect(xml.css("feed > title").text).to eq("Hotline Webring")
+      expect(xml.css("feed > updated").text).to eq(redirection.created_at.iso8601)
+      expect(xml.css("feed > author > name").text).to eq("Gabe and Edward")
     end
 
     it "has required entry attributes" do
@@ -29,12 +29,13 @@ RSpec.describe "Feed requests" do
 
       get feed_path
 
-      expect(first_entry["title"]).to eq(title)
-      expect(first_entry["content"]).to eq(content)
-      expect(first_entry["link"]).to eq(redirection.url)
-      expect(first_entry["author"]["name"]).to eq("Gabe and Edward")
-      expect(first_entry["id"]).to eq(id)
-      expect(first_entry["updated"]).to eq(updated)
+      expect(text_of("title")).to eq(title)
+      expect(text_of("content")).to eq(content)
+      expect(text_of("link:not([rel])")).to eq(redirection.original_url)
+      expect(text_of("link[rel=alternate]")).to eq(redirection.url)
+      expect(text_of("author > name")).to eq("Gabe and Edward")
+      expect(text_of("id")).to eq(id)
+      expect(text_of("updated")).to eq(updated)
     end
 
     it "uses created_at instead of updated_at for <updated> value" do
@@ -47,15 +48,19 @@ RSpec.describe "Feed requests" do
 
       get feed_path
 
-      expect(first_entry["updated"]).to eq(created_at.iso8601)
+      expect(text_of("updated")).to eq(created_at.iso8601)
     end
   end
 
   def xml
-    @_xml ||= Hash.from_xml(response.body)["feed"]
+    @_xml ||= Nokogiri::XML(response.body)
   end
 
   def first_entry
-    @_first_entry ||= xml["entry"].first
+    @_first_entry ||= xml.css("feed > entry").first
+  end
+
+  def text_of(selector)
+    first_entry.css(selector).text
   end
 end

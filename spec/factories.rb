@@ -7,7 +7,7 @@ FactoryBot.define do
     sequence(:slug) { |n| "slug#{n}" }
     sequence(:url) { |n| "http://example#{n}.com" }
     next_id { -1 }
-    original_url { url }
+    original_url { "#{url}?original" }
 
     after(:create) do |redirection|
       if redirection.next_id == -1
