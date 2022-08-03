@@ -31,8 +31,8 @@ RSpec.describe "Feed requests" do
 
       expect(text_of("title")).to eq(title)
       expect(text_of("content")).to eq(content)
-      expect(text_of("link:not([rel])")).to eq(redirection.original_url)
-      expect(text_of("link[rel=alternate]")).to eq(redirection.url)
+      expect(entry_css("link:not([rel])")[:href]).to eq(redirection.original_url)
+      expect(entry_css("link[rel=alternate]")[:href]).to eq(redirection.url)
       expect(text_of("author > name")).to eq("Gabe and Edward")
       expect(text_of("id")).to eq(id)
       expect(text_of("updated")).to eq(updated)
@@ -61,6 +61,10 @@ RSpec.describe "Feed requests" do
   end
 
   def text_of(selector)
-    first_entry.css(selector).text
+    entry_css(selector).text
+  end
+
+  def entry_css(selector)
+    first_entry.css(selector).first
   end
 end

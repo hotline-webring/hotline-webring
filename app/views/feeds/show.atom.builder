@@ -11,8 +11,8 @@ atom_feed do |feed|
       entry.title "#{redirection.slug} joined Hotline Webring"
       entry.updated redirection.created_at.iso8601
       entry.content redirection.url
-      entry.link redirection.original_url
-      entry.link redirection.url, rel: "alternate"
+      entry.link href: redirection.original_url
+      entry.link href: redirection.url, rel: "alternate"
       entry.author do |author|
         author.name t("authors")
       end
