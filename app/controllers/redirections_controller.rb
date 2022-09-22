@@ -2,6 +2,7 @@ class RedirectionsController < ApplicationController
   before_action :ensure_referrer_is_not_localhost
   before_action :ensure_referrer_is_not_blocked
   before_action :ensure_request_is_not_from_a_bot
+  before_action :ensure_request_is_not_a_subdomain_of_an_existing_site
 
   def next
     redirection = find_or_create_redirection
@@ -91,9 +92,25 @@ class RedirectionsController < ApplicationController
   def ensure_request_is_not_from_a_bot
     user_agent = request.env["HTTP_USER_AGENT"]
     if DeviceDetector.new(user_agent).bot?
-      tagged_log "Detected a bot with user agent: #{user_agent}"
-      log_headers
+      log_with_headers "Detected a bot with user agent: #{user_agent}"
       redirect_to Redirection.first.url, allow_other_host: true
     end
+  end
+
+  def ensure_request_is_not_a_subdomain_of_an_existing_site
+    if referrer
+      referrer_without_leading_subdomain = URI.parse(referrer).host.
+        sub(/^[^.]+\./, '')
+      match = Redirection.all.find { |r| URI.parse(r.url).host == referrer_without_leading_subdomain }
+      if match
+        log_with_headers "Trying to add a redirection for #{referrer_without_leading_subdomain} which conflicts with existing #{match.url}"
+        redirect_to Redirection.first.url, allow_other_host: true
+      end
+    end
+  end
+
+  def log_with_headers(message)
+    tagged_log message
+    log_headers
   end
 end

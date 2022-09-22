@@ -124,6 +124,18 @@ RSpec.describe RedirectionsController do
           expect(Redirection.where(slug: new_slug)).to be_empty
         end
       end
+
+      context "when the is for a subdomain of an existing site" do
+        it "does not create a new redirection" do
+          expect(Redirection.find_by(url: "http://gabebw.com")).to be_present
+          new_slug = "new"
+
+          request.env["HTTP_REFERER"] = "https://www2.gabebw.com/bruh12"
+          get action, params: { slug: new_slug }
+
+          expect(Redirection.where(slug: new_slug)).to be_empty
+        end
+      end
     end
   end
 
