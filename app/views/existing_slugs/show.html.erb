@@ -1,0 +1,14 @@
+<h1>You might have picked an existing slug</h1>
+
+<div class="uncentered">
+  <p>
+    Hi there, you're trying to join with the slug "<%= @slug %>" but your website isn't
+    the same as the original website that joined with that slug.
+  </p>
+
+  <p>Therefore, you haven't been added to Hotline Webring. Please choose a different slug and try again.</p>
+
+  <p>If you'd like to move to the next site regardless, click <a href="<%= @next_url %>">here</a>.</p>
+
+  <p>P.S. Did we get something wrong? Are you pretty sure you did it correctly? Please <%= email_us %>.</p>
+</div>

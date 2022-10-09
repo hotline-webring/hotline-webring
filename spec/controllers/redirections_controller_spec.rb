@@ -125,7 +125,7 @@ RSpec.describe RedirectionsController do
         end
       end
 
-      context "when the is for a subdomain of an existing site" do
+      context "when the redirection is for a subdomain of an existing site" do
         it "does not create a new redirection" do
           expect(Redirection.find_by(url: "http://gabebw.com")).to be_present
           new_slug = "new"
@@ -134,6 +134,26 @@ RSpec.describe RedirectionsController do
           get action, params: { slug: new_slug }
 
           expect(Redirection.where(slug: new_slug)).to be_empty
+        end
+      end
+
+      context "when using an existing slug" do
+        it "shows a special page when the domain does not match" do
+          cool = create(:redirection, slug: "cool", url: "https://cool.com")
+
+          request.env["HTTP_REFERER"] = "http://NOT-COOL.com"
+          get action, params: { slug: cool.slug }
+
+          expect(response).to redirect_to(existing_slug_path(cool.slug))
+        end
+
+        it "does not show a special page if the domain matches" do
+          cool = create(:redirection, slug: "cool", url: "https://cool.com/my/links")
+
+          request.env["HTTP_REFERER"] = "http://www.COOL.com"
+          get action, params: { slug: cool.slug }
+
+          expect(response).to redirect_to(next_or_previous(action, cool))
         end
       end
     end

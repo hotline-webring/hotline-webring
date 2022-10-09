@@ -9,6 +9,10 @@ body {
   margin: $base-spacing;
 }
 
+.uncentered {
+  text-align: left;
+}
+
 header {
   a {
     text-decoration: none;

@@ -3,6 +3,7 @@ class RedirectionsController < ApplicationController
   before_action :ensure_referrer_is_not_blocked
   before_action :ensure_request_is_not_from_a_bot
   before_action :ensure_request_is_not_a_subdomain_of_an_existing_site
+  before_action :ensure_slug_matches_original_domain
 
   def next
     redirection = find_or_create_redirection
@@ -100,7 +101,7 @@ class RedirectionsController < ApplicationController
   def ensure_request_is_not_a_subdomain_of_an_existing_site
     if referrer
       referrer_without_leading_subdomain = URI.parse(referrer).host.
-        sub(/^[^.]+\./, '')
+        sub(/^[^.]+\./, "")
       match = Redirection.all.find { |r| URI.parse(r.url).host == referrer_without_leading_subdomain }
       if match
         log_with_headers "Trying to add a redirection for #{referrer_without_leading_subdomain} which conflicts with existing #{match.url}"
@@ -109,8 +110,23 @@ class RedirectionsController < ApplicationController
     end
   end
 
+  def ensure_slug_matches_original_domain
+    existing_redirection = params[:slug] && Redirection.find_by(slug: params[:slug])
+    if existing_redirection && referrer
+      referrer_host = normalized_host(referrer)
+      if referrer_host != normalized_host(existing_redirection.url)
+        log_with_headers "Slug's URL (#{existing_redirection.url}) does not match incoming referrer (normalized to #{referrer_host})"
+        redirect_to existing_slug_path(params[:slug])
+      end
+    end
+  end
+
   def log_with_headers(message)
     tagged_log message
     log_headers
+  end
+
+  def normalized_host(url)
+    URI.parse(url).normalize.host.sub(/^www\./, "")
   end
 end
