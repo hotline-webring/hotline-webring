@@ -20,9 +20,8 @@ class RedirectionsController < ApplicationController
   private
 
   def find_or_create_redirection
-    redirection = Redirection.find_by(slug: params[:slug])
-    if redirection
-      redirection
+    if existing_redirection
+      existing_redirection
     else
       # Always log headers when possibly creating a new Redirection.
       # This ensures that if something goes wonky, we can look back through the
@@ -73,33 +72,33 @@ class RedirectionsController < ApplicationController
   end
 
   def ensure_referrer_is_not_localhost
-    if HostValidator.new(referrer).invalid?
-      redirect_to page_path("localhost")
+    if creating_new_redirection?
+      if HostValidator.new(referrer).invalid?
+        redirect_to page_path("localhost")
+      end
     end
   end
 
   def ensure_referrer_is_not_blocked
-    if Redirection.exists?(slug: params[:slug])
-      # If the redirection already exists, let it through. We just want to
-      # prevent further redirections from being created.
-      return
-    end
-
-    if Block.new(referrer).blocked?
-      redirect_to Redirection.first.url, allow_other_host: true
+    if creating_new_redirection?
+      if Block.new(referrer).blocked?
+        redirect_to Redirection.first.url, allow_other_host: true
+      end
     end
   end
 
   def ensure_request_is_not_from_a_bot
-    user_agent = request.env["HTTP_USER_AGENT"]
-    if DeviceDetector.new(user_agent).bot?
-      log_with_headers "Detected a bot with user agent: #{user_agent}"
-      redirect_to Redirection.first.url, allow_other_host: true
+    if creating_new_redirection?
+      user_agent = request.env["HTTP_USER_AGENT"]
+      if DeviceDetector.new(user_agent).bot?
+        log_with_headers "Detected a bot with user agent: #{user_agent}"
+        redirect_to Redirection.first.url, allow_other_host: true
+      end
     end
   end
 
   def ensure_request_is_not_a_subdomain_of_an_existing_site
-    if referrer
+    if creating_new_redirection?
       referrer_without_leading_subdomain = URI.parse(referrer).host.
         sub(/^[^.]+\./, "")
       match = Redirection.all.find { |r| URI.parse(r.url).host == referrer_without_leading_subdomain }
@@ -111,8 +110,7 @@ class RedirectionsController < ApplicationController
   end
 
   def ensure_slug_matches_original_domain
-    existing_redirection = params[:slug] && Redirection.find_by(slug: params[:slug])
-    if existing_redirection && referrer
+    if referrer && existing_redirection.present?
       referrer_host = normalized_host(referrer)
       if referrer_host != normalized_host(existing_redirection.url)
         log_with_headers "Slug's URL (#{existing_redirection.url}) does not match incoming referrer (normalized to #{referrer_host})"
@@ -128,5 +126,14 @@ class RedirectionsController < ApplicationController
 
   def normalized_host(url)
     URI.parse(url).normalize.host.sub(/^www\./, "")
+  end
+
+  def creating_new_redirection?
+    referrer && existing_redirection.nil?
+  end
+
+  def existing_redirection
+    @_existing_redirection = params[:slug] &&
+      Redirection.find_by(slug: params[:slug])
   end
 end
