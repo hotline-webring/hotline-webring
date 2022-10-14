@@ -17,11 +17,11 @@
     </div>
     <div class="url">
       <label>URL</label>
-      <span class="content"><%= link_to redirection.url %></span>
+      <span class="content"><%= link_to redirection.url, redirection.url %></span>
     </div>
     <div class="original-url">
       <label>Original URL</label>
-      <%= link_to redirection.original_url %>
+      <%= link_to redirection.original_url, redirection.original_url %>
     </div>
     <div class="edit">
       <%= link_to "Edit", edit_admin_redirection_path(redirection) %>
