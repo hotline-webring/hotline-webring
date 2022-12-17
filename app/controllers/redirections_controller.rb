@@ -41,7 +41,7 @@ class RedirectionsController < ApplicationController
 
   def log_headers
     if referrer.blank?
-      tagged_log "Referrer is BLANK!"
+      tagged_log "Referrer is BLANK! (Maybe they set `Referrer-Policy: no-referrer`?)"
     else
       tagged_log "Referrer: #{referrer}"
     end
