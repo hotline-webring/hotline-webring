@@ -4,6 +4,7 @@ class HostValidator
   # https://en.wikipedia.org/wiki/Reserved_IP_addresses
   INVALID_IP_RANGES = %w(
     0.0.0.0/8
+    10.0.0.0/8
     127.0.0.0/8
     192.168.0.0/16
   ).map { |address| IPAddr.new(address) }
