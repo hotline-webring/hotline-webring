@@ -64,6 +64,11 @@ To allow creating new redirections again, unset the variable:
 
     production config:unset DISALLOW_CREATING_NEW_REDIRECTIONS
 
+## API
+
+We have an API, oddly enough. It's used by our Slack bot, and we don't expect
+(or allow) anyone else to use it.
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and

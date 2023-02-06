@@ -7,6 +7,15 @@ Rails.application.routes.draw do
     root "redirections#index"
   end
 
+  namespace :api do
+    # We use the *slug* as the redirection ID because the Slack bot (this
+    # API's only user) can only get the slug right now.
+    resources :redirections, only: [], param: :slug do
+      resources :blocks, only: [:create]
+      resources :unlinks, only: [:create]
+    end
+  end
+
   get "feed", to: "feeds#show", defaults: { format: :atom }
   get ":slug/next", to: "redirections#next"
   get ":slug/previous", to: "redirections#previous"

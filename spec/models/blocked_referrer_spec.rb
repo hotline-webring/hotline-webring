@@ -24,4 +24,31 @@ RSpec.describe BlockedReferrer do
       expect(blocked_referrer.host_with_path).to eq("example.com")
     end
   end
+
+  describe ".block_and_unlink" do
+    it "blocks the site" do
+      redirection = create(:redirection, url: "https://foobar.neocities.org/anything/else")
+
+      BlockedReferrer.block_and_unlink(redirection)
+
+      blocked_referrer = BlockedReferrer.last
+      expect(blocked_referrer.host_with_path).to eq("foobar.neocities.org")
+    end
+
+    it "unlinks the redirection" do
+      redirection = create(:redirection, url: "https://foobar.neocities.org/anything/else")
+
+      BlockedReferrer.block_and_unlink(redirection)
+
+      expect(Redirection.find_by(slug: redirection.slug)).to be_nil
+    end
+
+    it "returns the BlockedReferrer" do
+      redirection = create(:redirection, url: "https://foobar.neocities.org/anything/else")
+
+      result = BlockedReferrer.block_and_unlink(redirection)
+
+      expect(result).to eq(BlockedReferrer.last)
+    end
+  end
 end

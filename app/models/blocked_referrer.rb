@@ -8,7 +8,7 @@ class BlockedReferrer < ActiveRecord::Base
   #
   # Otherwise, it simply uses the site's host.
   def self.new_from_url(url)
-    uri =  URI.parse(url)
+    uri = URI.parse(url)
 
     if uri.host == "sites.google.com" && uri.path.start_with?("/site/")
       site_name = uri.path.split("/")[2]
@@ -18,5 +18,14 @@ class BlockedReferrer < ActiveRecord::Base
     end
 
     new(host_with_path: host_with_path)
+  end
+
+  def self.block_and_unlink(redirection)
+    blocked_referrer = new_from_url(redirection.url)
+    transaction do
+      blocked_referrer.save!
+      redirection.unlink
+      blocked_referrer
+    end
   end
 end

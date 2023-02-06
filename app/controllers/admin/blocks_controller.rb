@@ -1,9 +1,9 @@
 class Admin::BlocksController < AdminController
   def create
     redirection = Redirection.find(params[:redirection_id])
-    blocked_referrer = BlockedReferrer.new_from_url(redirection.url)
+    blocked_referrer = BlockedReferrer.block_and_unlink(redirection)
 
-    if blocked_referrer.save && redirection.unlink
+    if blocked_referrer
       flash[:success] = "Blocked and unlinked #{blocked_referrer.host_with_path}"
       redirect_to admin_redirections_path
     else
