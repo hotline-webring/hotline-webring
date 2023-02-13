@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to Heroku staging
-        uses: akhileshns/heroku-deploy@v3.12.12
+        uses: akhileshns/heroku-deploy@v3.12.13
 
         # `types: [closed]` above means that this step runs even when a PR is
         # closed without merging.
