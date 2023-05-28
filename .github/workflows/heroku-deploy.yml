@@ -28,7 +28,7 @@ jobs:
 
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_STAGING_APP_NAME }}
+          heroku_app_name: hotline-webring-staging
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           dontuseforce: true
           dontautocreate: true
@@ -39,7 +39,7 @@ jobs:
         if: ${{ github.event.pull_request.base.ref == 'main' && github.event.pull_request.merged == true }}
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_PRODUCTION_APP_NAME }}
+          heroku_app_name: hotline-webring-production
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           dontuseforce: true
           dontautocreate: true
