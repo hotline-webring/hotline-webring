@@ -23,13 +23,4 @@ if [ -z "$CI" ]; then
 
   # Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
   mkdir -p .git/safe
-
-  if ! command -v heroku > /dev/null; then
-    echo "!! Please install the Heroku CLI: "
-    echo "!!  https://devcenter.heroku.com/articles/heroku-cli#download-and-install"
-    exit 1
-  fi
-
-  heroku git:remote --remote staging --app hotline-webring-staging || true
-  heroku git:remote --remote production --app hotline-webring-production || true
 fi

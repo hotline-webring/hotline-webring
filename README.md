@@ -15,9 +15,7 @@ Set up the repo:
 
 Run the app using [Heroku Local]:
 
-    $ heroku local
-
-[Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
+    $ rails s
 
 Run the specs:
 
