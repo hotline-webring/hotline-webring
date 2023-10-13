@@ -46,7 +46,7 @@
     <% if ENV.fetch("DISALLOW_CREATING_NEW_REDIRECTIONS", false) %>
       <section class="announcement">
         <p>
-          <strong>Note</strong>: Automatic joining is disabled for the moment while we sort out some issues. Please complete the steps below and then <%= mail_to "webmaster@hotlinewebring.club", "contact us" %> if you'd like to join.
+          <strong>Note</strong>: Automatic joining is disabled for the moment while we sort out some issues. Please complete the steps below and then <%= email_us %> if you'd like to join.
         </p>
       </section>
     <% end %>
@@ -84,7 +84,7 @@
 
     <p>
       Q: How can I reach the people who run this thing?</br>
-      A: Email us! We're always delighted to receive email: <%= mail_to "webmaster@hotlinewebring.club" %>.
+      A: Email us! We're always delighted to receive email: <%= mail_to email_address %>.
     </p>
 
     <p>
