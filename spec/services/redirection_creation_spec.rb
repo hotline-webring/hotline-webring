@@ -45,4 +45,17 @@ RSpec.describe RedirectionCreation do
       expect(result).to be_nil
     end
   end
+
+  context "when the site is closed" do
+    it "returns a ClosedRedirection instead of creating a new one" do
+      allow(Rails.configuration).to receive(:closed).and_return(true)
+      referrer = "https://cool.example.com"
+      slug = "cool-slug"
+
+      redirection = RedirectionCreation.perform(referrer, slug)
+
+      expect(redirection.next_url).to eq "/pages/closed"
+      expect(redirection.previous_url).to eq "/pages/closed"
+    end
+  end
 end

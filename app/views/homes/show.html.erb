@@ -4,9 +4,18 @@
     Hotline Webring
     <a href="https://hotlinewebring.club/hotlinewebring/next">&rarr;</a>
   </h2>
+  <% if Rails.configuration.closed %>
+    <h2>Is Closed for Registration</h2>
+    <h3>(But Existing Sites Still Work)</h3>
+  <% end %>
 </header>
 
 <main>
+  <% if Rails.configuration.closed %>
+    <%= render(partial: "pages/closed_text") %>
+    <p>We've kept the rest of this page intact for reference, and because we put a lot of work into it.</p>
+    <hr />
+  <% end %>
   <section class="text">
     <p>
       Do you long for a simpler time, when America was Online and the only person you

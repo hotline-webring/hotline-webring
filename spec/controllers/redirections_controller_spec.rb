@@ -156,6 +156,41 @@ RSpec.describe RedirectionsController do
           expect(response).to redirect_to(next_or_previous(action, cool))
         end
       end
+
+      context "when the 'ring is closed" do
+        it "does not create new sites when clicking #{action}" do
+          allow(Rails.configuration).to receive(:closed).and_return(true)
+          redirection_count = Redirection.count
+          new_slug = "new"
+          url = "http://example.com"
+
+          request.env["HTTP_REFERER"] = url
+          get action, params: { slug: new_slug }
+
+          expect(Redirection.count).to eq redirection_count
+        end
+
+        it "redirects to our closed page when clicking #{action}" do
+          allow(Rails.configuration).to receive(:closed).and_return(true)
+          new_slug = "new"
+          url = "http://example.com"
+
+          request.env["HTTP_REFERER"] = url
+          get action, params: { slug: new_slug }
+
+          expect(response).to redirect_to(page_path("closed"))
+        end
+
+        it "allows existing sites to click #{action}" do
+          allow(Rails.configuration).to receive(:closed).and_return(true)
+          gabe = Redirection.find_by!(slug: "gabe")
+          redirection = gabe.send(action)
+
+          get action, params: { slug: gabe.slug }
+
+          expect(response).to redirect_to(redirection.url)
+        end
+      end
     end
   end
 

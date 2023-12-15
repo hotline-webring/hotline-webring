@@ -58,7 +58,7 @@ table {
 }
 
 th {
-  border-bottom: 1px solid darken($dark-pink, 10%);
+  border-bottom: 1px solid $border-color;
   font-weight: 600;
   padding: $small-spacing 0;
   text-align: left;
@@ -90,4 +90,9 @@ ul {
   a {
     color: currentcolor;
   }
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid $border-color;
 }

@@ -9,6 +9,10 @@ class RedirectionCreation
   end
 
   def perform
+    if Rails.configuration.closed
+      return ClosedRedirection.new
+    end
+
     redirection = Redirection.new(slug: slug)
 
     if referrer.present?
@@ -23,4 +27,14 @@ class RedirectionCreation
   private
 
   attr_reader :referrer, :slug
+end
+
+ClosedRedirection = Struct.new("ClosedRedirection") do
+  def next_url
+    "/pages/closed"
+  end
+
+  def previous_url
+    "/pages/closed"
+  end
 end
