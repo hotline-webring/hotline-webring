@@ -46,7 +46,7 @@ RSpec.describe RedirectionCreation do
     end
   end
 
-  context "when the site is closed" do
+  context "when the 'ring is closed" do
     it "returns a ClosedRedirection instead of creating a new one" do
       allow(Rails.configuration).to receive(:closed).and_return(true)
       referrer = "https://cool.example.com"
