@@ -5,8 +5,8 @@
     <a href="https://hotlinewebring.club/hotlinewebring/next">&rarr;</a>
   </h2>
   <% if Rails.configuration.closed %>
-    <h2>Is Closed for Registration</h2>
-    <h3>(But Existing Sites Still Work)</h3>
+    <h2><%= t("closed_for_registration.subheader") %></h2>
+    <h3><%= t("closed_for_registration.existing_sites_still_work") %></h3>
   <% end %>
 </header>
 
