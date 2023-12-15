@@ -28,13 +28,3 @@ class RedirectionCreation
 
   attr_reader :referrer, :slug
 end
-
-ClosedRedirection = Struct.new("ClosedRedirection") do
-  def next_url
-    "/pages/closed"
-  end
-
-  def previous_url
-    "/pages/closed"
-  end
-end
