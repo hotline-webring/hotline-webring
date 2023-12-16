@@ -5,7 +5,11 @@
   <meta name="ROBOTS" content="NOODP" />
   <meta name="viewport" content="initial-scale=1" />
   <meta property="og:title" content="Hotline Webring" />
-  <meta property="og:description" content="A friendly ring of cool websites. Join today!" />
+  <% if Rails.configuration.closed %>
+    <meta property="og:description" content="A friendly ring of cool websites." />
+  <% else %>
+    <meta property="og:description" content="A friendly ring of cool websites. Join today!" />
+  <% end %>
   <meta name="twitter:card" value="summary" />
   <meta name="twitter:image" value="<%= image_url("hlwr-square-black.png") %>"/>
   <title>Hotline Webring</title>
