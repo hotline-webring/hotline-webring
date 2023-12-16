@@ -24,5 +24,8 @@ module HotlineWebring
       generate.view_specs false
     end
     config.action_controller.action_on_unpermitted_parameters = :raise
+
+    config.closed = ENV.fetch("CLOSED_FOR_REGISTRATION", false) == "1"
+    config.disallow_creating_new_redirections = ENV.fetch("DISALLOW_CREATING_NEW_REDIRECTIONS", false) == "1"
   end
 end

@@ -9,6 +9,10 @@ class RedirectionCreation
   end
 
   def perform
+    if Rails.configuration.closed
+      return ClosedRedirection.new
+    end
+
     redirection = Redirection.new(slug: slug)
 
     if referrer.present?

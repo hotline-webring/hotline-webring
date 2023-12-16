@@ -2,19 +2,18 @@ en:
   authors: Gabe and Edward
   date:
     formats:
-      default:
-        "%m/%d/%Y"
-      with_weekday:
-        "%a %m/%d/%y"
+      default: "%m/%d/%Y"
+      with_weekday: "%a %m/%d/%y"
 
   time:
     formats:
-      default:
-        "%a, %b %-d, %Y at %r"
-      date:
-        "%b %-d, %Y"
-      short:
-        "%B %d"
+      default: "%a, %b %-d, %Y at %r"
+      date: "%b %-d, %Y"
+      short: "%B %d"
 
   titles:
     application: Hotline Webring
+
+  closed_for_registration:
+    subheader: Is Not Accepting New Sites
+    existing_sites_still_work: (But Existing Sites Still Work)

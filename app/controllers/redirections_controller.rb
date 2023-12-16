@@ -32,7 +32,7 @@ class RedirectionsController < ApplicationController
   end
 
   def create_redirection
-    if ENV.fetch("DISALLOW_CREATING_NEW_REDIRECTIONS", false)
+    if Rails.configuration.disallow_creating_new_redirections
       false
     else
       RedirectionCreation.perform(referrer, params[:slug])
