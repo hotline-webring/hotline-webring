@@ -211,7 +211,7 @@ GEM
       zeitwerk (~> 2.5)
     rake (13.0.6)
     regexp_parser (2.6.0)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
