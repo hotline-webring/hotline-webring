@@ -16,6 +16,7 @@ gem "simple_form"
 
 group :development do
   gem "web-console"
+  gem "bundler-audit", require: false
 end
 
 group :development, :test do

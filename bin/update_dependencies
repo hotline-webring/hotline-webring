@@ -1,0 +1,129 @@
+#!/usr/bin/env ruby
+
+# This updates all ruby gems in the Gemfile that have gem upgrades, and
+# also uses bundler audit to update any gems that have security
+# vulnerabilities. Usually the bundle update takes care of the security
+# problems, but the audit is a nice peace-of-mind check.
+
+# It makes commits for each gem it upgrades.
+
+require "open3"
+require "bundler/audit/cli"
+
+OutdatedGem = Data.define(:name, :version)
+GemUpdate = Data.define(:name, :old_version, :new_version, :status)
+GemNoUpdate = Data.define(:name, :old_version, :status)
+FakeStatus = Data.define(:success?, :code) do
+  def to_i
+    code.to_i
+  end
+end
+INDENT_CHAR = " "
+DRY_RUN = ARGV[0] == "--dry-run"
+
+class AuditClient
+  def self.outdated_gems
+    database = Bundler::Audit::Database.new
+    database.update!(quiet: true)
+    scanner = Bundler::Audit::Scanner.new(Dir.pwd, 'Gemfile.lock', database, ".bundler-audit.yml")
+    report = scanner.report
+
+    advisories = report.results.map do |result|
+      name = result.gem.name
+      version = result.gem.version
+      OutdatedGem.new(name: result.gem.name, version: result.gem.version)
+    end
+
+    advisories.map(&:name).uniq.map do |name|
+      advisories.find { |advisory| advisory.name == name }
+    end
+  end
+end
+
+class BundlerClient
+  def self.outdated_gems
+    output, _status = Open3.capture2("bundle outdated --only-explicit")
+    if output.include?("Bundle up to date!")
+      return []
+    end
+    index = output.lines.find_index { |line| line.start_with?("Gem") }
+    output.lines[index+1..].map do |line|
+      name, current_version = line.split(" ").first(2)
+      OutdatedGem.new(name, current_version)
+    end
+  end
+
+  def self.update(gem, dry_run = false)
+    args = %W(update #{gem.name})
+    if dry_run
+      status = FakeStatus.new(success?: true, code: 0)
+      GemUpdate.new(gem.name, gem.version, "???", status)
+    else
+      out, err, status = Open3.capture3("bundle", *args)
+      if err.include?("but its version stayed the same")
+        return GemNoUpdate.new(gem.name, gem.version, status)
+      end
+
+      update_line = out.lines.find do |line|
+        # find line like: Installing cool_gem x.y (was x.z)
+        line.match(/(Installing|Using) #{gem.name}.+\(was #{gem.version}\)/)
+      end
+      _verb, _name, new_version = update_line.split(" ").first(3)
+      GemUpdate.new(gem.name, gem.version, new_version, status)
+    end
+  end
+end
+
+class GitClient
+  def self.stage_gem_lockfile(dry_run = false)
+    args = %W(stage Gemfile.lock)
+    if dry_run
+      status = FakeStatus.new(success?: true, code: 0)
+    else
+      _out, status = Open3.capture2("git", *args)
+    end
+    status
+  end
+
+  def self.commit_update(update, dry_run = false)
+    message = "Update #{update.name} from #{update.old_version} to #{update.new_version}"
+    args = %W(commit -m #{message})
+    if dry_run
+      status = FakeStatus.new(success?: true, code: 0)
+    else
+      _out, status = Open3.capture2("git", *args)
+    end
+    status
+  end
+end
+
+def indent(n)
+  (INDENT_CHAR * n)
+end
+
+outdated_gems = BundlerClient.outdated_gems + AuditClient.outdated_gems
+outdated_gems.each do |gem|
+  print "Updating #{gem.name} from #{gem.version}"
+  update = BundlerClient.update(gem, DRY_RUN)
+  if update.status.success? && update.is_a?(GemUpdate)
+    puts " to #{update.new_version} successful"
+  elsif update.is_a?(GemNoUpdate)
+    puts
+    puts indent(2) + "Bundler attempted to update #{update.name} but its version stayed the same"
+    puts indent(2) + "skipping commit step"
+    next
+  else
+    puts
+    puts indent(2) + "something went wrong when updating #{gem.name}"
+    exit(status.to_i)
+  end
+
+  GitClient.stage_gem_lockfile(DRY_RUN)
+  status = GitClient.commit_update(update, DRY_RUN)
+  if status.success?
+    puts indent(2) + "#{update.name} commit successful"
+  else
+    puts indent(2) + "something went wrong when committing #{update.name}"
+    exit(status.to_i)
+  end
+end
