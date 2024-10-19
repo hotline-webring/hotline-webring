@@ -70,7 +70,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
-    awesome_print (1.8.0)
+    awesome_print (1.9.2)
     bindex (0.8.1)
     builder (3.2.4)
     bundler-audit (0.9.2)
