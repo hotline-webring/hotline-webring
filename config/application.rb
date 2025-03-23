@@ -10,7 +10,7 @@ Bundler.require(*Rails.groups)
 
 module HotlineWebring
   class Application < Rails::Application
-    config.load_defaults 7.0
+    config.load_defaults 8.0
 
     config.i18n.enforce_available_locales = true
     config.assets.quiet = true
