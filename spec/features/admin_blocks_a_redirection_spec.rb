@@ -6,7 +6,9 @@ RSpec.feature "Admin unlinks a redirection" do
   end
 
   context "unlinking without blocking" do
-    scenario "unlinks a redirection" do
+    scenario "unlinks and re-adds a redirection" do
+      allow(Rails.configuration).to receive(:closed).and_return(false)
+
       url = "https://foobar.neocities.org"
       slug = "binturong"
       redirection = create(:redirection, slug: slug, url: url)

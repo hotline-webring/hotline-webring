@@ -35,7 +35,11 @@ class RedirectionsController < ApplicationController
     if Rails.configuration.disallow_creating_new_redirections
       false
     else
-      RedirectionCreation.perform(referrer, params[:slug])
+      RedirectionCreation.perform(
+        referrer,
+        params[:slug],
+        open: !Rails.configuration.closed
+      )
     end
   end
 

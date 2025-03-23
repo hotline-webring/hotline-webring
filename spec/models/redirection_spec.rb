@@ -29,7 +29,7 @@ RSpec.describe Redirection do
       old_slug = "old"
       old_url = "http://foo.com"
       new_url = "https://www.foo.com"
-      RedirectionCreation.perform(old_url, old_slug)
+      RedirectionCreation.perform(old_url, old_slug, open: true)
 
       redirection = Redirection.new(url: new_url)
       redirection.validate
@@ -43,7 +43,7 @@ RSpec.describe Redirection do
       old_slug = "old"
       old_url = "http://www.foo.com"
       new_url = "https://www.foo.com"
-      RedirectionCreation.perform(old_url, old_slug)
+      RedirectionCreation.perform(old_url, old_slug, open: true)
 
       redirection = Redirection.new(url: new_url)
       redirection.validate
@@ -57,7 +57,7 @@ RSpec.describe Redirection do
       old_slug = "old"
       old_url = "http://www.foo.com"
       new_url = "https://www.foo.com/"
-      RedirectionCreation.perform(old_url, old_slug)
+      RedirectionCreation.perform(old_url, old_slug, open: true)
 
       redirection = Redirection.new(url: new_url)
       redirection.validate

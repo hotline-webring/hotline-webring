@@ -1,15 +1,16 @@
 class RedirectionCreation
-  def self.perform(referrer, slug)
-    new(referrer, slug).perform
+  def self.perform(referrer, slug, open:)
+    new(referrer, slug, open:).perform
   end
 
-  def initialize(referrer, slug)
+  def initialize(referrer, slug, open:)
     @referrer = referrer
     @slug = slug
+    @open = open
   end
 
   def perform
-    if Rails.configuration.closed
+    if !@open
       return ClosedRedirection.new
     end
 
