@@ -18,6 +18,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Deploy to Heroku staging
         uses: akhileshns/heroku-deploy@v3.12.14
 
