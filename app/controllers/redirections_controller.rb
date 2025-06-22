@@ -21,7 +21,9 @@ class RedirectionsController < ApplicationController
 
   def find_or_create_redirection
     if existing_redirection
-      existing_redirection
+      existing_redirection.tap do |redirection|
+        redirection.touch(:last_seen_at)
+      end
     else
       # Always log headers when possibly creating a new Redirection.
       # This ensures that if something goes wonky, we can look back through the

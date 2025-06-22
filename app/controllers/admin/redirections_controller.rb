@@ -1,6 +1,11 @@
 class Admin::RedirectionsController < AdminController
+  DEFAULT_SORT_PARAMS = {"sort_key" => "next_id", "sort_dir" => "desc"}
+
   def index
-    @redirections = Redirection.order(created_at: :desc)
+    sort_by = DEFAULT_SORT_PARAMS.merge(sort_params)
+    order_by = { sort_by["sort_key"] => sort_by["sort_dir"] }
+
+    @redirections = Redirection.order(order_by)
   end
 
   def edit
@@ -23,5 +28,9 @@ class Admin::RedirectionsController < AdminController
 
   def redirection_params
     params.require(:redirection).permit(:url)
+  end
+
+  def sort_params
+    params.permit(:sort_key, :sort_dir)
   end
 end

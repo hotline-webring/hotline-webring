@@ -16,6 +16,7 @@ RSpec.configure do |config|
     Rails.application.load_seed
   end
   config.include Features, type: :feature
+  config.include ActiveSupport::Testing::TimeHelpers, type: :feature
   config.infer_base_class_for_anonymous_controllers = false
   config.infer_spec_type_from_file_location!
   config.use_transactional_fixtures = true

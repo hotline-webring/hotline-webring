@@ -18,15 +18,19 @@ main {
   max-width: $admin-max-width;
 }
 
+main > section {
+  margin-bottom: 2em;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
 .redirection {
-  border-bottom: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
   margin-bottom: 1em;
 
   > div {
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
     display: grid;
     grid-template-columns: 1fr 3fr;
     column-gap: 1em;
@@ -78,7 +82,7 @@ main {
 // Must be at the bottom, but before the media query, so it overrides any
 // other `display` property above
 .header-row,
-.original-url {
+.redirection .original-url {
   display: none;
 }
 
@@ -113,22 +117,27 @@ main {
 // Must be at the very bottom
 @media screen and (min-width: 800px) {
   // Wider screens (not a phone)
+  .redirections {
+    display: grid;
+    grid-template-columns:
+      1fr // Slug
+      3fr // URL
+      3fr // Original URL
+      2fr // Last seen
+      1fr // edit
+      repeat(2, 2fr); // buttons
+    column-gap: 1em;
+    row-gap: 1em;
+  }
+
+  .header-row,
+  .redirection {
+    display: contents;
+  }
 
   .redirection {
-    align-items: center;
-    display: grid;
-    justify-items: start;
-    padding: 1rem 0;
-
-    // Everything is `1fr` except for the 2 URL columns, which are wider
-    grid-template-columns:
-    1fr // slug
-    3fr // URL
-    3fr // Original URL
-    repeat(3, 1fr); // Various buttons
-    column-gap: 1em;
-
     > div {
+      border-bottom: 1px solid lightgray;
       display: block;
       margin-bottom: 0;
     }
@@ -138,8 +147,11 @@ main {
     }
   }
 
-  .header-row {
+  .redirection .original-url {
     display: block;
+  }
+
+  .header-row {
     font-weight: bold;
   }
 }

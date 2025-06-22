@@ -187,6 +187,9 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     normalize-rails (3.0.3)
+    orderly (0.1.1)
+      capybara (>= 1.1)
+      rspec (>= 2.14)
     pg (1.5.9)
     pp (0.6.2)
       prettyprint
@@ -251,6 +254,10 @@ GEM
     reline (0.6.0)
       io-console (~> 0.5)
     rexml (3.3.9)
+    rspec (3.13.1)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
     rspec-core (3.13.3)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.3)
@@ -341,6 +348,7 @@ DEPENDENCIES
   high_voltage
   launchy
   normalize-rails (~> 3.0.0)
+  orderly
   pg
   pry-rails
   puma (~> 5.6)

@@ -1,36 +1,62 @@
-<div class="header-row">
-  <div class="redirection">
-    <div>Slug</div>
-    <div class="url">URL</div>
-    <div class="original-url">Original URL</div>
-    <div class="edit"></div>
-    <div class="block-button"></div>
-    <div class="unlink-button"></div>
-  </div>
-</div>
+<h2>Sort by</h2>
+<section class="sort">
+  <%= link_to(
+    "Ring order",
+    admin_redirections_path(sort_key: "next_id", sort_dir: "desc")
+  ) %>
+  <%= link_to(
+    "Most recently seen",
+    admin_redirections_path(sort_key: "last_seen_at", sort_dir: "desc")
+  ) %>
+  <%= link_to(
+    "Least recently seen",
+    admin_redirections_path(sort_key: "last_seen_at", sort_dir: "asc")
+  ) %>
+</section>
 
-<% @redirections.each do |redirection| %>
-  <div class="redirection" data-id="<%= redirection.id %>">
-    <div>
-      <label>Slug</label>
-      <span class="content"><%= redirection.slug %></span>
-    </div>
-    <div class="url">
-      <label>URL</label>
-      <span class="content"><%= link_to redirection.url, redirection.url %></span>
-    </div>
-    <div class="original-url">
-      <label>Original URL</label>
-      <%= link_to redirection.original_url, redirection.original_url %>
-    </div>
-    <div class="edit">
-      <%= link_to "Edit", edit_admin_redirection_path(redirection) %>
-    </div>
-    <div class="block-button">
-      <%= button_to "Block and unlink", admin_redirection_blocks_path(redirection) %>
-    </div>
-    <div class="unlink-button">
-      <%= button_to "Unlink", admin_redirection_unlinks_path(redirection) %>
+<h2>Redirections</h2>
+<section class="redirections">
+  <div class="header-row">
+    <div class="redirection">
+      <div>Slug</div>
+      <div>URL</div>
+      <div>Original URL</div>
+      <div>Last seen</div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
-<% end %>
+
+  <% @redirections.each do |redirection| %>
+    <div class="redirection" data-id="<%= redirection.id %>">
+      <div class="slug">
+        <label>Slug</label>
+        <span class="content"><%= redirection.slug %></span>
+      </div>
+      <div class="url">
+        <label>URL</label>
+        <span class="content"><%= link_to redirection.url, redirection.url %></span>
+      </div>
+      <div class="original-url">
+        <label>Original URL</label>
+        <%= link_to redirection.original_url, redirection.original_url %>
+      </div>
+      <div class="last-seen">
+        <label>Last seen</label>
+        <%= time_ago_in_words(
+          redirection.last_seen_at || redirection.created_at
+        ) %>
+      </div>
+      <div class="edit">
+        <%= link_to "Edit", edit_admin_redirection_path(redirection) %>
+      </div>
+      <div class="block-button">
+        <%= button_to "Block and unlink", admin_redirection_blocks_path(redirection) %>
+      </div>
+      <div class="unlink-button">
+        <%= button_to "Unlink", admin_redirection_unlinks_path(redirection) %>
+      </div>
+    </div>
+  <% end %>
+</section>
