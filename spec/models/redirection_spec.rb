@@ -97,6 +97,25 @@ RSpec.describe Redirection do
     end
   end
 
+  describe ".order_nulls_last" do
+    it "ensures null columns are always last" do
+      recently = create(:redirection, last_seen_at: 1.day.ago)
+      a_while_ago = create(:redirection, last_seen_at: 10.days.ago)
+      never = create(:redirection, last_seen_at: nil)
+      set = Redirection.where(id: [recently, a_while_ago, never])
+
+      last_seen_desc = set.order_nulls_last(
+        {"sort_key" => "last_seen_at", "sort_dir" => "desc"}
+      )
+      last_seen_asc = set.order_nulls_last(
+        {"sort_key" => "last_seen_at", "sort_dir" => "asc"}
+      )
+
+      expect(last_seen_desc).to eq([recently, a_while_ago, never])
+      expect(last_seen_asc).to eq([a_while_ago, recently, never])
+    end
+  end
+
   describe "#next_url" do
     it "returns the url of the next referenced redirection" do
       first = Redirection.first

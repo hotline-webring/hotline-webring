@@ -9,6 +9,10 @@ class Redirection < ActiveRecord::Base
 
   scope :in_ring_order, -> { order(next_id: :desc) }
   scope :latest_first, -> { order(created_at: :desc) }
+  scope :order_nulls_last, ->(args) do
+    sql = %[#{args["sort_key"]} #{args["sort_dir"]} NULLS LAST]
+    order(sanitize_sql_for_order(Arel.sql(sql)))
+  end
 
   def self.most_recent
     latest_first.first

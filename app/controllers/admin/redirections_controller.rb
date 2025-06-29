@@ -3,9 +3,7 @@ class Admin::RedirectionsController < AdminController
 
   def index
     sort_by = DEFAULT_SORT_PARAMS.merge(sort_params)
-    order_by = { sort_by["sort_key"] => sort_by["sort_dir"] }
-
-    @redirections = Redirection.order(order_by)
+    @redirections = Redirection.order_nulls_last(sort_by)
   end
 
   def edit
