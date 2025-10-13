@@ -1,6 +1,15 @@
 class HostValidator
   INVALID_HOSTS = %w(localhost)
-  INVALID_TLDS = %w(.example .local .test)
+  # https://en.wikipedia.org/wiki/Top-level_domain#Reserved_domains
+  INVALID_TLDS = %w(
+    .alt
+    .example
+    .invalid
+    .local
+    .localhost
+    .onion
+    .test
+  )
   # https://en.wikipedia.org/wiki/Reserved_IP_addresses
   INVALID_IP_RANGES = %w(
     0.0.0.0/8
