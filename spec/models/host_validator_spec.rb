@@ -7,6 +7,10 @@ RSpec.describe HostValidator do
       http://devsite.example
       http://devsite.test
       http://devsite.local
+      http://devsite.localhost
+      http://devsite.invalid
+      http://devsite.alt
+      http://devsite.onion
       http://0.0.0.0:8000
       http://127.0.0.1:3000
       http://192.168.1.0
