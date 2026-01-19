@@ -27,7 +27,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  # Print deprecation notices to the Rails logger.
+  # Raise exceptions for disallowed exceptions
   config.active_support.deprecation = :raise
 
   # Raise an error on page load if there are pending migrations.
