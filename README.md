@@ -1,8 +1,6 @@
 # Hotline Webring
 
-[This can only mean one thing!][video]
-
-[video]: https://www.youtube.com/watch?v=uxpDa-c-4Mc
+A webring for personal sites.
 
 For more on what exactly this is and how to join the webring, please visit
 [the homepage](https://hotlinewebring.club/).
@@ -21,7 +19,7 @@ Run the app using [Heroku Local]:
 
 Run the specs:
 
-    $ bin/drake spec
+    $ bin/rake spec
 
 ## Removing a site from the webring
 
@@ -74,6 +72,6 @@ We have an API, oddly enough. It's used by our Slack bot, and we don't expect
 Use the following guides for getting things done, programming well, and
 programming in style.
 
-* [Protocol](http://github.com/thoughtbot/guides/blob/master/protocol)
-* [Best Practices](http://github.com/thoughtbot/guides/blob/master/best-practices)
-* [Style](http://github.com/thoughtbot/guides/blob/master/style)
+- [Protocol](http://github.com/thoughtbot/guides/blob/master/protocol)
+- [Best Practices](http://github.com/thoughtbot/guides/blob/master/best-practices)
+- [Style](http://github.com/thoughtbot/guides/blob/master/style)

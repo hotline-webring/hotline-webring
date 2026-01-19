@@ -26,11 +26,10 @@ FileUtils.chdir APP_ROOT do
 
   if ENV["CI"].nil?
     system!("bin/rails dev:prime")
-    system!("mkdir -p .git/safe")
 
-    if !system("command -v heroku")
-      puts "!! Please install the Heroku CLI: "
-      puts "!!  https://devcenter.heroku.com/articles/heroku-cli#download-and-install"
+    if !system("command -v heroku", out: File::NULL)
+      warn "!! Please install the Heroku CLI: "
+      warn "!!  https://devcenter.heroku.com/articles/heroku-cli#download-and-install"
       exit 1
     end
 
