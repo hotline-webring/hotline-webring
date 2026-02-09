@@ -24,6 +24,9 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   config.asset_host = ENV.fetch("ASSET_HOST", ENV.fetch("APPLICATION_HOST"))
 
+  # https://devcenter.heroku.com/articles/rails-asset-pipeline#compile-set-to-true-in-production
+  config.assets.compile = false
+
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
   # config.assume_ssl = true
 
