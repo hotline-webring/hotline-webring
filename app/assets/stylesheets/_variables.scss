@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $base-spacing: 1.5em;
 $small-spacing: $base-spacing * 0.5;
 $medium-spacing: $base-spacing * 2;
@@ -5,13 +7,13 @@ $max-width: 48em;
 
 $dark-gray: #333;
 $hotline-bling-pink: #fa9aba;
-$dark-pink: darken($hotline-bling-pink, 40%);
+$dark-pink: color.adjust($hotline-bling-pink, $lightness: -40%);
 $pastel-yellow: #fff3cd;
 $pastel-red: #fdaaaa;
 $pastel-blue: #cde4ff;
 $pastel-green: #d5ecdb;
 $dark-red: #ef5350;
-$border-color: darken($dark-pink, 10%);
+$border-color: color.adjust($dark-pink, $lightness: -10%);
 
 // We picked a size so that it didn't span the entire page
 $admin-max-width: 80%;

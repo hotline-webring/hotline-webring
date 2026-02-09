@@ -1,8 +1,11 @@
 @charset "utf-8";
 
-@import "normalize-rails";
-@import "variables";
-@import "flashes";
+@use "sass:color";
+
+@use "normalize-rails";
+
+@use "variables" as *;
+@use "flashes";
 
 header {
   display: flex;
@@ -64,7 +67,7 @@ h2 {
   color: white;
 
   &:hover {
-    background-color: lighten($dark-pink, 10%);
+    background-color: color.adjust($dark-pink, $lightness: 10%);
   }
 }
 
@@ -108,7 +111,7 @@ h2 {
     color: black;
 
     &:hover {
-      background-color: lighten($dark-pink, 10%);
+      background-color: color.adjust($dark-pink, $lightness: 10%);
       color: white;
     }
   }
