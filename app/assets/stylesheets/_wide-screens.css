@@ -1,0 +1,14 @@
+/*
+ *= require _variables
+ */
+
+/* 51em = var(--max-width) plus 2 * var(--base-spacing) (for the right and left margin) */
+@media screen and (min-width: 51em) {
+  main {
+    margin: var(--base-spacing) auto;
+  }
+
+  h2 {
+    font-size: 5em;
+  }
+}

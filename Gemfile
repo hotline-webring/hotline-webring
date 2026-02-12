@@ -17,6 +17,7 @@ gem "puma", "~> 7"
 gem "rack-canonical-host"
 gem "rails", "~> 8.1.0"
 gem "simple_form"
+gem "sprockets-rails"
 
 # Required for capybara-mechanize as of Ruby v4
 gem "ostruct"

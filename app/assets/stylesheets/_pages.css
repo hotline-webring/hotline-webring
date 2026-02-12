@@ -1,14 +1,12 @@
-@use "./variables" as *;
-
 body {
   align-items: center;
-  background-color: $hotline-bling-pink;
-  color: $dark-gray;
+  background-color: var(--hotline-bling-pink);
+  color: var(--dark-gray);
   display: flex;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   flex-direction: column;
   line-height: 1.5;
-  margin: $base-spacing;
+  margin: var(--base-spacing);
 }
 
 .uncentered {
@@ -44,7 +42,7 @@ h3 {
 }
 
 main {
-  max-width: $max-width;
+  max-width: var(--max-width);
 }
 
 a {
@@ -54,21 +52,21 @@ a {
 table {
   border-collapse: collapse;
   font-feature-settings: "kern", "liga", "tnum";
-  margin: $small-spacing 0;
+  margin: var(--small-spacing) 0;
   table-layout: fixed;
   width: 100%;
 }
 
 th {
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--border-color);
   font-weight: 600;
-  padding: $small-spacing 0;
+  padding: var(--small-spacing) 0;
   text-align: left;
 }
 
 td {
-  border-bottom: 1px solid $dark-pink;
-  padding: $small-spacing 0;
+  border-bottom: 1px solid var(--dark-pink);
+  padding: var(--small-spacing) 0;
 }
 
 tr,
@@ -85,7 +83,7 @@ ul {
 }
 
 .announcement {
-  background-color: $dark-pink;
+  background-color: var(--dark-pink);
   color: white;
   padding: 1em;
 
@@ -96,5 +94,5 @@ ul {
 
 hr {
   border: none;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid var(--border-color);
 }
