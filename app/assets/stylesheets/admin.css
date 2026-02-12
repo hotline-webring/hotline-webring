@@ -112,7 +112,7 @@ h2 {
     color: black;
 
     &:hover {
-      background-color: hsl(from var(--dark-pink) h s calc(l - 10));
+      background-color: hsl(from var(--dark-pink) h s calc(l + 10));
       color: white;
     }
   }
