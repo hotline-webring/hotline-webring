@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 body {
   align-items: center;
   background-color: $hotline-bling-pink;

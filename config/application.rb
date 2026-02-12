@@ -41,5 +41,11 @@ module HotlineWebring
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Silence deprecation warnings from dependencies (i.e. not in code we wrote).
+    # This silences dartsass's warning about `@import` in `normalize-rails` (which we can't fix on
+    # our side).
+    # https://github.com/tablecheck/dartsass-sprockets?tab=readme-ov-file#silencing-deprecation-warnings
+    config.sass.quiet_deps = true
   end
 end

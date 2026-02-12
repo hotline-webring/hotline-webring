@@ -1,9 +1,9 @@
 @charset "utf-8";
 
-@import "normalize-rails";
+@use "normalize-rails";
 
-@import "variables";
+@use "variables";
 
-@import "pages";
-@import "wide-screens";
-@import "lists";
+@use "pages";
+@use "wide-screens";
+@use "lists";

@@ -1,4 +1,7 @@
+@use "variables" as *;
+
 $width-target-including-margin: $max-width + $base-spacing * 2;
+
 @media screen and (min-width: $width-target-including-margin) {
   main {
     margin: $base-spacing auto;

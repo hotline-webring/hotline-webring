@@ -4,6 +4,7 @@ ruby "3.3.5"
 
 gem "autoprefixer-rails"
 gem "capybara-mechanize"
+gem "dartsass-sprockets"
 gem "device_detector"
 gem "high_voltage"
 gem "normalize-rails", "~> 3.0.0"
@@ -11,7 +12,6 @@ gem "pg"
 gem "puma", "~> 6"
 gem "rack-canonical-host"
 gem "rails", "~> 8.1.0"
-gem "sassc-rails"
 gem "simple_form"
 
 group :development do
