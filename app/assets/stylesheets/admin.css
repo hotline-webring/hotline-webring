@@ -1,24 +1,23 @@
 @charset "utf-8";
 
-@use "sass:color";
-
-@use "normalize-rails";
-
-@use "variables" as *;
-@use "flashes";
+/**
+ *= require normalize-rails
+ *= require _variables
+ *= require _flashes
+ */
 
 header {
   display: flex;
-  background: $hotline-bling-pink;
+  background: var(--hotline-bling-pink);
   padding: 0 1em;
   margin-bottom: 2em;
 }
 
 main {
-  // Make it larger so it looks nice on a phone
+  /* Make it larger so it looks nice on a phone */
   font-size: 18px;
   margin: 0 auto;
-  max-width: $admin-max-width;
+  max-width: var(--admin-max-width);
 }
 
 main > section {
@@ -63,11 +62,11 @@ h2 {
 }
 
 .block-button button {
-  background-color: $dark-pink;
+  background-color: var(--dark-pink);
   color: white;
 
   &:hover {
-    background-color: color.adjust($dark-pink, $lightness: 10%);
+    background-color: hsl(from var(--dark-pink) h s calc(l + 1));
   }
 }
 
@@ -77,13 +76,15 @@ h2 {
   color: black;
 
   &:hover {
-    background-color: $hotline-bling-pink;
-    border-color: $hotline-bling-pink;
+    background-color: var(--hotline-bling-pink);
+    border-color: var(--hotline-bling-pink);
   }
 }
 
-// Must be at the bottom, but before the media query, so it overrides any
-// other `display` property above
+/*
+ * Must be at the bottom, but before the media query, so it overrides any other `display` property
+ * above
+ */
 .header-row,
 .redirection .original-url {
   display: none;
@@ -100,35 +101,35 @@ h2 {
 
   .error {
     display: block;
-    color: $dark-red;
+    color: var(--dark-red);
   }
 
-  input[type=submit] {
+  input[type="submit"] {
     padding: 1em;
     border-radius: 2px;
     border: none;
-    background: $hotline-bling-pink;
+    background: var(--hotline-bling-pink);
     color: black;
 
     &:hover {
-      background-color: color.adjust($dark-pink, $lightness: 10%);
+      background-color: hsl(from var(--dark-pink) h s calc(l - 10));
       color: white;
     }
   }
 }
 
-// Must be at the very bottom
+/* Must be at the very bottom */
 @media screen and (min-width: 800px) {
-  // Wider screens (not a phone)
+  /* Wider screens (not a phone) */
   .redirections {
     display: grid;
     grid-template-columns:
-      1fr // Slug
-      3fr // URL
-      3fr // Original URL
-      2fr // Last seen
-      1fr // edit
-      repeat(2, 2fr); // buttons
+      1fr /* Slug */
+      3fr /* URL */
+      3fr /* Original URL */
+      2fr /* Last seen */
+      1fr /* edit */
+      repeat(2, 2fr); /* buttons */
     column-gap: 1em;
     row-gap: 1em;
   }

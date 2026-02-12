@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+/**
+ *= require normalize-rails
+ *= require _variables
+ *= require _pages
+ *= require _wide-screens
+ *= require _lists
+ */
