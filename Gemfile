@@ -1,9 +1,13 @@
 source "https://rubygems.org"
 
-ruby "3.3.5"
+ruby file: ".ruby-version"
 
 gem "autoprefixer-rails"
-gem "capybara-mechanize"
+# Use github version for Ruby v4 support
+# There's nothing special about this ref, it's just the latest one when we wrote this.
+gem "capybara-mechanize",
+  github: "phillbaker/capybara-mechanize",
+  ref: "9b3bc7993d0d2e89825a5181e39dd74719ab0de0"
 gem "dartsass-sprockets"
 gem "device_detector"
 gem "high_voltage"
@@ -13,6 +17,9 @@ gem "puma", "~> 6"
 gem "rack-canonical-host"
 gem "rails", "~> 8.1.0"
 gem "simple_form"
+
+# Required for capybara-mechanize as of Ruby v4
+gem "ostruct"
 
 group :development do
   gem "web-console"
