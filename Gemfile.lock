@@ -232,7 +232,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (6.6.1)
+    puma (7.2.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.5)
@@ -383,7 +383,7 @@ DEPENDENCIES
   ostruct
   pg
   pry-rails
-  puma (~> 6)
+  puma (~> 7)
   rack-canonical-host
   rack-timeout
   rails (~> 8.1.0)
