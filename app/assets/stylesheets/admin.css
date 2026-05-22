@@ -1,10 +1,8 @@
 @charset "utf-8";
 
-/*
- *= require normalize-rails
- *= require _variables
- *= require _flashes
- */
+@import url("normalize-rails.css");
+@import url("_variables.css");
+@import url("_flashes.css");
 
 header {
   display: flex;

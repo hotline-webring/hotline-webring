@@ -1,6 +1,4 @@
-/*
- *= require _variables
- */
+@import url("_variables.css");
 
 /* 51em = var(--max-width) + 2 * var(--base-spacing)
 * The `2 * base-spacing` covers the right and left margin. */

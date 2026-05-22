@@ -1,6 +1,4 @@
-/*
- *= require _variables
- */
+@import url("_variables.css");
 
 .flashes {
   .flash-alert,

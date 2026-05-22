@@ -1,9 +1,7 @@
 @charset "utf-8";
 
-/*
- *= require normalize-rails
- *= require _variables
- *= require _pages
- *= require _wide-screens
- *= require _lists
- */
+@import url("normalize-rails.css");
+@import url("_pages.css");
+@import url("_wide-screens.css");
+@import url("_lists.css");
+@import url("_variables.css");
