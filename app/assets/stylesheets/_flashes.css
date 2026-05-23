@@ -1,4 +1,6 @@
-@use "./variables" as *;
+/*
+ *= require _variables
+ */
 
 .flashes {
   .flash-alert,
@@ -11,18 +13,18 @@
   }
 
   .flash-alert {
-    background: $pastel-yellow;
+    background: var(--pastel-yellow);
   }
 
   .flash-error {
-    background: $pastel-red;
+    background: var(--pastel-red);
   }
 
   .flash-notice {
-    background: $pastel-blue;
+    background: var(--pastel-blue);
   }
 
   .flash-success {
-    background: $pastel-green;
+    background: var(--pastel-green);
   }
 }
