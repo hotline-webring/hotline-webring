@@ -14,7 +14,7 @@
   <% if Rails.configuration.closed %>
     <%= render(partial: "pages/closed_text") %>
     <p>We've kept the rest of this page intact, both for reference and because we put a lot of work into it.</p>
-    <hr />
+    <hr>
   <% end %>
   <section class="text">
     <p>
@@ -87,34 +87,34 @@
     <h3>FAQ</h3>
 
     <p>
-      Q: Can I control who I link to?</br>
+      Q: Can I control who I link to?<br>
       A: No, sorry, it's all automatic. But on the bright side it's easy to sign up!
     </p>
 
     <p>
-      Q: How can I reach the people who run this thing?</br>
+      Q: How can I reach the people who run this thing?<br>
       A: Email us! We're always delighted to receive email: <%= mail_to email_address %>.
     </p>
 
     <p>
-      Q: Do you allow <em>any</em> website into Hotline Webring?</br>
-      A: Hotline Webring accepts many sites, but not all. We want sites that show
-      off someone's <strong>individual personality</strong>. We also draw the line
-      at a few specific places:</br>
-      </br>
+      Q: Do you allow <em>any</em> website into Hotline Webring?<br>
+      A: Hotline Webring accepts many sites, but not all. We want sites that show off someone's <strong>individual personality</strong> and are written in English so we can moderate the content on the sites.<br>
+
+      We also draw the line at a few specific places:<br>
+      <br>
       <ul>
         <li>Hate speech</li>
         <li>Racism, sexism, any kind of bigotry</li>
         <li>Advertisement-focused sites</li>
       </ul>
-      </br>
-      Any site exhibiting these qualities will be removed.</br>
-      </br>
+      <br>
+      Any site exhibiting these qualities will be removed.<br>
+      <br>
       It is impossible to enumerate everything that is not allowed. For this reason, we reserve the right to remove a site if we (the webmasters) feel it is outside of our own personal bounds. If you want to know if your site is acceptable for the webring, please <%= email_us %>.
     </p>
 
     <p>
-      Q: Is my slug taken?</br>
+      Q: Is my slug taken?<br>
       A: You tell me:
 
       <table class="redirections">
