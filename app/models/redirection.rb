@@ -47,7 +47,7 @@ class Redirection < ActiveRecord::Base
   def unique_url_with_normalized_urls
     if url.present?
       uri = URI.parse(url)
-      matching_redirection = Redirection.where.not(slug: slug).all.detect do |redirection|
+      matching_redirection = Redirection.excluding(self).find do |redirection|
         UriComparison.same_normalized_uri?(uri, URI.parse(redirection.url))
       end
       if matching_redirection

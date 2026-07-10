@@ -66,6 +66,13 @@ RSpec.describe Redirection do
         "is already taken by #{old_slug}"
       )
     end
+
+    it "ignores self when validating slug uniqueness" do
+      redirection = create(:redirection, slug: "funky")
+      redirection.update(slug: "monkey")
+
+      expect(redirection.errors).to be_empty
+    end
   end
 
   describe ".in_ring_order" do
