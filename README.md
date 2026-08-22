@@ -9,24 +9,30 @@ For more on what exactly this is and how to join the webring, please visit
 
 Set up the repo:
 
-    $ ./bin/setup
+```sh
+./bin/setup
+```
 
-Run the app using [Heroku Local]:
+Run the app using the built-in rails server:
 
-    $ heroku local
-
-[Heroku Local]: https://devcenter.heroku.com/articles/heroku-local
+```sh
+bin/rails s
+```
 
 Run the specs:
 
-    $ bin/rake spec
+```sh
+bin/rake spec
+```
 
 ## Removing a site from the webring
 
 Use `Redirection#unlink`:
 
-    irb> redirection = Redirection.find_by(slug: "whatever")
-    irb> redirection.unlink
+```rb
+redirection = Redirection.find_by(slug: "whatever")
+redirection.unlink
+```
 
 This will destroy the `Redirection` and re-link its ring neighbors, sealing the
 breach.
@@ -38,29 +44,30 @@ subdomain.
 
 To block everything from `evil.com` but none of its subdomains:
 
-    BlockedReferrer.create!(host_with_path: "evil.com")
+```rb
+BlockedReferrer.create!(host_with_path: "evil.com")
+```
 
-To block everything under the `/one/` directory (`evil.com/one/*`), but not the
-root (for example, to block a user directory):
+To block everything under the `/~evil/` directory without blocking the whole
+domain:
 
-    BlockedReferrer.create!(host_with_path: "good.com/~evil")
+```rb
+BlockedReferrer.create!(host_with_path: "good.com/~evil")
+```
 
 To block a subdomain:
 
-    BlockedReferrer.create!(host_with_path: "evil.good.com")
+```rb
+BlockedReferrer.create!(host_with_path: "evil.good.com")
+```
 
 ## Prevent new redirections from being created
 
 This helps when we're experiencing a flood of spam.
 
-To prevent creation, set `DISALLOW_CREATING_NEW_REDIRECTIONS` to anything on
-Heroku:
-
-    production config:set DISALLOW_CREATING_NEW_REDIRECTIONS=1
-
-To allow creating new redirections again, unset the variable:
-
-    production config:unset DISALLOW_CREATING_NEW_REDIRECTIONS
+To prevent creation, set `DISALLOW_CREATING_NEW_REDIRECTIONS` environment to
+anything wherever you deploy the app. To allow creating new redirections again,
+unset the variable.
 
 ## API
 
@@ -76,12 +83,3 @@ allowed in this codebase. This includes generating code, prose, or translation.
 To contribute in a non-English language, please write in whatever language you
 find comfortable and allow the maintainers to translate your work using tools
 that they choose.
-
-## Guidelines
-
-Use the following guides for getting things done, programming well, and
-programming in style.
-
-- [Protocol](http://github.com/thoughtbot/guides/blob/master/protocol)
-- [Best Practices](http://github.com/thoughtbot/guides/blob/master/best-practices)
-- [Style](http://github.com/thoughtbot/guides/blob/master/style)
