@@ -67,6 +67,16 @@ To allow creating new redirections again, unset the variable:
 We have an API, oddly enough. It's used by our Slack bot, and we don't expect
 (or allow) anyone else to use it.
 
+## Contribution Guidelines
+
+This code is meant to empower and create connections between humans. We also
+hope that in some small way we are able to push back against the influence of
+large tech companies on the internet. To those ends, LLM contributions are not
+allowed in this codebase. This includes generating code, prose, or translation.
+To contribute in a non-English language, please write in whatever language you
+find comfortable and allow the maintainers to translate your work using tools
+that they choose.
+
 ## Guidelines
 
 Use the following guides for getting things done, programming well, and
