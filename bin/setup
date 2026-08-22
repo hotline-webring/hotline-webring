@@ -26,15 +26,6 @@ FileUtils.chdir APP_ROOT do
 
   if ENV["CI"].nil?
     system!("bin/rails dev:prime")
-
-    if !system("command -v heroku", out: File::NULL)
-      warn "!! Please install the Heroku CLI: "
-      warn "!!  https://devcenter.heroku.com/articles/heroku-cli#download-and-install"
-      exit 1
-    end
-
-    system!("heroku git:remote --remote staging --app hotline-webring-staging")
-    system!("heroku git:remote --remote production --app hotline-webring-production")
   end
 
   puts "\n== Removing old logs and tempfiles =="
