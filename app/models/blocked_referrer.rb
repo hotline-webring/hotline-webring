@@ -1,23 +1,18 @@
 class BlockedReferrer < ActiveRecord::Base
-  # Create a blocked referrer that blocks everything from this site.
+  DEFAULT_REGEX_TEMPLATE = "\\A(www\\.)?<domain>.*"
+
+  # Be default we block the site's URL with an optional `www.` prefix and
+  # anything after domain.
   #
-  # If the URL's host is sites.google.com, it removes all info after
-  # /sites/foobar:
-  # sites.google.com/sites/foobar/baz/bat -> sites.google.com/sites/foobar
-  # (This ensures that we do not block every single Google Site URL.)
+  # e.g. an input example.com will also block www.example.com and
+  # example.com/sub/path
   #
-  # Otherwise, it simply uses the site's host.
+  # More complex regular expressions must be input manually
   def self.new_from_url(url)
     uri = URI.parse(url)
+    host_regex = DEFAULT_REGEX_TEMPLATE.sub("<domain>", uri.host)
 
-    if uri.host == "sites.google.com" && uri.path.start_with?("/site/")
-      site_name = uri.path.split("/")[2]
-      host_with_path = "#{uri.host}/site/#{site_name}"
-    else
-      host_with_path = uri.host.sub(/www\./, "")
-    end
-
-    new(host_with_path: host_with_path)
+    new(host_with_path: host_regex)
   end
 
   def self.block_and_unlink(redirection)
