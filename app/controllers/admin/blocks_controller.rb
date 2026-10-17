@@ -4,7 +4,7 @@ class Admin::BlocksController < AdminController
     blocked_referrer = BlockedReferrer.block_and_unlink(redirection)
 
     if blocked_referrer
-      flash[:success] = "Blocked and unlinked #{blocked_referrer.host_with_path}"
+      flash[:success] = "Blocked and unlinked #{blocked_referrer.uri_regex}"
       redirect_to admin_redirections_path
     else
       flash[:error] = "Something went wrong"

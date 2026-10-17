@@ -1,33 +1,26 @@
 class Block
-  def initialize(possible_match)
-    @possible_match = possible_match
+  def initialize(test_referer)
+    @test_referer = test_referer
   end
 
   def blocked?
-    if possible_match.nil?
+    if test_referer.nil?
       false
     else
-      uri = URI.parse(possible_match.downcase)
+      test_uri = URI.parse(test_referer)
+      test_no_scheme = test_referer
+        .delete_prefix("#{test_uri.scheme}://")
+        .downcase
 
-      BlockedReferrer.pluck(:host_with_path).any? do |blocked_host_with_path|
-        blocked_uri = URI.parse("http://" + blocked_host_with_path.downcase)
+      BlockedReferrer.pluck(:uri_regex).any? do |blocked_no_scheme|
+        blocked_regex = Regexp.new(blocked_no_scheme)
 
-        hosts_match?(uri, blocked_uri) && paths_match?(uri, blocked_uri)
+        test_no_scheme.match?(blocked_regex)
       end
     end
   end
 
   private
 
-  attr_reader :possible_match
-
-  def hosts_match?(uri, blocked_uri)
-    uri.host == blocked_uri.host || uri.host == "www.#{blocked_uri.host}"
-  end
-
-  def paths_match?(uri, blocked_uri)
-    blocked_uri.path == "" ||
-      uri.path == blocked_uri.path ||
-      Pathname.new(uri.path).ascend.include?(Pathname.new(blocked_uri.path))
-  end
+  attr_reader :test_referer
 end

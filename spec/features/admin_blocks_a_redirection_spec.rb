@@ -30,7 +30,7 @@ RSpec.feature "Admin unlinks a redirection" do
   end
 
   context "unlinking with blocking" do
-    scenario "unlinks and blocks a redirection" do
+    scenario "unlinks and blocks a redirection with the default regex" do
       redirection = create(:redirection, url: "https://foobar.neocities.org")
 
       visit admin_root_path
@@ -39,25 +39,7 @@ RSpec.feature "Admin unlinks a redirection" do
       end
 
       expect(page).not_to have_text(redirection.url)
-      expect(BlockedReferrer.last.host_with_path).to eq("foobar.neocities.org")
-    end
-
-    scenario "unlinks and blocks a redirection that uses sites.google.com" do
-      redirection = create(
-        :redirection,
-        url: "https://sites.google.com/site/foobar/something/else"
-      )
-
-      visit admin_root_path
-
-      within "[data-id=#{redirection.id}]" do
-        click_on "Block and unlink"
-      end
-
-      expect(page).not_to have_text(redirection.url)
-      # Note that we are not blocking all of "sites.google.com", nor are we
-      # limiting it to "/site/foobar/something/else"
-      expect(BlockedReferrer.last.host_with_path).to eq("sites.google.com/site/foobar")
+      expect(BlockedReferrer.last.uri_regex).to eq("\\A(www\\.)?foobar.neocities.org.*")
     end
   end
 end

@@ -35,7 +35,7 @@ RSpec.describe "API block requests" do
              Authorization: "Bearer #{ApiController::API_TOKEN}",
            }
 
-      expect(BlockedReferrer.last.host_with_path).to eq("foobar.neocities.org")
+      expect(BlockedReferrer.last.uri_regex).to eq("\\A(www\\.)?foobar.neocities.org.*")
     end
   end
 end
