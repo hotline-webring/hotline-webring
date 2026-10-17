@@ -4,7 +4,7 @@ RSpec.describe Block do
   describe "#blocked?" do
     context "using default regex: \\A(www\\.)?evil.com.*" do
       before do
-        create(:blocked_referrer, host_with_path: "\\A(www\\.)?evil.com.*")
+        create(:blocked_referrer, uri_regex: "\\A(www\\.)?evil.com.*")
       end
 
       it "matches regardless of HTTP vs HTTPS" do

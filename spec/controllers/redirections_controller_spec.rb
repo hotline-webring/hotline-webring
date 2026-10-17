@@ -82,7 +82,7 @@ RSpec.describe RedirectionsController do
 
         context "when the URL is blocked" do
           it "does not create a redirection and redirects to the first redirection" do
-            create(:blocked_referrer, host_with_path: "evil.com")
+            create(:blocked_referrer, uri_regex: "evil.com")
             slug = "i-am-evil"
             url = "http://evil.com/something"
             request.env["HTTP_REFERER"] = url
@@ -106,7 +106,7 @@ RSpec.describe RedirectionsController do
             expect(redirection.next_url).not_to eq Redirection.first.url
             expect(redirection.previous_url).not_to eq Redirection.first.url
 
-            create(:blocked_referrer, host_with_path: URI.parse(redirection.url).host)
+            create(:blocked_referrer, uri_regex: URI.parse(redirection.url).host)
             request.env["HTTP_REFERER"] = redirection.url
 
             get action, params: { slug: redirection.slug }

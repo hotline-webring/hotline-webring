@@ -12,7 +12,7 @@ class Block
         .delete_prefix("#{test_uri.scheme}://")
         .downcase
 
-      BlockedReferrer.pluck(:host_with_path).any? do |blocked_no_scheme|
+      BlockedReferrer.pluck(:uri_regex).any? do |blocked_no_scheme|
         blocked_regex = Regexp.new(blocked_no_scheme)
 
         test_no_scheme.match?(blocked_regex)

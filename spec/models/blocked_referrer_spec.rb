@@ -6,7 +6,7 @@ RSpec.describe BlockedReferrer do
       blocked_referrer = BlockedReferrer.new_from_url(
         "https://foobar.neocities.org/anything/else"
       )
-      expect(blocked_referrer.host_with_path).to eq("\\A(www\\.)?foobar.neocities.org.*")
+      expect(blocked_referrer.uri_regex).to eq("\\A(www\\.)?foobar.neocities.org.*")
     end
 
     it "prepends an optional www. to the URL" do
@@ -14,7 +14,7 @@ RSpec.describe BlockedReferrer do
         "https://www.example.com"
       )
 
-      expect(blocked_referrer.host_with_path).to eq("\\A(www\\.)?www.example.com.*")
+      expect(blocked_referrer.uri_regex).to eq("\\A(www\\.)?www.example.com.*")
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe BlockedReferrer do
       BlockedReferrer.block_and_unlink(redirection)
 
       blocked_referrer = BlockedReferrer.last
-      expect(blocked_referrer.host_with_path).to eq("\\A(www\\.)?foobar.neocities.org.*")
+      expect(blocked_referrer.uri_regex).to eq("\\A(www\\.)?foobar.neocities.org.*")
     end
 
     it "unlinks the redirection" do

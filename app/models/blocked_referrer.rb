@@ -12,7 +12,7 @@ class BlockedReferrer < ActiveRecord::Base
     uri = URI.parse(url)
     host_regex = DEFAULT_REGEX_TEMPLATE.sub("<domain>", uri.host)
 
-    new(host_with_path: host_regex)
+    new(uri_regex: host_regex)
   end
 
   def self.block_and_unlink(redirection)

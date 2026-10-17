@@ -39,26 +39,39 @@ breach.
 
 ## Blocking
 
-When blocking a URL, specify the bare URL, without `http` or `www`
-subdomain.
+When blocking a URL, specify a regular expression URL without the scheme (like `http` or `https`). `\A` and `\Z` match the beginning and end of a string, respectively. See the [Ruby Regexp](https://docs.ruby-lang.org/en/4.0/Regexp.html#class-Regexp-label-Boundary+Anchors) for more information. Two backslashes (`\`) are needed because the first escapes the backslash itself in the stored string, and the second is the actual backslash.
+
+Blocking works by passing the HTTP Referer header into the `Block` class, so you can test it in a `rails console` like so:
+
+```rb
+BlockedReferrer.create!(uri_regex: "\\Aevil.com.*")
+Block.new("https://evil.com").blocked? # true
+Block.new("https://good.com").blocked? # false
+```
+
+By default, when blocking through the API or admin console, Be default we block the site's URL with an optional `www.` prefix and anything after domain. That looks like:
+
+```rb
+BlockedReferrer.create!(uri_regex: "\\A(www\\.)?evil.com.*")
+```
 
 To block everything from `evil.com` but none of its subdomains:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "evil.com")
+BlockedReferrer.create!(uri_regex: "\\Aevil.com.*")
 ```
 
 To block everything under the `/~evil/` directory without blocking the whole
 domain:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "good.com/~evil")
+BlockedReferrer.create!(uri_regex: "\\Agood.com/~evil.*")
 ```
 
 To block a subdomain:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "evil.good.com")
+BlockedReferrer.create!(uri_regex: "evil.good.com")
 ```
 
 ## Prevent new redirections from being created

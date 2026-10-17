@@ -10,25 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_27_212857) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_17_204002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "blocked_referrers", force: :cascade do |t|
-    t.string "host_with_path", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["host_with_path"], name: "index_blocked_referrers_on_host_with_path", unique: true
+    t.string "uri_regex", null: false
+    t.index ["uri_regex"], name: "index_blocked_referrers_on_uri_regex", unique: true
   end
 
-  create_table "redirections", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "next_id", null: false
-    t.string "slug", null: false
-    t.text "url", null: false
-    t.text "original_url", null: false
+  create_table "redirections", id: :serial, force: :cascade do |t|
+    t.datetime "created_at", precision: nil, null: false
     t.datetime "last_seen_at"
+    t.integer "next_id", null: false
+    t.text "original_url", null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.text "url", null: false
     t.index ["next_id"], name: "index_redirections_on_next_id", unique: true
     t.index ["slug"], name: "index_redirections_on_slug", unique: true
     t.index ["url"], name: "index_redirections_on_url", unique: true

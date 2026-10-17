@@ -39,7 +39,7 @@ RSpec.feature "Admin unlinks a redirection" do
       end
 
       expect(page).not_to have_text(redirection.url)
-      expect(BlockedReferrer.last.host_with_path).to eq("\\A(www\\.)?foobar.neocities.org.*")
+      expect(BlockedReferrer.last.uri_regex).to eq("\\A(www\\.)?foobar.neocities.org.*")
     end
   end
 end
