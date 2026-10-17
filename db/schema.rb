@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_06_27_212857) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_17_213911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "blocked_referrers", force: :cascade do |t|
     t.string "host_with_path", null: false
+    t.boolean "block_by_domain", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["host_with_path"], name: "index_blocked_referrers_on_host_with_path", unique: true

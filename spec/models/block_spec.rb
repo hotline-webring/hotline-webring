@@ -112,5 +112,38 @@ RSpec.describe Block do
         expect(Block.new(nil)).not_to be_blocked
       end
     end
+
+    context "blocking an entire domain and its subdomains" do
+      it "can block all of it" do
+        create(:blocked_referrer, host_with_path: "ilands.ai", block_by_domain: true)
+
+        expect(Block.new("ilands.ai")).to be_blocked
+        expect(Block.new("public.ilands.ai")).to be_blocked
+        expect(Block.new("public.ilands.ai/agent-bundles/1234")).to be_blocked
+      end
+
+      it "does not filter by any subpaths" do
+        create(:blocked_referrer, host_with_path: "ilands.ai/foo", block_by_domain: true)
+
+        expect(Block.new("ilands.ai")).to be_blocked
+        expect(Block.new("ilands.ai/foo")).to be_blocked
+        expect(Block.new("ilands.ai/bar")).to be_blocked
+      end
+
+      it "does not block other domains" do
+        create(:blocked_referrer, host_with_path: "ilands.ai", block_by_domain: true)
+
+        expect(Block.new(".ai")).not_to be_blocked
+        expect(Block.new("foo.ai")).not_to be_blocked
+      end
+
+      it "does not block the main domain if the subdomain is blocked" do
+        create(:blocked_referrer, host_with_path: "evil.good.com", block_by_domain: true)
+
+        expect(Block.new("evil.good.com")).to be_blocked
+        expect(Block.new("good.com")).not_to be_blocked
+        expect(Block.new("something.com")).not_to be_blocked
+      end
+    end
   end
 end
