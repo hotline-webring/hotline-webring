@@ -1,33 +1,32 @@
 class Block
-  def initialize(possible_match)
-    @possible_match = possible_match
+  def initialize(referrer_string)
+    @referrer_string = referrer_string
   end
 
   def blocked?
-    if possible_match.nil?
+    if referrer_string.nil?
       false
     else
-      uri = URI.parse(possible_match.downcase)
+      referrer_with_trailing_slash = referrer_string.delete_suffix("/") + "/"
+      referrer_uri = URI.parse(referrer_with_trailing_slash).normalize
 
-      BlockedReferrer.pluck(:host_with_path).any? do |blocked_host_with_path|
-        blocked_uri = URI.parse("http://" + blocked_host_with_path.downcase)
-
-        hosts_match?(uri, blocked_uri) && paths_match?(uri, blocked_uri)
+      BlockedReferrer.pluck(:uri_pattern).any? do |pattern|
+        pattern_uri = URI.parse("https://" + pattern).normalize
+        domain_match?(referrer_uri, pattern_uri) &&
+          paths_match?(referrer_uri, pattern_uri)
       end
     end
   end
 
   private
 
-  attr_reader :possible_match
+  attr_reader :referrer_string
 
-  def hosts_match?(uri, blocked_uri)
-    uri.host == blocked_uri.host || uri.host == "www.#{blocked_uri.host}"
+  def domain_match?(referrer_uri, pattern_uri)
+    File.fnmatch?(pattern_uri.host, referrer_uri.host, File::FNM_CASEFOLD)
   end
 
-  def paths_match?(uri, blocked_uri)
-    blocked_uri.path == "" ||
-      uri.path == blocked_uri.path ||
-      Pathname.new(uri.path).ascend.include?(Pathname.new(blocked_uri.path))
+  def paths_match?(referrer_uri, pattern_uri)
+    File.fnmatch?(pattern_uri.path, referrer_uri.path, File::FNM_CASEFOLD)
   end
 end
