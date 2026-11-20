@@ -6,6 +6,7 @@ RSpec.describe BlockedReferrer do
       blocked_referrer = BlockedReferrer.new_from_url(
         "https://foobar.neocities.org/anything/else"
       )
+
       expect(blocked_referrer.host_with_path).to eq("foobar.neocities.org")
     end
 
@@ -13,6 +14,7 @@ RSpec.describe BlockedReferrer do
       blocked_referrer = BlockedReferrer.new_from_url(
         "https://sites.google.com/site/foobar/anything/else"
       )
+
       expect(blocked_referrer.host_with_path).to eq("sites.google.com/site/foobar")
     end
 
