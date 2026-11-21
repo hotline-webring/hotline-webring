@@ -2,28 +2,12 @@ require "rails_helper"
 
 RSpec.describe BlockedReferrer do
   describe ".new_from_url" do
-    it "uses the host in most cases" do
+    it "uses the host and blocks any sub-path" do
       blocked_referrer = BlockedReferrer.new_from_url(
         "https://foobar.neocities.org/anything/else"
       )
 
-      expect(blocked_referrer.host_with_path).to eq("foobar.neocities.org")
-    end
-
-    it "uses the host plus site name for sites.google.com" do
-      blocked_referrer = BlockedReferrer.new_from_url(
-        "https://sites.google.com/site/foobar/anything/else"
-      )
-
-      expect(blocked_referrer.host_with_path).to eq("sites.google.com/site/foobar")
-    end
-
-    it "removes a leading www. from the URL" do
-      blocked_referrer = BlockedReferrer.new_from_url(
-        "https://www.example.com"
-      )
-
-      expect(blocked_referrer.host_with_path).to eq("example.com")
+      expect(blocked_referrer.uri_pattern).to eq("foobar.neocities.org/*")
     end
   end
 
@@ -31,10 +15,9 @@ RSpec.describe BlockedReferrer do
     it "blocks the site" do
       redirection = create(:redirection, url: "https://foobar.neocities.org/anything/else")
 
-      BlockedReferrer.block_and_unlink(redirection)
+      referrer = BlockedReferrer.block_and_unlink(redirection)
 
-      blocked_referrer = BlockedReferrer.last
-      expect(blocked_referrer.host_with_path).to eq("foobar.neocities.org")
+      expect(referrer.uri_pattern).to eq("foobar.neocities.org/*")
     end
 
     it "unlinks the redirection" do
@@ -42,7 +25,7 @@ RSpec.describe BlockedReferrer do
 
       BlockedReferrer.block_and_unlink(redirection)
 
-      expect(Redirection.find_by(slug: redirection.slug)).to be_nil
+      expect(Redirection.exists?(slug: redirection.slug)).to eq(false)
     end
 
     it "returns the BlockedReferrer" do
