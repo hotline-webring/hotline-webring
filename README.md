@@ -39,26 +39,36 @@ breach.
 
 ## Blocking
 
-When blocking a URL, specify the bare URL, without `http` or `www`
-subdomain.
+When blocking a URL, specify a uri glob pattern. A `*` means matches any string
+and can be used to block subdomains or sub paths.
 
 To block everything from `evil.com` but none of its subdomains:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "evil.com")
+BlockedReferrer.create!(uri_pattern: "evil.com/*")
 ```
 
 To block everything under the `/~evil/` directory without blocking the whole
 domain:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "good.com/~evil")
+BlockedReferrer.create!(uri_pattern: "good.com/~evil/*")
 ```
 
-To block a subdomain:
+To all subdomains and the root domain:
 
 ```rb
-BlockedReferrer.create!(host_with_path: "evil.good.com")
+BlockedReferrer.create!(uri_pattern: "evil.com/*")
+BlockedReferrer.create!(uri_pattern: "*.evil.com/*")
+```
+
+Incoming (HTTP REFERER) urls are trailing-slash agnostic.
+
+```rb
+BlockedReferrer.create!(uri_pattern: "good.com/~evil/*")
+
+# https://good.com/~evil   BLOCKED
+# https://good.com/~evil/  BLOCKED
 ```
 
 ## Prevent new redirections from being created
